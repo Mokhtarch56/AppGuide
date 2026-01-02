@@ -1,255 +1,158 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>App Guide</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Telegram WebApp -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<title>دليل المتاجر</title>
 
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --accent: #22c55e;
-      --text: #e5e7eb;
-      --muted: #94a3b8;
-    }
+<!-- Telegram WebApp -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    * {
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f4f6f8;
+}
 
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-    }
+header {
+  background: #1f2937;
+  color: #fff;
+  padding: 16px;
+  text-align: center;
+  font-size: 18px;
+}
 
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      background: rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(8px);
-      padding: 16px;
-      text-align: center;
-      font-size: 20px;
-      font-weight: bold;
-      z-index: 10;
-    }
+.container {
+  padding: 16px;
+}
 
-    /* Navigation */
-    .nav {
-      display: flex;
-      gap: 10px;
-      padding: 12px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: rgba(15, 23, 42, 0.95);
-      border-top: 1px solid #1e293b;
-    }
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 14px;
+  display: flex;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+}
 
-    .nav button {
-      flex: 1;
-      padding: 12px;
-      border-radius: 14px;
-      border: none;
-      background: var(--card);
-      color: var(--text);
-      font-size: 15px;
-      cursor: pointer;
-    }
+.card img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
 
-    .nav button.primary {
-      background: var(--accent);
-      color: #052e16;
-      font-weight: bold;
-    }
+.card strong {
+  font-size: 16px;
+}
 
-    /* Content */
-    .container {
-      padding: 16px;
-      padding-bottom: 90px;
-    }
+.card small {
+  color: #555;
+}
 
-    h2 {
-      margin: 10px 0;
-      font-size: 18px;
-    }
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  display: flex;
+  border-top: 1px solid #ddd;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 12px;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: 18px;
-      padding: 14px;
-      cursor: pointer;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0,0,0,.3);
-    }
-
-    .icon {
-      font-size: 28px;
-    }
-
-    .title {
-      margin-top: 8px;
-      font-weight: bold;
-    }
-
-    .desc {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    a.visit {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 14px;
-      background: var(--accent);
-      color: #052e16;
-      border-radius: 12px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-    }
-  </style>
+.nav button {
+  flex: 1;
+  padding: 14px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+</style>
 </head>
 
 <body>
 
-<header id="header">📱 App Guide</header>
+<header id="title">الفئات</header>
 
-<div class="container">
+<div class="container" id="content"></div>
 
-  <!-- Home -->
-  <div id="home">
-    <h2>الفئات</h2>
-    <div class="grid">
-      <div class="card" onclick="openCategory('shopping')">
-        <div class="icon">🛍️</div>
-        <div class="title">تسوق</div>
-        <div class="desc">متاجر وخدمات</div>
-      </div>
-
-      <div class="card" onclick="openCategory('tools')">
-        <div class="icon">🛠️</div>
-        <div class="title">أدوات</div>
-        <div class="desc">مواقع مفيدة</div>
-      </div>
-
-      <div class="card" onclick="openCategory('education')">
-        <div class="icon">🎓</div>
-        <div class="title">تعليم</div>
-        <div class="desc">كورسات ومنصات</div>
-      </div>
-
-      <div class="card" onclick="openCategory('entertainment')">
-        <div class="icon">🎮</div>
-        <div class="title">ترفيه</div>
-        <div class="desc">ألعاب ومحتوى</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Category View -->
-  <div id="category" class="hidden">
-    <h2 id="categoryTitle"></h2>
-    <div id="categoryContent" class="grid"></div>
-  </div>
-
-</div>
-
-<!-- Navigation -->
 <div class="nav">
-  <button onclick="goBack()">⬅️ رجوع</button>
-  <button class="primary" onclick="goHome()">🏠 الرئيسية</button>
+  <button onclick="showCategories()">🏠 الرئيسية</button>
+  <button onclick="goBack()">⬅ رجوع</button>
 </div>
 
 <script>
-  const tg = window.Telegram.WebApp;
-  tg.expand();
+Telegram.WebApp.ready();
 
-  const data = {
-    shopping: {
-      title: "🛍️ التسوق",
-      items: [
-        { name: "AliExpress", desc: "تسوق عالمي", url: "https://aliexpress.com" },
-        { name: "Amazon", desc: "متجر شامل", url: "https://amazon.com" }
-      ]
-    },
-    tools: {
-      title: "🛠️ الأدوات",
-      items: [
-        { name: "Canva", desc: "تصميم أونلاين", url: "https://canva.com" },
-        { name: "Remove.bg", desc: "حذف الخلفية", url: "https://remove.bg" }
-      ]
-    },
-    education: {
-      title: "🎓 التعليم",
-      items: [
-        { name: "Coursera", desc: "كورسات عالمية", url: "https://coursera.org" },
-        { name: "Udemy", desc: "تعلم مهارات", url: "https://udemy.com" }
-      ]
-    },
-    entertainment: {
-      title: "🎮 الترفيه",
-      items: [
-        { name: "YouTube", desc: "فيديوهات", url: "https://youtube.com" },
-        { name: "Twitch", desc: "بث مباشر", url: "https://twitch.tv" }
-      ]
-    }
-  };
+const categories = [
+  { id: "shopping", name: "🛒 التسوق" },
+  { id: "beauty", name: "💄 الجمال" },
+  { id: "travel", name: "✈️ الرحلات" },
+  { id: "tools", name: "🧰 أدوات مفيدة" }
+];
 
-  function openCategory(key) {
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("category").classList.remove("hidden");
+const stores = {
+  shopping: [
+    { name: "Amazon", desc: "أكبر متجر إلكتروني", url: "https://amazon.com", domain: "amazon.com" },
+    { name: "Noon", desc: "تسوق الخليج", url: "https://noon.com", domain: "noon.com" }
+  ],
+  beauty: [
+    { name: "Sephora", desc: "عالم الجمال", url: "https://sephora.com", domain: "sephora.com" }
+  ]
+};
 
-    document.getElementById("categoryTitle").innerText = data[key].title;
+let history = [];
 
-    const container = document.getElementById("categoryContent");
-    container.innerHTML = "";
+function showCategories() {
+  history = [];
+  document.getElementById("title").innerText = "الفئات";
+  const c = document.getElementById("content");
+  c.innerHTML = "";
 
-    data[key].items.forEach(item => {
-      container.innerHTML += `
-        <div class="card">
-          <div class="title">${item.name}</div>
-          <div class="desc">${item.desc}</div>
-          <a class="visit" href="${item.url}" target="_blank">زيارة</a>
+  categories.forEach(cat => {
+    c.innerHTML += `
+      <div class="card" onclick="openCategory('${cat.id}', '${cat.name}')">
+        <strong>${cat.name}</strong>
+      </div>
+    `;
+  });
+}
+
+function openCategory(id, name) {
+  history.push(showCategories);
+  document.getElementById("title").innerText = name;
+  const c = document.getElementById("content");
+  c.innerHTML = "";
+
+  (stores[id] || []).forEach(store => {
+    c.innerHTML += `
+      <div class="card" onclick="openStore('${store.url}')">
+        <img src="https://logo.clearbit.com/${store.domain}"
+             onerror="this.src='https://via.placeholder.com/50?text=🏬'">
+        <div>
+          <strong>${store.name}</strong><br>
+          <small>${store.desc}</small>
         </div>
-      `;
-    });
-  }
+      </div>
+    `;
+  });
+}
 
-  function goHome() {
-    document.getElementById("category").classList.add("hidden");
-    document.getElementById("home").classList.remove("hidden");
-  }
+function openStore(url) {
+  Telegram.WebApp.openLink(url);
+}
 
-  function goBack() {
-    if (!document.getElementById("home").classList.contains("hidden")) {
-      tg.close();
-    } else {
-      goHome();
-    }
+function goBack() {
+  if (history.length > 0) {
+    history.pop()();
   }
+}
+
+showCategories();
 </script>
 
 </body>

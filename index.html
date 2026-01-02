@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>دليل التطبيقات</title>
+<title>App Guide</title>
 
 <style>
 body{
@@ -23,13 +23,24 @@ header{
   padding:16px;
 }
 
-.section-title{
-  margin:16px 0 12px;
-  font-size:17px;
-  font-weight:600;
+.hidden{display:none}
+
+/* CATEGORY CARD */
+.category{
+  background:#1e293b;
+  padding:18px;
+  border-radius:18px;
+  margin-bottom:14px;
+  font-size:16px;
+  cursor:pointer;
+  transition:transform .15s ease, background .15s ease;
+}
+.category:active{
+  transform:scale(.97);
+  background:#020617;
 }
 
-
+/* APP CARD */
 .app-card{
   display:flex;
   align-items:center;
@@ -38,12 +49,10 @@ header{
   background:#1e293b;
   border-radius:18px;
   margin-bottom:12px;
-  cursor:pointer;
   transition:transform .15s ease, background .15s ease;
 }
-
 .app-card:active{
-  transform:scale(0.97);
+  transform:scale(.97);
   background:#020617;
 }
 
@@ -72,12 +81,16 @@ header{
   color:#9ca3af;
 }
 
-.app-arrow{
-  font-size:26px;
-  color:#64748b;
+.visit{
+  background:#22c55e;
+  color:#000;
+  padding:6px 12px;
+  border-radius:10px;
+  font-size:12px;
+  text-decoration:none;
 }
 
-/* NAV BAR */
+/* NAV */
 .nav{
   position:fixed;
   bottom:0;
@@ -88,14 +101,12 @@ header{
   display:flex;
   justify-content:space-between;
 }
-
 .nav button{
   background:#1e293b;
   border:none;
   color:#fff;
-  padding:10px 20px;
+  padding:10px 18px;
   border-radius:14px;
-  font-size:14px;
 }
 </style>
 </head>
@@ -103,7 +114,10 @@ header{
 <body>
 
 <!-- SVG ICONS -->
-<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     style="display:none">
+
   <symbol id="amazon" viewBox="0 0 48 48">
     <rect width="48" height="48" rx="12" fill="#FF9900"/>
     <text x="24" y="30" font-size="20" text-anchor="middle" fill="#fff" font-weight="bold">A</text>
@@ -133,70 +147,81 @@ header{
     <rect width="48" height="48" rx="12" fill="#000"/>
     <text x="24" y="30" font-size="18" text-anchor="middle" fill="#fff">Uber</text>
   </symbol>
+
 </svg>
 
-<header>📱 دليل التطبيقات</header>
+<header>📱 App Guide</header>
 
 <div class="container">
 
-<div class="section-title">🛍️ التسوق</div>
-
-<div class="app-card" onclick="openStore('https://www.amazon.sa')">
-  <div class="app-icon"><svg width="44" height="44"><use href="#amazon"/></svg></div>
-  <div class="app-info">
-    <h3>Amazon السعودية</h3>
-    <p>تسوق ملايين المنتجات مع شحن سريع وعروض قوية</p>
-  </div>
-  <div class="app-arrow">›</div>
+<!-- CATEGORIES -->
+<div id="categories">
+  <div class="category" onclick="openCategory('shopping')">🛍️ التسوق</div>
+  <div class="category" onclick="openCategory('entertainment')">🎬 الترفيه</div>
+  <div class="category" onclick="openCategory('services')">🚗 الخدمات</div>
 </div>
 
-<div class="app-card" onclick="openStore('https://www.noon.com')">
-  <div class="app-icon"><svg width="44" height="44"><use href="#noon"/></svg></div>
-  <div class="app-info">
-    <h3>Noon</h3>
-    <p>عروض يومية على الإلكترونيات والأزياء</p>
+<!-- SHOPPING -->
+<div id="shopping" class="hidden">
+  <div class="app-card">
+    <div class="app-icon"><svg width="44" height="44"><use xlink:href="#amazon"/></svg></div>
+    <div class="app-info">
+      <h3>Amazon السعودية</h3>
+      <p>أكبر متجر إلكتروني مع شحن سريع وعروض يومية</p>
+    </div>
+    <a class="visit" href="https://www.amazon.sa" target="_blank">زيارة</a>
   </div>
-  <div class="app-arrow">›</div>
+
+  <div class="app-card">
+    <div class="app-icon"><svg width="44" height="44"><use xlink:href="#noon"/></svg></div>
+    <div class="app-info">
+      <h3>Noon</h3>
+      <p>إلكترونيات وأزياء بأسعار منافسة</p>
+    </div>
+    <a class="visit" href="https://www.noon.com" target="_blank">زيارة</a>
+  </div>
+
+  <div class="app-card">
+    <div class="app-icon"><svg width="44" height="44"><use xlink:href="#namshi"/></svg></div>
+    <div class="app-info">
+      <h3>Namshi</h3>
+      <p>أزياء عصرية بخصومات حصرية</p>
+    </div>
+    <a class="visit" href="https://www.namshi.com" target="_blank">زيارة</a>
+  </div>
 </div>
 
-<div class="app-card" onclick="openStore('https://www.namshi.com')">
-  <div class="app-icon"><svg width="44" height="44"><use href="#namshi"/></svg></div>
-  <div class="app-info">
-    <h3>Namshi</h3>
-    <p>أزياء عالمية بخصومات حصرية</p>
+<!-- ENTERTAINMENT -->
+<div id="entertainment" class="hidden">
+  <div class="app-card">
+    <div class="app-icon"><svg width="44" height="44"><use xlink:href="#netflix"/></svg></div>
+    <div class="app-info">
+      <h3>Netflix</h3>
+      <p>أفلام ومسلسلات بدون إعلانات</p>
+    </div>
+    <a class="visit" href="https://www.netflix.com" target="_blank">زيارة</a>
   </div>
-  <div class="app-arrow">›</div>
 </div>
 
-<div class="section-title">🎬 ترفيه</div>
-
-<div class="app-card" onclick="openStore('https://www.netflix.com')">
-  <div class="app-icon"><svg width="44" height="44"><use href="#netflix"/></svg></div>
-  <div class="app-info">
-    <h3>Netflix</h3>
-    <p>أفلام ومسلسلات بدون إعلانات</p>
+<!-- SERVICES -->
+<div id="services" class="hidden">
+  <div class="app-card">
+    <div class="app-icon"><svg width="44" height="44"><use xlink:href="#talabat"/></svg></div>
+    <div class="app-info">
+      <h3>Talabat</h3>
+      <p>اطلب طعامك من أقرب المطاعم</p>
+    </div>
+    <a class="visit" href="https://www.talabat.com" target="_blank">زيارة</a>
   </div>
-  <div class="app-arrow">›</div>
-</div>
 
-<div class="section-title">🚗 خدمات</div>
-
-<div class="app-card" onclick="openStore('https://www.talabat.com')">
-  <div class="app-icon"><svg width="44" height="44"><use href="#talabat"/></svg></div>
-  <div class="app-info">
-    <h3>Talabat</h3>
-    <p>اطلب طعامك من أقرب المطاعم</p>
+  <div class="app-card">
+    <div class="app-icon"><svg width="44" height="44"><use xlink:href="#uber"/></svg></div>
+    <div class="app-info">
+      <h3>Uber</h3>
+      <p>تنقل بسهولة داخل المدينة</p>
+    </div>
+    <a class="visit" href="https://www.uber.com" target="_blank">زيارة</a>
   </div>
-  <div class="app-arrow">›</div>
-</div>
-
-<div class="app-card" onclick="openStore('https://www.uber.com')">
-  <div class="app-icon"><svg width="44" height="44"><use href="#uber"/></svg></div>
-  <div class="app-info">
-    <h3>Uber</h3>
-    <p>تنقل بسهولة داخل المدينة</p>
-  </div>
-  <div class="app-arrow">›</div>
 </div>
 
 </div>
@@ -207,16 +232,17 @@ header{
 </div>
 
 <script>
-function openStore(url){
-  window.open(url, "_blank");
+function openCategory(id){
+  document.getElementById("categories").classList.add("hidden");
+  document.getElementById(id).classList.remove("hidden");
 }
 
 function goHome(){
-  window.scrollTo({top:0, behavior:'smooth'});
+  location.reload();
 }
 
 function goBack(){
-  history.back();
+  goHome();
 }
 </script>
 

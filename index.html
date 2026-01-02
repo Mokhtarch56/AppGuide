@@ -3,205 +3,252 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dalilak</title>
+<title>Dalilak | دليلك</title>
 
 <style>
-:root{
-  --bg:#0f172a;
-  --card:#111827;
-  --line:#1f2937;
-  --accent:#22c55e;
-  --text:#e5e7eb;
-  --muted:#9ca3af;
-}
-
-*{box-sizing:border-box;font-family:system-ui,-apple-system}
-
+*{box-sizing:border-box;font-family:system-ui}
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  padding-bottom:90px;
+margin:0;
+background:linear-gradient(180deg,#020617,#020617);
+color:#fff;
 }
 
-/* header */
 header{
-  padding:16px;
-  font-size:20px;
-  font-weight:700;
+padding:20px;
+text-align:center;
+font-size:22px;
+font-weight:700;
 }
 
-/* list */
-.list{
-  padding:12px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+.container{
+padding:16px;
+padding-bottom:90px;
 }
 
-/* category item */
-.cat{
-  background:linear-gradient(135deg,#1f2937,#020617);
-  padding:18px;
-  border-radius:16px;
-  font-weight:600;
-  cursor:pointer;
-  transition:.2s;
-}
-.cat:active{transform:scale(.97)}
-
-/* store card */
-.store{
-  background:var(--card);
-  border-radius:16px;
-  padding:14px;
-  border:1px solid var(--line);
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  transition:.2s;
-}
-.store:active{transform:scale(.98)}
-
-.store h3{
-  margin:0;
-  font-size:15px;
-}
-.store p{
-  margin:0;
-  font-size:13px;
-  color:var(--muted);
+/* ===== Categories ===== */
+.categories{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
 }
 
-.store a{
-  margin-top:10px;
-  background:var(--accent);
-  color:#022c22;
-  text-align:center;
-  padding:10px;
-  border-radius:12px;
-  text-decoration:none;
-  font-weight:700;
+.cat-card{
+background:linear-gradient(145deg,#0b1220,#020617);
+border-radius:18px;
+padding:20px;
+cursor:pointer;
+transition:.2s;
 }
 
-/* bottom nav */
-.nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#020617;
-  display:flex;
-  gap:10px;
-  padding:12px;
-  border-top:1px solid var(--line);
+.cat-card:hover{opacity:.9}
+
+.cat-title{
+font-size:18px;
+margin-bottom:6px;
 }
-.nav button{
-  flex:1;
-  padding:14px;
-  border-radius:14px;
-  border:none;
-  font-size:15px;
-  font-weight:700;
+
+.cat-sub{
+font-size:13px;
+opacity:.6;
 }
-.home{background:#1f2937;color:#fff}
-.back{background:#020617;color:#9ca3af;border:1px solid #1f2937}
+
+/* ===== Stores ===== */
+.store-list{
+display:none;
+}
+
+.store-card{
+background:linear-gradient(145deg,#0b1220,#020617);
+border-radius:18px;
+padding:16px;
+margin-bottom:14px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.store-info{
+flex:1;
+padding:0 12px;
+}
+
+.store-name{
+font-size:18px;
+margin-bottom:4px;
+}
+
+.store-desc{
+font-size:13px;
+opacity:.6;
+}
+
+.store-icon{
+width:52px;
+height:52px;
+border-radius:14px;
+background:#fff;
+color:#000;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:700;
+}
+
+.visit-btn{
+background:#22c55e;
+border:none;
+color:#022c22;
+padding:10px 18px;
+border-radius:14px;
+font-weight:700;
+cursor:pointer;
+}
+
+/* ===== Bottom Bar ===== */
+.bottom-bar{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:#020617;
+padding:14px;
+display:flex;
+gap:12px;
+}
+
+.bottom-btn{
+flex:1;
+border:none;
+padding:14px;
+border-radius:16px;
+font-size:16px;
+font-weight:700;
+cursor:pointer;
+}
+
+.home{
+background:#22c55e;
+color:#022c22;
+}
+
+.back{
+background:#0b1220;
+color:#fff;
+}
 </style>
 </head>
 
 <body>
 
-<header id="title">اختر فئة</header>
+<header id="title">الفئات</header>
 
-<div id="content" class="list"></div>
+<div class="container">
 
-<div class="nav">
-  <button class="back" onclick="goBack()">رجوع</button>
-  <button class="home" onclick="goHome()">الرئيسية</button>
+<!-- ===== Categories ===== -->
+<div id="categories" class="categories">
+<div class="cat-card" onclick="openStores('shopping')">
+<div class="cat-title">التسوق</div>
+<div class="cat-sub">متاجر عالمية</div>
+</div>
+
+<div class="cat-card" onclick="openStores('fashion')">
+<div class="cat-title">الأزياء</div>
+<div class="cat-sub">ملابس وموضة</div>
+</div>
+
+<div class="cat-card" onclick="openStores('tech')">
+<div class="cat-title">الإلكترونيات</div>
+<div class="cat-sub">تقنية وأجهزة</div>
+</div>
+
+<div class="cat-card" onclick="openStores('home')">
+<div class="cat-title">المنزل</div>
+<div class="cat-sub">أثاث وأدوات</div>
+</div>
+</div>
+
+<!-- ===== Stores ===== -->
+<div id="stores" class="store-list">
+
+<div class="store-card">
+<button class="visit-btn">زيارة</button>
+<div class="store-info">
+<div class="store-name">Amazon</div>
+<div class="store-desc">أكبر متجر إلكتروني عالمي</div>
+</div>
+<div class="store-icon">A</div>
+</div>
+
+<div class="store-card">
+<button class="visit-btn">زيارة</button>
+<div class="store-info">
+<div class="store-name">Noon</div>
+<div class="store-desc">تسوق الخليج</div>
+</div>
+<div class="store-icon">N</div>
+</div>
+
+<div class="store-card">
+<button class="visit-btn">زيارة</button>
+<div class="store-info">
+<div class="store-name">Shein</div>
+<div class="store-desc">ملابس وموضة</div>
+</div>
+<div class="store-icon">S</div>
+</div>
+
+<div class="store-card">
+<button class="visit-btn">زيارة</button>
+<div class="store-info">
+<div class="store-name">AliExpress</div>
+<div class="store-desc">منتجات عالمية</div>
+</div>
+<div class="store-icon">A</div>
+</div>
+
+<div class="store-card">
+<button class="visit-btn">زيارة</button>
+<div class="store-info">
+<div class="store-name">eBay</div>
+<div class="store-desc">مزادات وتسوق</div>
+</div>
+<div class="store-icon">E</div>
+</div>
+
+<div class="store-card">
+<button class="visit-btn">زيارة</button>
+<div class="store-info">
+<div class="store-name">IKEA</div>
+<div class="store-desc">أثاث منزلي</div>
+</div>
+<div class="store-icon">I</div>
+</div>
+
+</div>
+</div>
+
+<!-- ===== Bottom Navigation ===== -->
+<div class="bottom-bar">
+<button class="bottom-btn back" onclick="goBack()">← رجوع</button>
+<button class="bottom-btn home" onclick="goHome()">🏠 الرئيسية</button>
 </div>
 
 <script>
-const categories = {
-  "🛒 التسوق": [
-    ["Amazon","أكبر متجر إلكتروني عالمي","https://amazon.com"],
-    ["Noon","تجربة تسوق سريعة في الخليج","https://noon.com"],
-    ["Shein","أزياء عصرية بأسعار مناسبة","https://shein.com"],
-    ["AliExpress","منتجات متنوعة مباشرة من المصدر","https://aliexpress.com"],
-    ["eBay","مزادات وتسوق عالمي","https://ebay.com"]
-  ],
-  "💄 الجمال": [
-    ["Sephora","مستحضرات تجميل أصلية","https://sephora.com"],
-    ["Nice One","عناية وجمال بلمسة عصرية","https://niceonesa.com"],
-    ["Golden Scent","عطور فاخرة","https://goldenscent.com"]
-  ],
-  "🎓 التعليم": [
-    ["Coursera","دورات من جامعات عالمية","https://coursera.org"],
-    ["Udemy","تعلم مهارات جديدة","https://udemy.com"],
-    ["Edraak","منصة تعليم عربية","https://edraak.org"]
-  ],
-  "✈️ الرحلات": [
-    ["Booking","حجز فنادق بسهولة","https://booking.com"],
-    ["Airbnb","إقامات فريدة","https://airbnb.com"],
-    ["Flynas","رحلات اقتصادية","https://flynas.com"]
-  ],
-  "🎬 الترفيه": [
-    ["Netflix","أفلام ومسلسلات","https://netflix.com"],
-    ["Shahid","محتوى عربي حصري","https://shahid.net"],
-    ["Spotify","موسيقى بلا حدود","https://spotify.com"]
-  ],
-  "🧰 أدوات مفيدة": [
-    ["Canva","تصميم بسهولة","https://canva.com"],
-    ["Notion","تنظيم أعمالك","https://notion.so"],
-    ["ChatGPT","مساعد ذكي","https://chat.openai.com"]
-  ]
-};
-
-let historyStack=[];
-
-function goHome(){
-  historyStack=[];
-  renderCategories();
+function openStores(){
+document.getElementById('categories').style.display='none';
+document.getElementById('stores').style.display='block';
+document.getElementById('title').innerText='المتاجر';
 }
 
 function goBack(){
-  if(historyStack.length>0){
-    historyStack.pop();
-    if(historyStack.length===0) renderCategories();
-    else renderStores(historyStack[historyStack.length-1]);
-  }
+goHome();
 }
 
-function renderCategories(){
-  document.getElementById("title").innerText="اختر فئة";
-  const c=document.getElementById("content");
-  c.innerHTML="";
-  Object.keys(categories).forEach(cat=>{
-    const d=document.createElement("div");
-    d.className="cat";
-    d.innerText=cat;
-    d.onclick=()=>renderStores(cat);
-    c.appendChild(d);
-  });
+function goHome(){
+document.getElementById('stores').style.display='none';
+document.getElementById('categories').style.display='grid';
+document.getElementById('title').innerText='الفئات';
 }
-
-function renderStores(cat){
-  historyStack.push(cat);
-  document.getElementById("title").innerText=cat;
-  const c=document.getElementById("content");
-  c.innerHTML="";
-  categories[cat].forEach(s=>{
-    const d=document.createElement("div");
-    d.className="store";
-    d.innerHTML=`
-      <h3>${s[0]}</h3>
-      <p>${s[1]}</p>
-      <a href="${s[2]}" target="_blank">زيارة الموقع</a>
-    `;
-    c.appendChild(d);
-  });
-}
-
-renderCategories();
 </script>
 
 </body>

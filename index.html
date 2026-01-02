@@ -3,206 +3,204 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dalilak | دليلك</title>
+<title>Dalilak App</title>
 
 <style>
 :root{
-  --bg:#0b1220;
-  --card:#121c2e;
-  --text:#ffffff;
-  --muted:#9aa4b2;
-  --green:#22c55e;
+  --bg:#0f172a;
+  --card:#111827;
+  --accent:#22c55e;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
 }
 
-*{box-sizing:border-box;font-family:system-ui}
+*{box-sizing:border-box;font-family:system-ui,-apple-system}
+
 body{
   margin:0;
-  background:linear-gradient(180deg,#0b1220,#060b16);
+  background:var(--bg);
   color:var(--text);
   padding-bottom:90px;
 }
 
-.header{
-  text-align:center;
-  padding:20px;
+/* header */
+header{
+  padding:16px;
   font-size:20px;
   font-weight:700;
 }
 
-.section{
-  padding:16px;
-}
-
-.categories{
+/* grid */
+.grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  padding:12px;
 }
 
+/* category card */
 .cat{
-  background:var(--card);
-  border-radius:18px;
-  padding:18px;
+  background:linear-gradient(135deg,#1f2937,#020617);
+  border-radius:16px;
+  padding:20px;
+  text-align:center;
+  font-weight:600;
   cursor:pointer;
-  transition:.2s;
+  transition:.25s;
 }
-.cat:active{transform:scale(.97)}
-.cat h3{margin:0 0 6px;font-size:16px}
-.cat p{margin:0;color:var(--muted);font-size:13px}
+.cat:active{transform:scale(.96)}
 
+/* store card */
 .store{
   background:var(--card);
   border-radius:18px;
   padding:14px;
   display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:12px;
+  flex-direction:column;
+  gap:8px;
+  transition:.25s;
 }
+.store:active{transform:scale(.97)}
 
-.icon{
-  width:46px;
-  height:46px;
+.store h3{
+  margin:0;
+  font-size:15px;
+}
+.store p{
+  margin:0;
+  font-size:13px;
+  color:var(--muted);
+}
+.store a{
+  margin-top:auto;
+  text-align:center;
+  background:var(--accent);
+  color:#022c22;
+  padding:10px;
   border-radius:12px;
-  background:#1f2937;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  text-decoration:none;
   font-weight:700;
-  color:#64748b;
 }
 
-.info{flex:1}
-.info h4{margin:0 0 4px}
-.info p{margin:0;font-size:13px;color:var(--muted)}
-
-.visit{
-  background:var(--green);
-  border:none;
-  color:#062d17;
-  padding:8px 14px;
-  border-radius:12px;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.bottom-bar{
+/* bottom nav */
+.nav{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  background:#0b1220;
-  padding:14px;
+  background:#020617;
   display:flex;
-  gap:12px;
+  gap:10px;
+  padding:12px;
 }
-
-.bottom-bar button{
+.nav button{
   flex:1;
-  border:none;
   padding:14px;
-  border-radius:16px;
-  font-size:16px;
+  border-radius:14px;
+  border:none;
+  font-size:15px;
   font-weight:700;
   cursor:pointer;
 }
-
-.home{background:var(--green);color:#062d17}
-.back{background:#1f2937;color:#fff}
+.home{background:#1f2937;color:#fff}
+.back{background:#020617;color:#9ca3af;border:1px solid #1f2937}
 </style>
 </head>
 
 <body>
 
-<div class="header">Dalilak | دليلك</div>
+<header id="title">اختر فئة</header>
 
-<div id="content"></div>
+<div id="content" class="grid"></div>
 
-<!-- Bottom Navigation -->
-<div class="bottom-bar">
-  <button class="back" onclick="goBack()">← رجوع</button>
-  <button class="home" onclick="goHome()">🏠 الرئيسية</button>
+<div class="nav">
+  <button class="back" onclick="goBack()">رجوع</button>
+  <button class="home" onclick="goHome()">الرئيسية</button>
 </div>
 
 <script>
-let view="home";
-
-const categories=[
-  {id:"shop",title:"🛍️ التسوق",desc:"متاجر موثوقة"},
-  {id:"fashion",title:"👗 الأزياء",desc:"ملابس وأناقة"},
-  {id:"tech",title:"📱 إلكترونيات",desc:"تقنية وأجهزة"},
-  {id:"home",title:"🏠 المنزل",desc:"أثاث وأدوات"},
-  {id:"travel",title:"✈️ السفر",desc:"حجوزات وخدمات"},
-  {id:"edu",title:"🎓 التعليم",desc:"دورات ومنصات"}
-];
-
-const stores={
-  shop:[
+const categories = {
+  "🛒 التسوق": [
     ["Amazon","أكبر متجر إلكتروني عالمي","https://amazon.com"],
-    ["Noon","تسوق الخليج الذكي","https://noon.com"],
-    ["AliExpress","منتجات عالمية بأسعار منخفضة","https://aliexpress.com"],
-    ["eBay","مزادات وتسوق","https://ebay.com"]
+    ["Noon","تسوق سريع في الخليج","https://noon.com"],
+    ["Shein","أزياء عصرية بأسعار منافسة","https://shein.com"],
+    ["AliExpress","منتجات متنوعة مباشرة من المصانع","https://aliexpress.com"],
+    ["eBay","مزادات وتسوق عالمي","https://ebay.com"]
   ],
-  fashion:[
-    ["Shein","ملابس وموضة","https://shein.com"],
-    ["Zara","أزياء عصرية","https://zara.com"],
-    ["H&M","ملابس يومية","https://hm.com"]
+  "💄 الجمال": [
+    ["Sephora","مستحضرات تجميل أصلية","https://sephora.com"],
+    ["Nice One","منتجات عناية وجمال","https://niceonesa.com"],
+    ["Golden Scent","عطور عالمية","https://goldenscent.com"],
+    ["Faces","تجربة تجميل فاخرة","https://faces.com"]
   ],
-  tech:[
-    ["Apple","تقنية مبتكرة","https://apple.com"],
-    ["Samsung","أجهزة ذكية","https://samsung.com"]
+  "🎓 التعليم": [
+    ["Coursera","دورات من جامعات عالمية","https://coursera.org"],
+    ["Udemy","تعلم مهارات جديدة","https://udemy.com"],
+    ["Edraak","تعليم عربي مجاني","https://edraak.org"]
   ],
-  home:[
-    ["IKEA","أثاث منزلي","https://ikea.com"]
+  "✈️ الرحلات": [
+    ["Booking","حجز فنادق بسهولة","https://booking.com"],
+    ["Airbnb","إقامات فريدة","https://airbnb.com"],
+    ["Flynas","رحلات اقتصادية","https://flynas.com"]
   ],
-  travel:[
-    ["Booking","حجوزات فنادق","https://booking.com"],
-    ["Airbnb","إقامات مميزة","https://airbnb.com"]
+  "🎬 الترفيه": [
+    ["Netflix","أفلام ومسلسلات","https://netflix.com"],
+    ["Shahid","محتوى عربي حصري","https://shahid.net"],
+    ["Spotify","موسيقى بلا حدود","https://spotify.com"]
   ],
-  edu:[
-    ["Coursera","تعلم أونلاين","https://coursera.org"],
-    ["Udemy","دورات احترافية","https://udemy.com"]
+  "🧰 أدوات مفيدة": [
+    ["Canva","تصميم بسهولة","https://canva.com"],
+    ["Notion","تنظيم أعمالك","https://notion.so"],
+    ["ChatGPT","مساعد ذكي","https://chat.openai.com"]
   ]
 };
 
-function renderHome(){
-  view="home";
-  let html='<div class="section"><div class="categories">';
-  categories.forEach(c=>{
-    html+=`
-      <div class="cat" onclick="openCategory('${c.id}')">
-        <h3>${c.title}</h3>
-        <p>${c.desc}</p>
-      </div>`;
-  });
-  html+='</div></div>';
-  document.getElementById("content").innerHTML=html;
+let historyStack = [];
+
+function goHome(){
+  historyStack = [];
+  renderCategories();
 }
 
-function openCategory(id){
-  view=id;
-  let html=`<div class="section">`;
-  stores[id].forEach(s=>{
-    html+=`
-      <div class="store">
-        <div class="icon">${s[0][0]}</div>
-        <div class="info">
-          <h4>${s[0]}</h4>
-          <p>${s[1]}</p>
-        </div>
-        <button class="visit" onclick="window.open('${s[2]}')">زيارة</button>
-      </div>`;
-  });
-  html+='</div>';
-  document.getElementById("content").innerHTML=html;
-}
-
-function goHome(){renderHome()}
 function goBack(){
-  if(view!=="home") renderHome();
+  if(historyStack.length>0){
+    historyStack.pop();
+    if(historyStack.length===0) renderCategories();
+    else renderStores(historyStack[historyStack.length-1]);
+  }
 }
 
-renderHome();
+function renderCategories(){
+  document.getElementById("title").innerText="اختر فئة";
+  const c = document.getElementById("content");
+  c.innerHTML="";
+  Object.keys(categories).forEach(cat=>{
+    const d=document.createElement("div");
+    d.className="cat";
+    d.innerText=cat;
+    d.onclick=()=>renderStores(cat);
+    c.appendChild(d);
+  });
+}
+
+function renderStores(cat){
+  historyStack.push(cat);
+  document.getElementById("title").innerText=cat;
+  const c = document.getElementById("content");
+  c.innerHTML="";
+  categories[cat].forEach(s=>{
+    const d=document.createElement("div");
+    d.className="store";
+    d.innerHTML=`
+      <h3>${s[0]}</h3>
+      <p>${s[1]}</p>
+      <a href="${s[2]}" target="_blank">زيارة الموقع</a>
+    `;
+    c.appendChild(d);
+  });
+}
+
+renderCategories();
 </script>
 
 </body>

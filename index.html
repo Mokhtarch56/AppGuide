@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dalilak App</title>
+<title>Dalilak</title>
 
 <style>
 :root{
   --bg:#0f172a;
   --card:#111827;
+  --line:#1f2937;
   --accent:#22c55e;
   --text:#e5e7eb;
   --muted:#9ca3af;
@@ -30,37 +31,37 @@ header{
   font-weight:700;
 }
 
-/* grid */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
+/* list */
+.list{
   padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 
-/* category card */
+/* category item */
 .cat{
   background:linear-gradient(135deg,#1f2937,#020617);
+  padding:18px;
   border-radius:16px;
-  padding:20px;
-  text-align:center;
   font-weight:600;
   cursor:pointer;
-  transition:.25s;
+  transition:.2s;
 }
-.cat:active{transform:scale(.96)}
+.cat:active{transform:scale(.97)}
 
 /* store card */
 .store{
   background:var(--card);
-  border-radius:18px;
+  border-radius:16px;
   padding:14px;
+  border:1px solid var(--line);
   display:flex;
   flex-direction:column;
-  gap:8px;
-  transition:.25s;
+  gap:6px;
+  transition:.2s;
 }
-.store:active{transform:scale(.97)}
+.store:active{transform:scale(.98)}
 
 .store h3{
   margin:0;
@@ -71,11 +72,12 @@ header{
   font-size:13px;
   color:var(--muted);
 }
+
 .store a{
-  margin-top:auto;
-  text-align:center;
+  margin-top:10px;
   background:var(--accent);
   color:#022c22;
+  text-align:center;
   padding:10px;
   border-radius:12px;
   text-decoration:none;
@@ -92,6 +94,7 @@ header{
   display:flex;
   gap:10px;
   padding:12px;
+  border-top:1px solid var(--line);
 }
 .nav button{
   flex:1;
@@ -100,7 +103,6 @@ header{
   border:none;
   font-size:15px;
   font-weight:700;
-  cursor:pointer;
 }
 .home{background:#1f2937;color:#fff}
 .back{background:#020617;color:#9ca3af;border:1px solid #1f2937}
@@ -111,7 +113,7 @@ header{
 
 <header id="title">اختر فئة</header>
 
-<div id="content" class="grid"></div>
+<div id="content" class="list"></div>
 
 <div class="nav">
   <button class="back" onclick="goBack()">رجوع</button>
@@ -122,21 +124,20 @@ header{
 const categories = {
   "🛒 التسوق": [
     ["Amazon","أكبر متجر إلكتروني عالمي","https://amazon.com"],
-    ["Noon","تسوق سريع في الخليج","https://noon.com"],
-    ["Shein","أزياء عصرية بأسعار منافسة","https://shein.com"],
-    ["AliExpress","منتجات متنوعة مباشرة من المصانع","https://aliexpress.com"],
+    ["Noon","تجربة تسوق سريعة في الخليج","https://noon.com"],
+    ["Shein","أزياء عصرية بأسعار مناسبة","https://shein.com"],
+    ["AliExpress","منتجات متنوعة مباشرة من المصدر","https://aliexpress.com"],
     ["eBay","مزادات وتسوق عالمي","https://ebay.com"]
   ],
   "💄 الجمال": [
     ["Sephora","مستحضرات تجميل أصلية","https://sephora.com"],
-    ["Nice One","منتجات عناية وجمال","https://niceonesa.com"],
-    ["Golden Scent","عطور عالمية","https://goldenscent.com"],
-    ["Faces","تجربة تجميل فاخرة","https://faces.com"]
+    ["Nice One","عناية وجمال بلمسة عصرية","https://niceonesa.com"],
+    ["Golden Scent","عطور فاخرة","https://goldenscent.com"]
   ],
   "🎓 التعليم": [
     ["Coursera","دورات من جامعات عالمية","https://coursera.org"],
     ["Udemy","تعلم مهارات جديدة","https://udemy.com"],
-    ["Edraak","تعليم عربي مجاني","https://edraak.org"]
+    ["Edraak","منصة تعليم عربية","https://edraak.org"]
   ],
   "✈️ الرحلات": [
     ["Booking","حجز فنادق بسهولة","https://booking.com"],
@@ -155,10 +156,10 @@ const categories = {
   ]
 };
 
-let historyStack = [];
+let historyStack=[];
 
 function goHome(){
-  historyStack = [];
+  historyStack=[];
   renderCategories();
 }
 
@@ -172,7 +173,7 @@ function goBack(){
 
 function renderCategories(){
   document.getElementById("title").innerText="اختر فئة";
-  const c = document.getElementById("content");
+  const c=document.getElementById("content");
   c.innerHTML="";
   Object.keys(categories).forEach(cat=>{
     const d=document.createElement("div");
@@ -186,7 +187,7 @@ function renderCategories(){
 function renderStores(cat){
   historyStack.push(cat);
   document.getElementById("title").innerText=cat;
-  const c = document.getElementById("content");
+  const c=document.getElementById("content");
   c.innerHTML="";
   categories[cat].forEach(s=>{
     const d=document.createElement("div");

@@ -1,159 +1,241 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Dalilak | دليلك</title>
 
-<title>دليل المتاجر</title>
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<!-- Telegram WebApp -->
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont;
+      background: linear-gradient(180deg, #0f172a, #020617);
+      color: #fff;
+    }
 
-<style>
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #f4f6f8;
-}
+    header {
+      padding: 16px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
 
-header {
-  background: #1f2937;
-  color: #fff;
-  padding: 16px;
-  text-align: center;
-  font-size: 18px;
-}
+    .container {
+      padding: 16px;
+    }
 
-.container {
-  padding: 16px;
-}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
 
-.card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 14px;
-  display: flex;
-  gap: 12px;
-  cursor: pointer;
-  box-shadow: 0 6px 14px rgba(0,0,0,.08);
-}
+    .card {
+      background: #1e293b;
+      border-radius: 18px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
 
-.card img {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-}
+    .card:hover {
+      transform: scale(1.02);
+    }
 
-.card strong {
-  font-size: 16px;
-}
+    .card span {
+      font-size: 34px;
+      display: block;
+      margin-bottom: 8px;
+    }
 
-.card small {
-  color: #555;
-}
+    .store {
+      background: #1e293b;
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
 
-.nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #fff;
-  display: flex;
-  border-top: 1px solid #ddd;
-}
+    .store img {
+      width: 100%;
+      height: 120px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
 
-.nav button {
-  flex: 1;
-  padding: 14px;
-  font-size: 16px;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-</style>
+    .store h3 {
+      margin: 6px 0;
+      font-size: 16px;
+    }
+
+    .store p {
+      font-size: 13px;
+      opacity: 0.85;
+      margin-bottom: 10px;
+    }
+
+    .visit {
+      display: block;
+      text-align: center;
+      background: #22c55e;
+      color: #000;
+      padding: 10px;
+      border-radius: 12px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      background: #020617;
+    }
+
+    .nav button {
+      flex: 1;
+      border: none;
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .home {
+      background: #22c55e;
+    }
+
+    .back {
+      background: #334155;
+      color: #fff;
+    }
+  </style>
 </head>
 
 <body>
+  <header id="title">الفئات</header>
 
-<header id="title">الفئات</header>
+  <div class="container" id="content"></div>
 
-<div class="container" id="content"></div>
+  <div class="nav">
+    <button class="home" onclick="showCategories()">🏠 الرئيسية</button>
+    <button class="back" onclick="goBack()">⬅ رجوع</button>
+  </div>
 
-<div class="nav">
-  <button onclick="showCategories()">🏠 الرئيسية</button>
-  <button onclick="goBack()">⬅ رجوع</button>
-</div>
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
 
-<script>
-Telegram.WebApp.ready();
+    const content = document.getElementById("content");
+    const title = document.getElementById("title");
+    let history = [];
 
-const categories = [
-  { id: "shopping", name: "🛒 التسوق" },
-  { id: "beauty", name: "💄 الجمال" },
-  { id: "travel", name: "✈️ الرحلات" },
-  { id: "tools", name: "🧰 أدوات مفيدة" }
-];
+    const DEFAULT_LOGO =
+      "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='120'><rect width='100%' height='100%' rx='16' fill='%23e5e7eb'/><text x='50%' y='60%' font-size='40' text-anchor='middle'>🏬</text></svg>";
 
-const stores = {
-  shopping: [
-    { name: "Amazon", desc: "أكبر متجر إلكتروني", url: "https://amazon.com", domain: "amazon.com" },
-    { name: "Noon", desc: "تسوق الخليج", url: "https://noon.com", domain: "noon.com" }
-  ],
-  beauty: [
-    { name: "Sephora", desc: "عالم الجمال", url: "https://sephora.com", domain: "sephora.com" }
-  ]
-};
+    const categories = [
+      { id: "shop", name: "تسوق", icon: "🛍️" },
+      { id: "tools", name: "أدوات", icon: "🛠️" },
+      { id: "edu", name: "تعليم", icon: "🎓" },
+      { id: "fun", name: "ترفيه", icon: "🎮" }
+    ];
 
-let history = [];
+    const stores = {
+      shop: [
+        {
+          name: "Amazon",
+          domain: "amazon.com",
+          desc: "أكبر متجر إلكتروني عالمي"
+        },
+        {
+          name: "AliExpress",
+          domain: "aliexpress.com",
+          desc: "منتجات بأسعار منخفضة وشحن عالمي"
+        }
+      ],
+      tools: [
+        {
+          name: "Canva",
+          domain: "canva.com",
+          desc: "تصميم احترافي بسهولة"
+        },
+        {
+          name: "Notion",
+          domain: "notion.so",
+          desc: "تنظيم العمل والملاحظات"
+        }
+      ],
+      edu: [
+        {
+          name: "Coursera",
+          domain: "coursera.org",
+          desc: "كورسات من جامعات عالمية"
+        }
+      ],
+      fun: [
+        {
+          name: "Steam",
+          domain: "store.steampowered.com",
+          desc: "ألعاب كمبيوتر رقمية"
+        }
+      ]
+    };
 
-function showCategories() {
-  history = [];
-  document.getElementById("title").innerText = "الفئات";
-  const c = document.getElementById("content");
-  c.innerHTML = "";
-
-  categories.forEach(cat => {
-    c.innerHTML += `
-      <div class="card" onclick="openCategory('${cat.id}', '${cat.name}')">
-        <strong>${cat.name}</strong>
-      </div>
-    `;
-  });
-}
-
-function openCategory(id, name) {
-  history.push(showCategories);
-  document.getElementById("title").innerText = name;
-  const c = document.getElementById("content");
-  c.innerHTML = "";
-
-  (stores[id] || []).forEach(store => {
-    c.innerHTML += `
-      <div class="card" onclick="openStore('${store.url}')">
-        <img src="https://logo.clearbit.com/${store.domain}"
-             onerror="this.src='https://via.placeholder.com/50?text=🏬'">
-        <div>
-          <strong>${store.name}</strong><br>
-          <small>${store.desc}</small>
+    function showCategories() {
+      history = [];
+      title.innerText = "الفئات";
+      content.innerHTML = `
+        <div class="grid">
+          ${categories
+            .map(
+              c => `
+              <div class="card" onclick="openCategory('${c.id}')">
+                <span>${c.icon}</span>
+                ${c.name}
+              </div>
+            `
+            )
+            .join("")}
         </div>
-      </div>
-    `;
-  });
-}
+      `;
+    }
 
-function openStore(url) {
-  Telegram.WebApp.openLink(url);
-}
+    function openCategory(id) {
+      history.push(showCategories);
+      title.innerText = "المتاجر";
 
-function goBack() {
-  if (history.length > 0) {
-    history.pop()();
-  }
-}
+      content.innerHTML = stores[id]
+        .map(
+          s => `
+          <div class="store">
+            <img src="https://logo.clearbit.com/${s.domain}"
+                 onerror="this.src='${DEFAULT_LOGO}'" />
+            <h3>${s.name}</h3>
+            <p>${s.desc}</p>
+            <a class="visit" href="https://${s.domain}" target="_blank">
+              زيارة الموقع
+            </a>
+          </div>
+        `
+        )
+        .join("");
+    }
 
-showCategories();
-</script>
+    function goBack() {
+      const last = history.pop();
+      if (last) last();
+    }
 
+    showCategories();
+  </script>
 </body>
 </html>

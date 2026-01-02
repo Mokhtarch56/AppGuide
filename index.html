@@ -2,173 +2,138 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>App Guide</title>
 
 <style>
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+  font-family:system-ui;
   background:#0f172a;
   color:#fff;
 }
+
 header{
-  padding:18px;
-  font-size:20px;
-  font-weight:700;
-}
-.container{padding:16px}
-.hidden{display:none}
-
-/* CATEGORY */
-.category{
-  background:#1e293b;
-  padding:18px;
-  border-radius:18px;
-  margin-bottom:14px;
-  font-size:16px;
-  cursor:pointer;
-  transition:.15s;
-}
-.category:active{
-  transform:scale(.97);
-  background:#020617;
-}
-
-/* APP CARD */
-.app-card{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:14px;
-  background:#1e293b;
-  border-radius:18px;
-  margin-bottom:12px;
-  transition:.15s;
-}
-.app-card:active{
-  transform:scale(.97);
-  background:#020617;
-}
-.app-icon{
-  width:54px;
-  height:54px;
-  border-radius:14px;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.app-info{flex:1}
-.app-info h3{margin:0;font-size:15px}
-.app-info p{margin:4px 0 0;font-size:13px;color:#9ca3af}
-.visit{
-  background:#22c55e;
-  color:#000;
-  padding:6px 12px;
-  border-radius:10px;
-  font-size:12px;
-  text-decoration:none;
-}
-
-/* NAV */
-.nav{
-  position:fixed;
-  bottom:0;left:0;right:0;
-  background:#020617;
-  padding:10px 20px;
   display:flex;
   justify-content:space-between;
+  padding:12px;
+  background:#020617;
 }
-.nav button{
+
+button{
   background:#1e293b;
   border:none;
   color:#fff;
-  padding:10px 18px;
-  border-radius:14px;
+  padding:8px 14px;
+  border-radius:10px;
+  font-size:14px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  padding:14px;
+}
+
+.card{
+  background:#020617;
+  border-radius:16px;
+  padding:14px;
+  transition:.25s;
+}
+.card:active{
+  transform:scale(.96);
+}
+
+.icon{
+  width:42px;
+  height:42px;
+  margin-bottom:8px;
+}
+
+.hidden{display:none}
+
+h3{margin:6px 0;font-size:15px}
+p{font-size:12px;color:#94a3b8}
+
+a{
+  display:inline-block;
+  margin-top:8px;
+  color:#38bdf8;
+  text-decoration:none;
+  font-size:13px;
 }
 </style>
 </head>
 
 <body>
 
+<header>
+  <button onclick="showHome()">🏠 Home</button>
+  <button onclick="showHome()">⬅ Back</button>
+</header>
+
 <!-- SVG ICONS -->
-<svg xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink"
-     style="display:none">
-
-<symbol id="A"><rect width="48" height="48" rx="12" fill="#FF9900"/><text x="24" y="30" font-size="20" text-anchor="middle" fill="#fff">A</text></symbol>
-<symbol id="N"><rect width="48" height="48" rx="12" fill="#FCEE21"/><text x="24" y="30" font-size="18" text-anchor="middle">noon</text></symbol>
-<symbol id="S"><rect width="48" height="48" rx="12" fill="#111"/><text x="24" y="30" font-size="16" text-anchor="middle" fill="#fff">Shop</text></symbol>
-<symbol id="T"><rect width="48" height="48" rx="12" fill="#FF5A00"/><text x="24" y="30" font-size="16" text-anchor="middle" fill="#fff">Food</text></symbol>
-<symbol id="U"><rect width="48" height="48" rx="12" fill="#000"/><text x="24" y="30" font-size="18" text-anchor="middle" fill="#fff">Go</text></symbol>
-<symbol id="P"><rect width="48" height="48" rx="12" fill="#22c55e"/><text x="24" y="30" font-size="18" text-anchor="middle" fill="#fff">Pro</text></symbol>
-
+<svg style="display:none">
+  <symbol id="amazon" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" fill="#ff9900"/>
+  </symbol>
+  <symbol id="noon" viewBox="0 0 24 24">
+    <rect width="24" height="24" rx="6" fill="#ffd600"/>
+  </symbol>
+  <symbol id="namshi" viewBox="0 0 24 24">
+    <rect width="24" height="24" rx="6" fill="#000"/>
+  </symbol>
 </svg>
 
-<header>📱 App Guide</header>
-<div class="container">
+<!-- HOME -->
+<section id="home" class="grid">
+  <div class="card" onclick="openCat('shop')">
+    <h3>🛍 التسوق</h3>
+    <p>أفضل المتاجر أونلاين</p>
+  </div>
+  <div class="card" onclick="openCat('beauty')">
+    <h3>💄 الجمال</h3>
+    <p>عناية وأناقة</p>
+  </div>
+</section>
 
-<!-- CATEGORIES -->
-<div id="categories">
-  <div class="category" onclick="openCat('shopping')">🛍️ التسوق</div>
-  <div class="category" onclick="openCat('food')">🍔 الطعام</div>
-  <div class="category" onclick="openCat('travel')">✈️ السفر</div>
-  <div class="category" onclick="openCat('finance')">💳 المال</div>
-  <div class="category" onclick="openCat('entertainment')">🎬 الترفيه</div>
-  <div class="category" onclick="openCat('tools')">🧰 أدوات مفيدة</div>
-</div>
+<!-- SHOP -->
+<section id="shop" class="grid hidden">
 
-<!-- SHOPPING (10) -->
-<div id="shopping" class="hidden">
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#A"/></svg></div><div class="app-info"><h3>Amazon</h3><p>أكبر متجر إلكتروني عالمي</p></div><a class="visit" href="https://amazon.com" target="_blank">زيارة</a></div>
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#N"/></svg></div><div class="app-info"><h3>Noon</h3><p>عروض يومية وأسعار منافسة</p></div><a class="visit" href="https://noon.com" target="_blank">زيارة</a></div>
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#S"/></svg></div><div class="app-info"><h3>Namshi</h3><p>أزياء عصرية</p></div><a class="visit" href="https://namshi.com" target="_blank">زيارة</a></div>
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#S"/></svg></div><div class="app-info"><h3>AliExpress</h3><p>منتجات متنوعة بأسعار منخفضة</p></div><a class="visit" href="https://aliexpress.com" target="_blank">زيارة</a></div>
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#S"/></svg></div><div class="app-info"><h3>Shein</h3><p>أزياء شبابية</p></div><a class="visit" href="https://shein.com" target="_blank">زيارة</a></div>
-</div>
+  <div class="card">
+    <svg class="icon"><use href="#amazon"/></svg>
+    <h3>Amazon</h3>
+    <p>أكبر متجر عالمي</p>
+    <a href="https://amazon.com" target="_blank">زيارة</a>
+  </div>
 
-<!-- FOOD (5) -->
-<div id="food" class="hidden">
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#T"/></svg></div><div class="app-info"><h3>Talabat</h3><p>اطلب من أقرب مطعم</p></div><a class="visit" href="https://talabat.com" target="_blank">زيارة</a></div>
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#T"/></svg></div><div class="app-info"><h3>HungerStation</h3><p>توصيل سريع</p></div><a class="visit" href="https://hungerstation.com" target="_blank">زيارة</a></div>
-</div>
+  <div class="card">
+    <svg class="icon"><use href="#noon"/></svg>
+    <h3>Noon</h3>
+    <p>تسوق عربي سريع</p>
+    <a href="https://noon.com" target="_blank">زيارة</a>
+  </div>
 
-<!-- TRAVEL (5) -->
-<div id="travel" class="hidden">
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#U"/></svg></div><div class="app-info"><h3>Uber</h3><p>تنقل ذكي</p></div><a class="visit" href="https://uber.com" target="_blank">زيارة</a></div>
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#U"/></svg></div><div class="app-info"><h3>Careem</h3><p>تنقل وخدمات</p></div><a class="visit" href="https://careem.com" target="_blank">زيارة</a></div>
-</div>
+  <div class="card">
+    <svg class="icon"><use href="#namshi"/></svg>
+    <h3>Namshi</h3>
+    <p>أزياء عصرية</p>
+    <a href="https://namshi.com" target="_blank">زيارة</a>
+  </div>
 
-<!-- FINANCE (5) -->
-<div id="finance" class="hidden">
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#P"/></svg></div><div class="app-info"><h3>STC Pay</h3><p>محفظة رقمية</p></div><a class="visit" href="https://stcpay.com.sa" target="_blank">زيارة</a></div>
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#P"/></svg></div><div class="app-info"><h3>PayPal</h3><p>دفع آمن عالمي</p></div><a class="visit" href="https://paypal.com" target="_blank">زيارة</a></div>
-</div>
-
-<!-- ENTERTAINMENT (5) -->
-<div id="entertainment" class="hidden">
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#S"/></svg></div><div class="app-info"><h3>Netflix</h3><p>مسلسلات وأفلام</p></div><a class="visit" href="https://netflix.com" target="_blank">زيارة</a></div>
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#S"/></svg></div><div class="app-info"><h3>YouTube</h3><p>فيديوهات بلا حدود</p></div><a class="visit" href="https://youtube.com" target="_blank">زيارة</a></div>
-</div>
-
-<!-- TOOLS (8) -->
-<div id="tools" class="hidden">
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#P"/></svg></div><div class="app-info"><h3>Canva</h3><p>تصميم سهل</p></div><a class="visit" href="https://canva.com" target="_blank">زيارة</a></div>
-  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#P"/></svg></div><div class="app-info"><h3>ChatGPT</h3><p>مساعد ذكي</p></div><a class="visit" href="https://chat.openai.com" target="_blank">زيارة</a></div>
-</div>
-
-</div>
-
-<div class="nav">
-  <button onclick="location.reload()">🏠 Home</button>
-  <button onclick="location.reload()">⬅ Back</button>
-</div>
+</section>
 
 <script>
+function showHome(){
+  document.getElementById('home').classList.remove('hidden');
+  document.getElementById('shop').classList.add('hidden');
+}
+
 function openCat(id){
-  document.getElementById("categories").classList.add("hidden");
-  document.getElementById(id).classList.remove("hidden");
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById(id).classList.remove('hidden');
 }
 </script>
 

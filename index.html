@@ -1,241 +1,119 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>Dalilak | دليلك</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dalilak | App Guide</title>
 
-  <!-- Telegram WebApp SDK -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+body {
+  margin: 0;
+  background: #020617;
+  font-family: system-ui;
+  color: #fff;
+}
 
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont;
-      background: linear-gradient(180deg, #0f172a, #020617);
-      color: #fff;
-    }
+.container {
+  padding: 16px;
+}
 
-    header {
-      padding: 16px;
-      text-align: center;
-      font-size: 20px;
-      font-weight: bold;
-    }
+.app-card {
+  display: flex;
+  align-items: center;
+  background: #0f172a;
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: transform .15s, background .15s;
+}
 
-    .container {
-      padding: 16px;
-    }
+.app-card:hover {
+  background: #1e293b;
+  transform: scale(1.01);
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
+.app-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  background: linear-gradient(135deg,#22c55e,#16a34a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
 
-    .card {
-      background: #1e293b;
-      border-radius: 18px;
-      padding: 16px;
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
+.app-info {
+  margin-right: 14px;
+  flex: 1;
+}
 
-    .card:hover {
-      transform: scale(1.02);
-    }
+.app-name {
+  font-size: 16px;
+  font-weight: bold;
+}
 
-    .card span {
-      font-size: 34px;
-      display: block;
-      margin-bottom: 8px;
-    }
+.app-desc {
+  font-size: 13px;
+  opacity: .8;
+  margin-top: 4px;
+}
 
-    .store {
-      background: #1e293b;
-      border-radius: 18px;
-      padding: 14px;
-      margin-bottom: 14px;
-    }
-
-    .store img {
-      width: 100%;
-      height: 120px;
-      object-fit: contain;
-      background: #fff;
-      border-radius: 12px;
-      margin-bottom: 10px;
-    }
-
-    .store h3 {
-      margin: 6px 0;
-      font-size: 16px;
-    }
-
-    .store p {
-      font-size: 13px;
-      opacity: 0.85;
-      margin-bottom: 10px;
-    }
-
-    .visit {
-      display: block;
-      text-align: center;
-      background: #22c55e;
-      color: #000;
-      padding: 10px;
-      border-radius: 12px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      gap: 10px;
-      padding: 10px;
-      background: #020617;
-    }
-
-    .nav button {
-      flex: 1;
-      border: none;
-      border-radius: 14px;
-      padding: 12px;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .home {
-      background: #22c55e;
-    }
-
-    .back {
-      background: #334155;
-      color: #fff;
-    }
-  </style>
+.app-btn {
+  background: #22c55e;
+  color: #022c22;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: bold;
+}
+</style>
 </head>
 
 <body>
-  <header id="title">الفئات</header>
 
-  <div class="container" id="content"></div>
+<div class="container">
 
-  <div class="nav">
-    <button class="home" onclick="showCategories()">🏠 الرئيسية</button>
-    <button class="back" onclick="goBack()">⬅ رجوع</button>
+  <div class="app-card" onclick="openSite('https://www.amazon.com')">
+    <div class="app-icon">🛒</div>
+    <div class="app-info">
+      <div class="app-name">Amazon</div>
+      <div class="app-desc">أكبر متجر إلكتروني عالمي</div>
+    </div>
+    <div class="app-btn">زيارة</div>
   </div>
 
-  <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();
+  <div class="app-card" onclick="openSite('https://www.noon.com')">
+    <div class="app-icon">📦</div>
+    <div class="app-info">
+      <div class="app-name">Noon</div>
+      <div class="app-desc">تسوق سريع في الشرق الأوسط</div>
+    </div>
+    <div class="app-btn">زيارة</div>
+  </div>
 
-    const content = document.getElementById("content");
-    const title = document.getElementById("title");
-    let history = [];
+  <div class="app-card" onclick="openSite('https://www.aliexpress.com')">
+    <div class="app-icon">🌍</div>
+    <div class="app-info">
+      <div class="app-name">AliExpress</div>
+      <div class="app-desc">منتجات عالمية بأسعار منخفضة</div>
+    </div>
+    <div class="app-btn">زيارة</div>
+  </div>
 
-    const DEFAULT_LOGO =
-      "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='120'><rect width='100%' height='100%' rx='16' fill='%23e5e7eb'/><text x='50%' y='60%' font-size='40' text-anchor='middle'>🏬</text></svg>";
+</div>
 
-    const categories = [
-      { id: "shop", name: "تسوق", icon: "🛍️" },
-      { id: "tools", name: "أدوات", icon: "🛠️" },
-      { id: "edu", name: "تعليم", icon: "🎓" },
-      { id: "fun", name: "ترفيه", icon: "🎮" }
-    ];
+<script>
+function openSite(url){
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.openLink(url);
+  } else {
+    window.open(url, '_blank');
+  }
+}
+</script>
 
-    const stores = {
-      shop: [
-        {
-          name: "Amazon",
-          domain: "amazon.com",
-          desc: "أكبر متجر إلكتروني عالمي"
-        },
-        {
-          name: "AliExpress",
-          domain: "aliexpress.com",
-          desc: "منتجات بأسعار منخفضة وشحن عالمي"
-        }
-      ],
-      tools: [
-        {
-          name: "Canva",
-          domain: "canva.com",
-          desc: "تصميم احترافي بسهولة"
-        },
-        {
-          name: "Notion",
-          domain: "notion.so",
-          desc: "تنظيم العمل والملاحظات"
-        }
-      ],
-      edu: [
-        {
-          name: "Coursera",
-          domain: "coursera.org",
-          desc: "كورسات من جامعات عالمية"
-        }
-      ],
-      fun: [
-        {
-          name: "Steam",
-          domain: "store.steampowered.com",
-          desc: "ألعاب كمبيوتر رقمية"
-        }
-      ]
-    };
-
-    function showCategories() {
-      history = [];
-      title.innerText = "الفئات";
-      content.innerHTML = `
-        <div class="grid">
-          ${categories
-            .map(
-              c => `
-              <div class="card" onclick="openCategory('${c.id}')">
-                <span>${c.icon}</span>
-                ${c.name}
-              </div>
-            `
-            )
-            .join("")}
-        </div>
-      `;
-    }
-
-    function openCategory(id) {
-      history.push(showCategories);
-      title.innerText = "المتاجر";
-
-      content.innerHTML = stores[id]
-        .map(
-          s => `
-          <div class="store">
-            <img src="https://logo.clearbit.com/${s.domain}"
-                 onerror="this.src='${DEFAULT_LOGO}'" />
-            <h3>${s.name}</h3>
-            <p>${s.desc}</p>
-            <a class="visit" href="https://${s.domain}" target="_blank">
-              زيارة الموقع
-            </a>
-          </div>
-        `
-        )
-        .join("");
-    }
-
-    function goBack() {
-      const last = history.pop();
-      if (last) last();
-    }
-
-    showCategories();
-  </script>
 </body>
 </html>

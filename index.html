@@ -3,115 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dalilak | App Guide</title>
+<title>Dalilak</title>
 
 <style>
-body {
-  margin: 0;
-  background: #020617;
-  font-family: system-ui;
-  color: #fff;
+body{
+  margin:0;
+  font-family:system-ui;
+  background:#020617;
+  color:#fff;
 }
-
-.container {
-  padding: 16px;
+.header{
+  padding:16px;
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
 }
-
-.app-card {
-  display: flex;
-  align-items: center;
-  background: #0f172a;
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  transition: transform .15s, background .15s;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  padding:16px;
 }
-
-.app-card:hover {
-  background: #1e293b;
-  transform: scale(1.01);
+.cat{
+  background:#0f172a;
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+  cursor:pointer;
 }
-
-.app-icon {
-  width: 58px;
-  height: 58px;
-  border-radius: 14px;
-  background: linear-gradient(135deg,#22c55e,#16a34a);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  flex-shrink: 0;
+.cat span{font-size:28px}
+.list{padding:16px}
+.store{
+  background:#0f172a;
+  border-radius:18px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  margin-bottom:12px;
+  cursor:pointer;
 }
-
-.app-info {
-  margin-right: 14px;
-  flex: 1;
+.icon{
+  width:56px;
+  height:56px;
+  border-radius:14px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-
-.app-name {
-  font-size: 16px;
-  font-weight: bold;
+.info{margin-right:12px;flex:1}
+.name{font-weight:bold}
+.desc{font-size:13px;opacity:.8}
+.visit{
+  background:#22c55e;
+  color:#022c22;
+  padding:6px 12px;
+  border-radius:10px;
+  font-size:13px;
 }
-
-.app-desc {
-  font-size: 13px;
-  opacity: .8;
-  margin-top: 4px;
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#020617;
+  display:flex;
+  gap:10px;
+  padding:10px;
 }
-
-.app-btn {
-  background: #22c55e;
-  color: #022c22;
-  padding: 6px 12px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: bold;
+.bottom button{
+  flex:1;
+  border:none;
+  border-radius:14px;
+  padding:12px;
+  font-size:15px;
 }
+.home{background:#22c55e}
+.back{background:#1e293b;color:#fff}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="header">Dalilak | دليلك</div>
 
-  <div class="app-card" onclick="openSite('https://www.amazon.com')">
-    <div class="app-icon">🛒</div>
-    <div class="app-info">
-      <div class="app-name">Amazon</div>
-      <div class="app-desc">أكبر متجر إلكتروني عالمي</div>
-    </div>
-    <div class="app-btn">زيارة</div>
+<div id="cats">
+  <div class="grid">
+    <div class="cat" onclick="openCat('shop')"><span>🛍️</span><p>تسوق</p></div>
+    <div class="cat" onclick="openCat('tech')"><span>💻</span><p>تقنية</p></div>
+    <div class="cat" onclick="openCat('edu')"><span>🎓</span><p>تعليم</p></div>
+    <div class="cat" onclick="openCat('ent')"><span>🎮</span><p>ترفيه</p></div>
   </div>
+</div>
 
-  <div class="app-card" onclick="openSite('https://www.noon.com')">
-    <div class="app-icon">📦</div>
-    <div class="app-info">
-      <div class="app-name">Noon</div>
-      <div class="app-desc">تسوق سريع في الشرق الأوسط</div>
-    </div>
-    <div class="app-btn">زيارة</div>
-  </div>
+<div id="stores" style="display:none">
+  <div class="list" id="storeList"></div>
+</div>
 
-  <div class="app-card" onclick="openSite('https://www.aliexpress.com')">
-    <div class="app-icon">🌍</div>
-    <div class="app-info">
-      <div class="app-name">AliExpress</div>
-      <div class="app-desc">منتجات عالمية بأسعار منخفضة</div>
-    </div>
-    <div class="app-btn">زيارة</div>
-  </div>
-
+<div class="bottom">
+  <button class="home" onclick="goHome()">🏠 الرئيسية</button>
+  <button class="back" onclick="goHome()">⬅ رجوع</button>
 </div>
 
 <script>
-function openSite(url){
-  if (window.Telegram?.WebApp) {
-    Telegram.WebApp.openLink(url);
-  } else {
-    window.open(url, '_blank');
-  }
+const ICONS={
+amazon:`<svg viewBox="0 0 24 24" width="32"><text x="2" y="18" font-size="16">a</text><path d="M4 20c6 2 10 2 16-1" stroke="#FF9900" fill="none" stroke-width="2"/></svg>`,
+noon:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#FEEE00"/><text x="12" y="16" font-size="9" text-anchor="middle">noon</text></svg>`,
+shein:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#000"/><text x="12" y="16" fill="#fff" font-size="9" text-anchor="middle">SHEIN</text></svg>`,
+aliexpress:`<svg viewBox="0 0 24 24" width="32"><circle cx="12" cy="12" r="10" fill="#ff4747"/><text x="12" y="16" fill="#fff" font-size="8" text-anchor="middle">Ali</text></svg>`,
+ebay:`<svg viewBox="0 0 24 24" width="32"><text x="2" y="16" font-size="10" fill="#e53238">e</text><text x="9" y="16" font-size="10" fill="#0064d2">b</text><text x="15" y="16" font-size="10" fill="#f5af02">a</text><text x="20" y="16" font-size="10" fill="#86b817">y</text></svg>`,
+jarir:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#e11d48"/><text x="12" y="16" fill="#fff" font-size="9" text-anchor="middle">Jarir</text></svg>`,
+extra:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#2563eb"/><text x="12" y="16" fill="#fff" font-size="9" text-anchor="middle">extra</text></svg>`,
+namshi:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#000"/><text x="12" y="16" fill="#fff" font-size="9" text-anchor="middle">namshi</text></svg>`,
+asos:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#111"/><text x="12" y="16" fill="#fff" font-size="10" text-anchor="middle">ASOS</text></svg>`,
+ikea:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#0058a3"/><text x="12" y="16" fill="#ffda1a" font-size="10" text-anchor="middle">IKEA</text></svg>`
+};
+
+const DATA={
+shop:[
+["amazon","Amazon","أكبر متجر إلكتروني","https://amazon.com"],
+["noon","Noon","تسوق الخليج","https://noon.com"],
+["shein","Shein","ملابس وموضة","https://shein.com"],
+["aliexpress","AliExpress","منتجات عالمية","https://aliexpress.com"],
+["ebay","eBay","مزادات وتسوق","https://ebay.com"],
+["namshi","Namshi","أزياء","https://namshi.com"],
+["asos","ASOS","موضة عالمية","https://asos.com"],
+["ikea","IKEA","أثاث منزلي","https://ikea.com"]
+],
+tech:[
+["jarir","Jarir","تقنية وكتب","https://jarir.com"],
+["extra","Extra","إلكترونيات","https://extra.com"],
+["amazon","Amazon Tech","أجهزة وتقنية","https://amazon.com"]
+],
+edu:[
+["coursera","Coursera","دورات جامعية","https://coursera.org"],
+["udemy","Udemy","تعلم مهارات","https://udemy.com"]
+],
+ent:[
+["netflix","Netflix","أفلام ومسلسلات","https://netflix.com"],
+["spotify","Spotify","موسيقى","https://spotify.com"],
+["steam","Steam","ألعاب","https://store.steampowered.com"]
+]
+};
+
+function openCat(cat){
+  document.getElementById("cats").style.display="none";
+  document.getElementById("stores").style.display="block";
+  const list=document.getElementById("storeList");
+  list.innerHTML="";
+  DATA[cat].forEach(s=>{
+    list.innerHTML+=`
+    <div class="store" onclick="openLink('${s[3]}')">
+      <div class="icon">${ICONS[s[0]]||"🏬"}</div>
+      <div class="info">
+        <div class="name">${s[1]}</div>
+        <div class="desc">${s[2]}</div>
+      </div>
+      <div class="visit">زيارة</div>
+    </div>`;
+  });
+}
+
+function goHome(){
+  document.getElementById("cats").style.display="block";
+  document.getElementById("stores").style.display="none";
+}
+
+function openLink(url){
+  Telegram?.WebApp?.openLink(url);
 }
 </script>
 

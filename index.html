@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>Dalilak | دليلك</title>
+
+  <!-- Telegram SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- CSS -->
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #f6f7f9;
+    }
+
+    header {
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      background: white;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 15px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,.05);
+      cursor: pointer;
+    }
+
+    .store {
+      background: white;
+      margin: 12px;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .store img {
+      width: 100%;
+      display: block;
+    }
+
+    .store .info {
+      padding: 12px;
+    }
+
+    .btn {
+      display: block;
+      margin-top: 10px;
+      padding: 10px;
+      text-align: center;
+      background: #0088cc;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .back {
+      padding: 10px;
+      text-align: center;
+      color: #0088cc;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<header id="title">الفئات</header>
+<div id="content"></div>
+<div id="back" class="back" style="display:none">⬅ رجوع</div>
+
+<!-- JS -->
+<script>
+  const tg = window.Telegram.WebApp;
+  tg.expand();
+
+  const categories = [
+    { id: "shop", name: "🛒 التسوق" },
+    { id: "beauty", name: "💄 الجمال" },
+    { id: "travel", name: "✈️ الرحلات" }
+  ];
+
+  const stores = {
+    shop: [
+      {
+        name: "أمازون",
+        img: "https://via.placeholder.com/400x200",
+        desc: "أكبر متجر إلكتروني",
+        link: "https://amazon.com"
+      }
+    ],
+    beauty: [
+      {
+        name: "Sephora",
+        img: "https://via.placeholder.com/400x200",
+        desc: "مستحضرات أصلية",
+        link: "https://sephora.com"
+      }
+    ]
+  };
+
+  const content = document.getElementById("content");
+  const backBtn = document.getElementById("back");
+  const title = document.getElementById("title");
+
+  function showCategories() {
+    title.innerText = "الفئات";
+    backBtn.style.display = "none";
+
+    content.innerHTML = `
+      <div class="grid">
+        ${categories.map(c => `
+          <div class="card" onclick="openCategory('${c.id}')">
+            ${c.name}
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  function openCategory(id) {
+    title.innerText = "المتاجر";
+    backBtn.style.display = "block";
+
+    content.innerHTML = stores[id].map(s => `
+      <div class="store">
+        <img src="${s.img}">
+        <div class="info">
+          <b>${s.name}</b>
+          <p>${s.desc}</p>
+          <a class="btn" href="${s.link}" target="_blank">زيارة</a>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  backBtn.onclick = showCategories;
+
+  showCategories();
+</script>
+
+</body>
+</html>

@@ -14,127 +14,151 @@ body{
 }
 
 header{
+  position:sticky;
+  top:0;
+  z-index:10;
   display:flex;
   justify-content:space-between;
   padding:12px;
   background:#020617;
 }
 
-button{
+header button{
   background:#1e293b;
   border:none;
   color:#fff;
   padding:8px 14px;
   border-radius:10px;
-  font-size:14px;
 }
 
 .grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:12px;
+  gap:14px;
   padding:14px;
 }
 
 .card{
   background:#020617;
-  border-radius:16px;
+  border-radius:18px;
   padding:14px;
-  transition:.25s;
+  transition:.25s ease;
+  animation:fadeUp .3s ease;
 }
+
 .card:active{
   transform:scale(.96);
 }
 
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(8px)}
+  to{opacity:1; transform:none}
+}
+
 .icon{
-  width:42px;
-  height:42px;
+  width:48px;
+  height:48px;
+  border-radius:12px;
   margin-bottom:8px;
 }
 
-.hidden{display:none}
-
-h3{margin:6px 0;font-size:15px}
-p{font-size:12px;color:#94a3b8}
+h3{margin:6px 0 2px;font-size:15px}
+p{margin:0;font-size:12px;color:#94a3b8}
 
 a{
   display:inline-block;
   margin-top:8px;
+  font-size:13px;
   color:#38bdf8;
   text-decoration:none;
-  font-size:13px;
 }
+
+.hidden{display:none}
 </style>
 </head>
 
 <body>
 
 <header>
-  <button onclick="showHome()">🏠 Home</button>
-  <button onclick="showHome()">⬅ Back</button>
+  <button onclick="goHome()">🏠 Home</button>
+  <button onclick="goHome()">⬅ Back</button>
 </header>
 
-<!-- SVG ICONS -->
-<svg style="display:none">
-  <symbol id="amazon" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="10" fill="#ff9900"/>
-  </symbol>
-  <symbol id="noon" viewBox="0 0 24 24">
-    <rect width="24" height="24" rx="6" fill="#ffd600"/>
-  </symbol>
-  <symbol id="namshi" viewBox="0 0 24 24">
-    <rect width="24" height="24" rx="6" fill="#000"/>
-  </symbol>
-</svg>
-
-<!-- HOME -->
+<!-- الفئات -->
 <section id="home" class="grid">
-  <div class="card" onclick="openCat('shop')">
-    <h3>🛍 التسوق</h3>
-    <p>أفضل المتاجر أونلاين</p>
-  </div>
-  <div class="card" onclick="openCat('beauty')">
-    <h3>💄 الجمال</h3>
-    <p>عناية وأناقة</p>
-  </div>
+  <div class="card" onclick="openCat('shopping')"><h3>🛍 التسوق</h3><p>متاجر موثوقة</p></div>
+  <div class="card" onclick="openCat('fashion')"><h3>👗 الأزياء</h3><p>ملابس وأناقة</p></div>
+  <div class="card" onclick="openCat('electronics')"><h3>📱 إلكترونيات</h3><p>تقنية وأجهزة</p></div>
+  <div class="card" onclick="openCat('homegoods')"><h3>🏠 المنزل</h3><p>أثاث وأدوات</p></div>
+  <div class="card" onclick="openCat('travel')"><h3>✈️ السفر</h3><p>حجوزات وخدمات</p></div>
+  <div class="card" onclick="openCat('education')"><h3>🎓 التعليم</h3><p>دورات ومنصات</p></div>
 </section>
 
-<!-- SHOP -->
-<section id="shop" class="grid hidden">
-
-  <div class="card">
-    <svg class="icon"><use href="#amazon"/></svg>
-    <h3>Amazon</h3>
-    <p>أكبر متجر عالمي</p>
-    <a href="https://amazon.com" target="_blank">زيارة</a>
-  </div>
-
-  <div class="card">
-    <svg class="icon"><use href="#noon"/></svg>
-    <h3>Noon</h3>
-    <p>تسوق عربي سريع</p>
-    <a href="https://noon.com" target="_blank">زيارة</a>
-  </div>
-
-  <div class="card">
-    <svg class="icon"><use href="#namshi"/></svg>
-    <h3>Namshi</h3>
-    <p>أزياء عصرية</p>
-    <a href="https://namshi.com" target="_blank">زيارة</a>
-  </div>
-
-</section>
+<!-- المتاجر -->
+<section id="shopping" class="grid hidden"></section>
+<section id="fashion" class="grid hidden"></section>
+<section id="electronics" class="grid hidden"></section>
+<section id="homegoods" class="grid hidden"></section>
+<section id="travel" class="grid hidden"></section>
+<section id="education" class="grid hidden"></section>
 
 <script>
-function showHome(){
-  document.getElementById('home').classList.remove('hidden');
-  document.getElementById('shop').classList.add('hidden');
+const data = {
+  shopping:[
+    ["Amazon","amazon","أكبر متجر إلكتروني عالمي","https://amazon.sa"],
+    ["Noon","noon","تسوق عربي سريع وآمن","https://noon.com"],
+    ["AliExpress","ali","منتجات متنوعة بأسعار منافسة","https://aliexpress.com"],
+    ["Temu","temu","عروض قوية ومنتجات ترند","https://temu.com"]
+  ],
+  fashion:[
+    ["Namshi","namshi","أزياء عصرية","https://namshi.com"],
+    ["SHEIN","shein","موضة بأسعار منخفضة","https://shein.com"]
+  ],
+  electronics:[
+    ["Jarir","jarir","أجهزة وكتب أصلية","https://jarir.com"],
+    ["Extra","extra","إلكترونيات منزلية","https://extra.com"]
+  ],
+  homegoods:[
+    ["IKEA","ikea","أثاث منزلي عملي","https://ikea.com"],
+    ["Centrepoint","centrepoint","منتجات منزلية","https://centrepoint.com"]
+  ],
+  travel:[
+    ["Booking","booking","حجوزات فنادق","https://booking.com"],
+    ["Flyin","flyin","تذاكر طيران","https://flyin.com"]
+  ],
+  education:[
+    ["Coursera","coursera","دورات عالمية","https://coursera.org"],
+    ["Udemy","udemy","تعلم أونلاين","https://udemy.com"]
+  ]
+};
+
+function render(){
+  Object.keys(data).forEach(cat=>{
+    const el=document.getElementById(cat);
+    el.innerHTML="";
+    data[cat].forEach(s=>{
+      el.innerHTML+=`
+      <div class="card">
+        <img class="icon" src="icons/${s[1]}.png">
+        <h3>${s[0]}</h3>
+        <p>${s[2]}</p>
+        <a href="${s[3]}" target="_blank">زيارة</a>
+      </div>`;
+    });
+  });
+}
+
+function goHome(){
+  document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
+  home.classList.remove("hidden");
 }
 
 function openCat(id){
-  document.getElementById('home').classList.add('hidden');
-  document.getElementById(id).classList.remove('hidden');
+  goHome();
+  document.getElementById(id).classList.remove("hidden");
 }
+
+render();
 </script>
 
 </body>

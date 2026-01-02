@@ -12,20 +12,15 @@ body{
   background:#0f172a;
   color:#fff;
 }
-
 header{
   padding:18px;
   font-size:20px;
   font-weight:700;
 }
-
-.container{
-  padding:16px;
-}
-
+.container{padding:16px}
 .hidden{display:none}
 
-/* CATEGORY CARD */
+/* CATEGORY */
 .category{
   background:#1e293b;
   padding:18px;
@@ -33,7 +28,7 @@ header{
   margin-bottom:14px;
   font-size:16px;
   cursor:pointer;
-  transition:transform .15s ease, background .15s ease;
+  transition:.15s;
 }
 .category:active{
   transform:scale(.97);
@@ -49,13 +44,12 @@ header{
   background:#1e293b;
   border-radius:18px;
   margin-bottom:12px;
-  transition:transform .15s ease, background .15s ease;
+  transition:.15s;
 }
 .app-card:active{
   transform:scale(.97);
   background:#020617;
 }
-
 .app-icon{
   width:54px;
   height:54px;
@@ -65,22 +59,9 @@ header{
   align-items:center;
   justify-content:center;
 }
-
-.app-info{
-  flex:1;
-}
-
-.app-info h3{
-  margin:0;
-  font-size:15px;
-}
-
-.app-info p{
-  margin:4px 0 0;
-  font-size:13px;
-  color:#9ca3af;
-}
-
+.app-info{flex:1}
+.app-info h3{margin:0;font-size:15px}
+.app-info p{margin:4px 0 0;font-size:13px;color:#9ca3af}
 .visit{
   background:#22c55e;
   color:#000;
@@ -93,9 +74,7 @@ header{
 /* NAV */
 .nav{
   position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
+  bottom:0;left:0;right:0;
   background:#020617;
   padding:10px 20px;
   display:flex;
@@ -118,131 +97,78 @@ header{
      xmlns:xlink="http://www.w3.org/1999/xlink"
      style="display:none">
 
-  <symbol id="amazon" viewBox="0 0 48 48">
-    <rect width="48" height="48" rx="12" fill="#FF9900"/>
-    <text x="24" y="30" font-size="20" text-anchor="middle" fill="#fff" font-weight="bold">A</text>
-  </symbol>
-
-  <symbol id="noon" viewBox="0 0 48 48">
-    <rect width="48" height="48" rx="12" fill="#FCEE21"/>
-    <text x="24" y="30" font-size="18" text-anchor="middle" fill="#000" font-weight="bold">noon</text>
-  </symbol>
-
-  <symbol id="namshi" viewBox="0 0 48 48">
-    <rect width="48" height="48" rx="12" fill="#111"/>
-    <text x="24" y="30" font-size="14" text-anchor="middle" fill="#fff">Namshi</text>
-  </symbol>
-
-  <symbol id="netflix" viewBox="0 0 48 48">
-    <rect width="48" height="48" rx="12" fill="#E50914"/>
-    <text x="24" y="30" font-size="20" text-anchor="middle" fill="#fff" font-weight="bold">N</text>
-  </symbol>
-
-  <symbol id="talabat" viewBox="0 0 48 48">
-    <rect width="48" height="48" rx="12" fill="#FF5A00"/>
-    <text x="24" y="30" font-size="14" text-anchor="middle" fill="#fff">Talabat</text>
-  </symbol>
-
-  <symbol id="uber" viewBox="0 0 48 48">
-    <rect width="48" height="48" rx="12" fill="#000"/>
-    <text x="24" y="30" font-size="18" text-anchor="middle" fill="#fff">Uber</text>
-  </symbol>
+<symbol id="A"><rect width="48" height="48" rx="12" fill="#FF9900"/><text x="24" y="30" font-size="20" text-anchor="middle" fill="#fff">A</text></symbol>
+<symbol id="N"><rect width="48" height="48" rx="12" fill="#FCEE21"/><text x="24" y="30" font-size="18" text-anchor="middle">noon</text></symbol>
+<symbol id="S"><rect width="48" height="48" rx="12" fill="#111"/><text x="24" y="30" font-size="16" text-anchor="middle" fill="#fff">Shop</text></symbol>
+<symbol id="T"><rect width="48" height="48" rx="12" fill="#FF5A00"/><text x="24" y="30" font-size="16" text-anchor="middle" fill="#fff">Food</text></symbol>
+<symbol id="U"><rect width="48" height="48" rx="12" fill="#000"/><text x="24" y="30" font-size="18" text-anchor="middle" fill="#fff">Go</text></symbol>
+<symbol id="P"><rect width="48" height="48" rx="12" fill="#22c55e"/><text x="24" y="30" font-size="18" text-anchor="middle" fill="#fff">Pro</text></symbol>
 
 </svg>
 
 <header>📱 App Guide</header>
-
 <div class="container">
 
 <!-- CATEGORIES -->
 <div id="categories">
-  <div class="category" onclick="openCategory('shopping')">🛍️ التسوق</div>
-  <div class="category" onclick="openCategory('entertainment')">🎬 الترفيه</div>
-  <div class="category" onclick="openCategory('services')">🚗 الخدمات</div>
+  <div class="category" onclick="openCat('shopping')">🛍️ التسوق</div>
+  <div class="category" onclick="openCat('food')">🍔 الطعام</div>
+  <div class="category" onclick="openCat('travel')">✈️ السفر</div>
+  <div class="category" onclick="openCat('finance')">💳 المال</div>
+  <div class="category" onclick="openCat('entertainment')">🎬 الترفيه</div>
+  <div class="category" onclick="openCat('tools')">🧰 أدوات مفيدة</div>
 </div>
 
-<!-- SHOPPING -->
+<!-- SHOPPING (10) -->
 <div id="shopping" class="hidden">
-  <div class="app-card">
-    <div class="app-icon"><svg width="44" height="44"><use xlink:href="#amazon"/></svg></div>
-    <div class="app-info">
-      <h3>Amazon السعودية</h3>
-      <p>أكبر متجر إلكتروني مع شحن سريع وعروض يومية</p>
-    </div>
-    <a class="visit" href="https://www.amazon.sa" target="_blank">زيارة</a>
-  </div>
-
-  <div class="app-card">
-    <div class="app-icon"><svg width="44" height="44"><use xlink:href="#noon"/></svg></div>
-    <div class="app-info">
-      <h3>Noon</h3>
-      <p>إلكترونيات وأزياء بأسعار منافسة</p>
-    </div>
-    <a class="visit" href="https://www.noon.com" target="_blank">زيارة</a>
-  </div>
-
-  <div class="app-card">
-    <div class="app-icon"><svg width="44" height="44"><use xlink:href="#namshi"/></svg></div>
-    <div class="app-info">
-      <h3>Namshi</h3>
-      <p>أزياء عصرية بخصومات حصرية</p>
-    </div>
-    <a class="visit" href="https://www.namshi.com" target="_blank">زيارة</a>
-  </div>
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#A"/></svg></div><div class="app-info"><h3>Amazon</h3><p>أكبر متجر إلكتروني عالمي</p></div><a class="visit" href="https://amazon.com" target="_blank">زيارة</a></div>
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#N"/></svg></div><div class="app-info"><h3>Noon</h3><p>عروض يومية وأسعار منافسة</p></div><a class="visit" href="https://noon.com" target="_blank">زيارة</a></div>
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#S"/></svg></div><div class="app-info"><h3>Namshi</h3><p>أزياء عصرية</p></div><a class="visit" href="https://namshi.com" target="_blank">زيارة</a></div>
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#S"/></svg></div><div class="app-info"><h3>AliExpress</h3><p>منتجات متنوعة بأسعار منخفضة</p></div><a class="visit" href="https://aliexpress.com" target="_blank">زيارة</a></div>
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#S"/></svg></div><div class="app-info"><h3>Shein</h3><p>أزياء شبابية</p></div><a class="visit" href="https://shein.com" target="_blank">زيارة</a></div>
 </div>
 
-<!-- ENTERTAINMENT -->
+<!-- FOOD (5) -->
+<div id="food" class="hidden">
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#T"/></svg></div><div class="app-info"><h3>Talabat</h3><p>اطلب من أقرب مطعم</p></div><a class="visit" href="https://talabat.com" target="_blank">زيارة</a></div>
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#T"/></svg></div><div class="app-info"><h3>HungerStation</h3><p>توصيل سريع</p></div><a class="visit" href="https://hungerstation.com" target="_blank">زيارة</a></div>
+</div>
+
+<!-- TRAVEL (5) -->
+<div id="travel" class="hidden">
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#U"/></svg></div><div class="app-info"><h3>Uber</h3><p>تنقل ذكي</p></div><a class="visit" href="https://uber.com" target="_blank">زيارة</a></div>
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#U"/></svg></div><div class="app-info"><h3>Careem</h3><p>تنقل وخدمات</p></div><a class="visit" href="https://careem.com" target="_blank">زيارة</a></div>
+</div>
+
+<!-- FINANCE (5) -->
+<div id="finance" class="hidden">
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#P"/></svg></div><div class="app-info"><h3>STC Pay</h3><p>محفظة رقمية</p></div><a class="visit" href="https://stcpay.com.sa" target="_blank">زيارة</a></div>
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#P"/></svg></div><div class="app-info"><h3>PayPal</h3><p>دفع آمن عالمي</p></div><a class="visit" href="https://paypal.com" target="_blank">زيارة</a></div>
+</div>
+
+<!-- ENTERTAINMENT (5) -->
 <div id="entertainment" class="hidden">
-  <div class="app-card">
-    <div class="app-icon"><svg width="44" height="44"><use xlink:href="#netflix"/></svg></div>
-    <div class="app-info">
-      <h3>Netflix</h3>
-      <p>أفلام ومسلسلات بدون إعلانات</p>
-    </div>
-    <a class="visit" href="https://www.netflix.com" target="_blank">زيارة</a>
-  </div>
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#S"/></svg></div><div class="app-info"><h3>Netflix</h3><p>مسلسلات وأفلام</p></div><a class="visit" href="https://netflix.com" target="_blank">زيارة</a></div>
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#S"/></svg></div><div class="app-info"><h3>YouTube</h3><p>فيديوهات بلا حدود</p></div><a class="visit" href="https://youtube.com" target="_blank">زيارة</a></div>
 </div>
 
-<!-- SERVICES -->
-<div id="services" class="hidden">
-  <div class="app-card">
-    <div class="app-icon"><svg width="44" height="44"><use xlink:href="#talabat"/></svg></div>
-    <div class="app-info">
-      <h3>Talabat</h3>
-      <p>اطلب طعامك من أقرب المطاعم</p>
-    </div>
-    <a class="visit" href="https://www.talabat.com" target="_blank">زيارة</a>
-  </div>
-
-  <div class="app-card">
-    <div class="app-icon"><svg width="44" height="44"><use xlink:href="#uber"/></svg></div>
-    <div class="app-info">
-      <h3>Uber</h3>
-      <p>تنقل بسهولة داخل المدينة</p>
-    </div>
-    <a class="visit" href="https://www.uber.com" target="_blank">زيارة</a>
-  </div>
+<!-- TOOLS (8) -->
+<div id="tools" class="hidden">
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#P"/></svg></div><div class="app-info"><h3>Canva</h3><p>تصميم سهل</p></div><a class="visit" href="https://canva.com" target="_blank">زيارة</a></div>
+  <div class="app-card"><div class="app-icon"><svg width="44" height="44"><use xlink:href="#P"/></svg></div><div class="app-info"><h3>ChatGPT</h3><p>مساعد ذكي</p></div><a class="visit" href="https://chat.openai.com" target="_blank">زيارة</a></div>
 </div>
 
 </div>
 
 <div class="nav">
-  <button onclick="goHome()">🏠 Home</button>
-  <button onclick="goBack()">⬅ Back</button>
+  <button onclick="location.reload()">🏠 Home</button>
+  <button onclick="location.reload()">⬅ Back</button>
 </div>
 
 <script>
-function openCategory(id){
+function openCat(id){
   document.getElementById("categories").classList.add("hidden");
   document.getElementById(id).classList.remove("hidden");
-}
-
-function goHome(){
-  location.reload();
-}
-
-function goBack(){
-  goHome();
 }
 </script>
 

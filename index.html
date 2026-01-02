@@ -22,10 +22,10 @@ font-weight:700;
 
 .container{
 padding:16px;
-padding-bottom:90px;
+padding-bottom:100px;
 }
 
-/* ===== Categories ===== */
+/* Categories */
 .categories{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -35,12 +35,9 @@ gap:14px;
 .cat-card{
 background:linear-gradient(145deg,#0b1220,#020617);
 border-radius:18px;
-padding:20px;
+padding:18px;
 cursor:pointer;
-transition:.2s;
 }
-
-.cat-card:hover{opacity:.9}
 
 .cat-title{
 font-size:18px;
@@ -52,10 +49,8 @@ font-size:13px;
 opacity:.6;
 }
 
-/* ===== Stores ===== */
-.store-list{
-display:none;
-}
+/* Stores */
+.store-list{display:none}
 
 .store-card{
 background:linear-gradient(145deg,#0b1220,#020617);
@@ -64,12 +59,20 @@ padding:16px;
 margin-bottom:14px;
 display:flex;
 align-items:center;
-justify-content:space-between;
+}
+
+.visit-btn{
+background:#22c55e;
+border:none;
+color:#022c22;
+padding:10px 18px;
+border-radius:14px;
+font-weight:700;
+margin-left:10px;
 }
 
 .store-info{
 flex:1;
-padding:0 12px;
 }
 
 .store-name{
@@ -83,8 +86,8 @@ opacity:.6;
 }
 
 .store-icon{
-width:52px;
-height:52px;
+width:50px;
+height:50px;
 border-radius:14px;
 background:#fff;
 color:#000;
@@ -92,19 +95,10 @@ display:flex;
 align-items:center;
 justify-content:center;
 font-weight:700;
+margin-right:10px;
 }
 
-.visit-btn{
-background:#22c55e;
-border:none;
-color:#022c22;
-padding:10px 18px;
-border-radius:14px;
-font-weight:700;
-cursor:pointer;
-}
-
-/* ===== Bottom Bar ===== */
+/* Bottom bar */
 .bottom-bar{
 position:fixed;
 bottom:0;
@@ -123,18 +117,10 @@ padding:14px;
 border-radius:16px;
 font-size:16px;
 font-weight:700;
-cursor:pointer;
 }
 
-.home{
-background:#22c55e;
-color:#022c22;
-}
-
-.back{
-background:#0b1220;
-color:#fff;
-}
+.home{background:#22c55e;color:#022c22}
+.back{background:#0b1220;color:#fff}
 </style>
 </head>
 
@@ -144,112 +130,91 @@ color:#fff;
 
 <div class="container">
 
-<!-- ===== Categories ===== -->
+<!-- Categories -->
 <div id="categories" class="categories">
-<div class="cat-card" onclick="openStores('shopping')">
-<div class="cat-title">التسوق</div>
-<div class="cat-sub">متاجر عالمية</div>
+<div class="cat-card" onclick="openStores()">
+<div class="cat-title">🛍️ التسوق</div>
+<div class="cat-sub">متاجر عالمية موثوقة</div>
 </div>
 
-<div class="cat-card" onclick="openStores('fashion')">
-<div class="cat-title">الأزياء</div>
+<div class="cat-card" onclick="openStores()">
+<div class="cat-title">👗 الأزياء</div>
 <div class="cat-sub">ملابس وموضة</div>
 </div>
 
-<div class="cat-card" onclick="openStores('tech')">
-<div class="cat-title">الإلكترونيات</div>
-<div class="cat-sub">تقنية وأجهزة</div>
+<div class="cat-card" onclick="openStores()">
+<div class="cat-title">📱 الإلكترونيات</div>
+<div class="cat-sub">أجهزة وتقنية</div>
 </div>
 
-<div class="cat-card" onclick="openStores('home')">
-<div class="cat-title">المنزل</div>
+<div class="cat-card" onclick="openStores()">
+<div class="cat-title">🏠 المنزل</div>
 <div class="cat-sub">أثاث وأدوات</div>
 </div>
+
+<div class="cat-card" onclick="openStores()">
+<div class="cat-title">✈️ السفر</div>
+<div class="cat-sub">حجوزات وخدمات</div>
 </div>
 
-<!-- ===== Stores ===== -->
+<div class="cat-card" onclick="openStores()">
+<div class="cat-title">🎓 التعليم</div>
+<div class="cat-sub">منصات تعلم</div>
+</div>
+</div>
+
+<!-- Stores -->
 <div id="stores" class="store-list">
 
-<div class="store-card">
-<button class="visit-btn">زيارة</button>
-<div class="store-info">
-<div class="store-name">Amazon</div>
-<div class="store-desc">أكبر متجر إلكتروني عالمي</div>
-</div>
-<div class="store-icon">A</div>
-</div>
-
-<div class="store-card">
-<button class="visit-btn">زيارة</button>
-<div class="store-info">
-<div class="store-name">Noon</div>
-<div class="store-desc">تسوق الخليج</div>
-</div>
-<div class="store-icon">N</div>
-</div>
-
-<div class="store-card">
-<button class="visit-btn">زيارة</button>
-<div class="store-info">
-<div class="store-name">Shein</div>
-<div class="store-desc">ملابس وموضة</div>
-</div>
-<div class="store-icon">S</div>
-</div>
-
-<div class="store-card">
-<button class="visit-btn">زيارة</button>
-<div class="store-info">
-<div class="store-name">AliExpress</div>
-<div class="store-desc">منتجات عالمية</div>
-</div>
-<div class="store-icon">A</div>
-</div>
-
-<div class="store-card">
-<button class="visit-btn">زيارة</button>
-<div class="store-info">
-<div class="store-name">eBay</div>
-<div class="store-desc">مزادات وتسوق</div>
-</div>
-<div class="store-icon">E</div>
-</div>
-
-<div class="store-card">
-<button class="visit-btn">زيارة</button>
-<div class="store-info">
-<div class="store-name">IKEA</div>
-<div class="store-desc">أثاث منزلي</div>
-</div>
-<div class="store-icon">I</div>
-</div>
-
-</div>
-</div>
-
-<!-- ===== Bottom Navigation ===== -->
-<div class="bottom-bar">
-<button class="bottom-btn back" onclick="goBack()">← رجوع</button>
-<button class="bottom-btn home" onclick="goHome()">🏠 الرئيسية</button>
-</div>
-
+<!-- 40 STORES -->
 <script>
-function openStores(){
-document.getElementById('categories').style.display='none';
-document.getElementById('stores').style.display='block';
-document.getElementById('title').innerText='المتاجر';
-}
+const stores = [
+["Amazon","أكبر متجر إلكتروني عالمي","https://www.amazon.com"],
+["Noon","تسوق الخليج","https://www.noon.com"],
+["Shein","ملابس وموضة","https://www.shein.com"],
+["AliExpress","منتجات عالمية","https://www.aliexpress.com"],
+["eBay","مزادات وتسوق","https://www.ebay.com"],
+["IKEA","أثاث منزلي","https://www.ikea.com"],
+["Zara","أزياء عصرية","https://www.zara.com"],
+["H&M","ملابس للجميع","https://www.hm.com"],
+["Nike","ملابس رياضية","https://www.nike.com"],
+["Adidas","رياضة وأزياء","https://www.adidas.com"],
+["Apple","تقنية وأجهزة","https://www.apple.com"],
+["Samsung","هواتف وإلكترونيات","https://www.samsung.com"],
+["BestBuy","إلكترونيات","https://www.bestbuy.com"],
+["MediaMarkt","تقنية وأجهزة","https://www.mediamarkt.com"],
+["Carrefour","تسوق شامل","https://www.carrefour.com"],
+["Walmart","متجر شامل","https://www.walmart.com"],
+["Target","تسوق ذكي","https://www.target.com"],
+["ASOS","أزياء شبابية","https://www.asos.com"],
+["Pull&Bear","ملابس عصرية","https://www.pullandbear.com"],
+["Decathlon","معدات رياضية","https://www.decathlon.com"],
+["Booking","حجوزات فنادق","https://www.booking.com"],
+["Airbnb","سكن وسفر","https://www.airbnb.com"],
+["Skyscanner","رحلات طيران","https://www.skyscanner.com"],
+["Udemy","دورات تعليمية","https://www.udemy.com"],
+["Coursera","تعلم أونلاين","https://www.coursera.org"],
+["Khan Academy","تعليم مجاني","https://www.khanacademy.org"],
+["Netflix","بث أفلام","https://www.netflix.com"],
+["Spotify","موسيقى","https://www.spotify.com"],
+["Canva","تصميم أونلاين","https://www.canva.com"],
+["Fiverr","خدمات حرة","https://www.fiverr.com"],
+["Upwork","عمل حر","https://www.upwork.com"],
+["AliBaba","تجارة جملة","https://www.alibaba.com"],
+["Etsy","منتجات يدوية","https://www.etsy.com"],
+["Pinterest","إلهام وأفكار","https://www.pinterest.com"],
+["TikTok","محتوى فيديو","https://www.tiktok.com"],
+["Facebook","تواصل اجتماعي","https://www.facebook.com"],
+["Instagram","صور وفيديو","https://www.instagram.com"],
+["Twitter (X)","شبكة اجتماعية","https://x.com"],
+["Google","محرك بحث","https://www.google.com"]
+];
 
-function goBack(){
-goHome();
-}
-
-function goHome(){
-document.getElementById('stores').style.display='none';
-document.getElementById('categories').style.display='grid';
-document.getElementById('title').innerText='الفئات';
-}
-</script>
-
-</body>
-</html>
+document.write(stores.map(s=>`
+<div class="store-card">
+<button class="visit-btn" onclick="window.open('${s[2]}')">زيارة</button>
+<div class="store-info">
+<div class="store-name">${s[0]}</div>
+<div class="store-desc">${s[1]}</div>
+</div>
+<div class="store-icon">${s[0][0]}</div>

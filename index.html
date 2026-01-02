@@ -5,10 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dalilak</title>
 
+<!-- Telegram SDK -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <style>
 body{
   margin:0;
-  font-family:system-ui;
+  font-family:system-ui,-apple-system;
   background:#020617;
   color:#fff;
 }
@@ -16,7 +19,7 @@ body{
   padding:16px;
   text-align:center;
   font-size:20px;
-  font-weight:bold;
+  font-weight:700;
 }
 .grid{
   display:grid;
@@ -40,7 +43,6 @@ body{
   display:flex;
   align-items:center;
   margin-bottom:12px;
-  cursor:pointer;
 }
 .icon{
   width:56px;
@@ -51,21 +53,21 @@ body{
   align-items:center;
   justify-content:center;
 }
+.icon svg{width:34px;height:34px}
 .info{margin-right:12px;flex:1}
-.name{font-weight:bold}
-.desc{font-size:13px;opacity:.8}
+.name{font-weight:700}
+.desc{font-size:13px;opacity:.8;margin-top:3px}
 .visit{
   background:#22c55e;
   color:#022c22;
   padding:6px 12px;
   border-radius:10px;
   font-size:13px;
+  font-weight:600;
 }
 .bottom{
   position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
+  bottom:0;left:0;right:0;
   background:#020617;
   display:flex;
   gap:10px;
@@ -80,12 +82,13 @@ body{
 }
 .home{background:#22c55e}
 .back{background:#1e293b;color:#fff}
+.hidden{display:none}
 </style>
 </head>
 
 <body>
 
-<div class="header">Dalilak | دليلك</div>
+<div class="header" id="title">Dalilak | دليلك</div>
 
 <div id="cats">
   <div class="grid">
@@ -96,7 +99,7 @@ body{
   </div>
 </div>
 
-<div id="stores" style="display:none">
+<div id="stores" class="hidden">
   <div class="list" id="storeList"></div>
 </div>
 
@@ -106,71 +109,70 @@ body{
 </div>
 
 <script>
-const ICONS={
-amazon:`<svg viewBox="0 0 24 24" width="32"><text x="2" y="18" font-size="16">a</text><path d="M4 20c6 2 10 2 16-1" stroke="#FF9900" fill="none" stroke-width="2"/></svg>`,
-noon:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#FEEE00"/><text x="12" y="16" font-size="9" text-anchor="middle">noon</text></svg>`,
-shein:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#000"/><text x="12" y="16" fill="#fff" font-size="9" text-anchor="middle">SHEIN</text></svg>`,
-aliexpress:`<svg viewBox="0 0 24 24" width="32"><circle cx="12" cy="12" r="10" fill="#ff4747"/><text x="12" y="16" fill="#fff" font-size="8" text-anchor="middle">Ali</text></svg>`,
-ebay:`<svg viewBox="0 0 24 24" width="32"><text x="2" y="16" font-size="10" fill="#e53238">e</text><text x="9" y="16" font-size="10" fill="#0064d2">b</text><text x="15" y="16" font-size="10" fill="#f5af02">a</text><text x="20" y="16" font-size="10" fill="#86b817">y</text></svg>`,
-jarir:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#e11d48"/><text x="12" y="16" fill="#fff" font-size="9" text-anchor="middle">Jarir</text></svg>`,
-extra:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#2563eb"/><text x="12" y="16" fill="#fff" font-size="9" text-anchor="middle">extra</text></svg>`,
-namshi:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#000"/><text x="12" y="16" fill="#fff" font-size="9" text-anchor="middle">namshi</text></svg>`,
-asos:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#111"/><text x="12" y="16" fill="#fff" font-size="10" text-anchor="middle">ASOS</text></svg>`,
-ikea:`<svg viewBox="0 0 24 24" width="32"><rect width="24" height="24" rx="6" fill="#0058a3"/><text x="12" y="16" fill="#ffda1a" font-size="10" text-anchor="middle">IKEA</text></svg>`
+/* Telegram init */
+const tg = window.Telegram?.WebApp;
+tg?.ready();
+tg?.expand();
+
+/* SVG ICONS (inline – safe) */
+const ICONS = {
+  amazon:`<svg viewBox="0 0 24 24"><path fill="#FF9900" d="M7 19c5 2 9 2 14-1"/><text x="3" y="16" font-size="14">a</text></svg>`,
+  noon:`<svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#FEEE00"/><text x="12" y="16" text-anchor="middle" font-size="9">noon</text></svg>`,
+  shein:`<svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#000"/><text x="12" y="16" fill="#fff" font-size="9" text-anchor="middle">SHEIN</text></svg>`,
+  aliexpress:`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#ff4747"/><text x="12" y="16" fill="#fff" font-size="8" text-anchor="middle">Ali</text></svg>`,
+  ebay:`<svg viewBox="0 0 24 24"><text x="2" y="16" font-size="10" fill="#e53238">e</text><text x="9" y="16" font-size="10" fill="#0064d2">b</text><text x="15" y="16" font-size="10" fill="#f5af02">a</text><text x="20" y="16" font-size="10" fill="#86b817">y</text></svg>`,
+  ikea:`<svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#0058a3"/><text x="12" y="16" fill="#ffda1a" font-size="10" text-anchor="middle">IKEA</text></svg>`
 };
 
-const DATA={
-shop:[
-["amazon","Amazon","أكبر متجر إلكتروني","https://amazon.com"],
-["noon","Noon","تسوق الخليج","https://noon.com"],
-["shein","Shein","ملابس وموضة","https://shein.com"],
-["aliexpress","AliExpress","منتجات عالمية","https://aliexpress.com"],
-["ebay","eBay","مزادات وتسوق","https://ebay.com"],
-["namshi","Namshi","أزياء","https://namshi.com"],
-["asos","ASOS","موضة عالمية","https://asos.com"],
-["ikea","IKEA","أثاث منزلي","https://ikea.com"]
-],
-tech:[
-["jarir","Jarir","تقنية وكتب","https://jarir.com"],
-["extra","Extra","إلكترونيات","https://extra.com"],
-["amazon","Amazon Tech","أجهزة وتقنية","https://amazon.com"]
-],
-edu:[
-["coursera","Coursera","دورات جامعية","https://coursera.org"],
-["udemy","Udemy","تعلم مهارات","https://udemy.com"]
-],
-ent:[
-["netflix","Netflix","أفلام ومسلسلات","https://netflix.com"],
-["spotify","Spotify","موسيقى","https://spotify.com"],
-["steam","Steam","ألعاب","https://store.steampowered.com"]
-]
+/* DATA */
+const DATA = {
+  shop:[
+    ["amazon","Amazon","أكبر متجر إلكتروني عالمي","https://amazon.com"],
+    ["noon","Noon","تسوق الخليج","https://noon.com"],
+    ["shein","Shein","ملابس وموضة","https://shein.com"],
+    ["aliexpress","AliExpress","منتجات عالمية","https://aliexpress.com"],
+    ["ebay","eBay","مزادات وتسوق","https://ebay.com"],
+    ["ikea","IKEA","أثاث منزلي","https://ikea.com"]
+  ],
+  tech:[
+    ["amazon","Amazon Tech","تقنية وأجهزة","https://amazon.com"]
+  ],
+  edu:[
+    ["coursera","Coursera","دورات جامعية","https://coursera.org"]
+  ],
+  ent:[
+    ["netflix","Netflix","أفلام ومسلسلات","https://netflix.com"]
+  ]
 };
 
 function openCat(cat){
-  document.getElementById("cats").style.display="none";
-  document.getElementById("stores").style.display="block";
+  document.getElementById("cats").classList.add("hidden");
+  document.getElementById("stores").classList.remove("hidden");
+  document.getElementById("title").innerText="المتاجر";
+
   const list=document.getElementById("storeList");
   list.innerHTML="";
   DATA[cat].forEach(s=>{
     list.innerHTML+=`
-    <div class="store" onclick="openLink('${s[3]}')">
-      <div class="icon">${ICONS[s[0]]||"🏬"}</div>
-      <div class="info">
-        <div class="name">${s[1]}</div>
-        <div class="desc">${s[2]}</div>
-      </div>
-      <div class="visit">زيارة</div>
-    </div>`;
+      <div class="store" onclick="openLink('${s[3]}')">
+        <div class="icon">${ICONS[s[0]] || "🏬"}</div>
+        <div class="info">
+          <div class="name">${s[1]}</div>
+          <div class="desc">${s[2]}</div>
+        </div>
+        <div class="visit">زيارة</div>
+      </div>`;
   });
 }
 
 function goHome(){
-  document.getElementById("cats").style.display="block";
-  document.getElementById("stores").style.display="none";
+  document.getElementById("stores").classList.add("hidden");
+  document.getElementById("cats").classList.remove("hidden");
+  document.getElementById("title").innerText="Dalilak | دليلك";
 }
 
 function openLink(url){
-  Telegram?.WebApp?.openLink(url);
+  tg ? tg.openLink(url) : window.open(url);
 }
 </script>
 

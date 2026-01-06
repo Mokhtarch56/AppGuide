@@ -4,55 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>💗 دليل الجمال</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* CSS داخلي */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background-color: #fff0f5; color: #333; }
+        header { text-align: center; padding: 20px; background-color: #ffc0cb; color: #fff; font-size: 1.5em; }
+        main { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; }
+        .category-card, .store-card { background-color: #fff; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 15px; width: 150px; text-align: center; cursor: pointer; transition: transform 0.2s; }
+        .category-card:hover, .store-card:hover { transform: scale(1.05); }
+        .category-card span { font-size: 2em; display: block; margin-bottom: 10px; }
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: #ffc0cb; display: flex; justify-content: space-around; padding: 10px 0; }
+        .bottom-nav button { background: none; border: none; font-size: 1.2em; color: #fff; cursor: pointer; }
+    </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <h1>💗 دليل الجمال</h1>
     </header>
 
-    <!-- الصفحة الرئيسية / الفئات -->
     <main id="main-content">
-        <div class="category-card" data-category="makeup">
-            <span>💄</span>
-            <h2>مايكب</h2>
-            <p>أحمر شفاه، كريمات، فرش</p>
-        </div>
-        <div class="category-card" data-category="skincare">
-            <span>🧴</span>
-            <h2>العناية بالبشرة</h2>
-            <p>كريمات، زيوت، ماسكات</p>
-        </div>
-        <div class="category-card" data-category="nails">
-            <span>💅</span>
-            <h2>أظافر</h2>
-            <p>طلاء، أدوات العناية</p>
-        </div>
-        <div class="category-card" data-category="fashion">
-            <span>👗</span>
-            <h2>ملابس وأكسسوارات</h2>
-            <p>فساتين، حقائب، مجوهرات</p>
-        </div>
-        <div class="category-card" data-category="compare">
-            <span>⭐</span>
-            <h2>مقارنة</h2>
-            <p>مقارنة الأسعار والمنتجات</p>
-        </div>
-        <div class="category-card" data-category="stores">
-            <span>🏬</span>
-            <h2>متاجر</h2>
-            <p>جميع المتاجر المتوفرة</p>
-        </div>
+        <div class="category-card" data-category="makeup"><span>💄</span><h2>مايكب</h2><p>أحمر شفاه، كريمات، فرش</p></div>
+        <div class="category-card" data-category="skincare"><span>🧴</span><h2>العناية بالبشرة</h2><p>كريمات، زيوت، ماسكات</p></div>
+        <div class="category-card" data-category="nails"><span>💅</span><h2>أظافر</h2><p>طلاء، أدوات العناية</p></div>
+        <div class="category-card" data-category="fashion"><span>👗</span><h2>ملابس وأكسسوارات</h2><p>فساتين، حقائب، مجوهرات</p></div>
+        <div class="category-card" data-category="compare"><span>⭐</span><h2>مقارنة</h2><p>مقارنة الأسعار والمنتجات</p></div>
+        <div class="category-card" data-category="stores"><span>🏬</span><h2>متاجر</h2><p>جميع المتاجر المتوفرة</p></div>
     </main>
 
-    <!-- Bottom Navigation -->
     <nav class="bottom-nav">
         <button id="home-btn">🏠 الرئيسية</button>
         <button id="categories-btn">🗂️ الفئات</button>
         <button id="favorites-btn">❤️ المفضلة</button>
     </nav>
 
-    <script src="js/main.js"></script>
+    <script>
+        // JS داخلي
+        const stores = [
+          { name: "Sephora", logo: "", description: "أحمر شفاه، كريمات، فرش", rating: 4.5, url: "https://www.sephora.com" },
+          { name: "Huda Beauty", logo: "", description: "مستحضرات تجميل فاخرة", rating: 4.8, url: "https://hudabeauty.com" },
+          { name: "MAC", logo: "", description: "مكياج احترافي", rating: 4.6, url: "https://www.maccosmetics.com" }
+        ];
+
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const category = card.dataset.category;
+                if(category === "stores") showStores();
+                else alert(`تم اختيار الفئة: ${category}`);
+            });
+        });
+
+        function showStores() {
+            const main = document.getElementById('main-content');
+            main.innerHTML = "";
+            stores.forEach(store => {
+                const div = document.createElement('div');
+                div.className = "store-card";
+                div.innerHTML = `
+                    <h3>${store.name}</h3>
+                    <p>${store.description}</p>
+                    <p>⭐ ${store.rating}/5</p>
+                    <button class="visit-btn">زيارة المتجر</button>
+                    <button class="fav-btn">❤️ إضافة للمفضلة</button>
+                `;
+                main.appendChild(div);
+                div.querySelector(".visit-btn").addEventListener("click", () => { window.open(store.url, "_blank"); });
+                div.querySelector(".fav-btn").addEventListener("click", () => { alert(`${store.name} أضيف للمفضلة!`); });
+            });
+        }
+    </script>
 </body>
 </html>

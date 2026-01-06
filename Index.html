@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليلك | Dalilak</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #22c55e;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding-bottom: 80px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        /* نظام الشبكة للفئات */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 15px;
+        }
+
+        .category-card {
+            background-color: var(--card-bg);
+            padding: 25px 10px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .category-card i {
+            font-size: 35px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* قائمة المتاجر */
+        .page { display: none; padding: 15px; }
+        .active-page { display: block; }
+
+        .store-card {
+            display: flex;
+            align-items: center;
+            background-color: var(--card-bg);
+            padding: 12px;
+            border-radius: 15px;
+            margin-bottom: 12px;
+        }
+
+        .store-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: #fff;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .store-info { flex-grow: 1; }
+        .store-name { font-weight: bold; font-size: 15px; }
+        .store-desc { color: var(--text-dim); font-size: 12px; }
+
+        .btn-visit {
+            background-color: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        /* الشريط السفلي الثابت */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: var(--card-bg);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-top: 1px solid #334155;
+        }
+
+        .nav-item {
+            color: var(--text-dim);
+            text-align: center;
+            font-size: 12px;
+            flex: 1;
+        }
+
+        .nav-item i { font-size: 20px; display: block; margin-bottom: 4px; }
+        .nav-item.active { color: var(--accent-color); }
+    </style>
+</head>
+<body>
+
+<header>دليلك | Dalilak</header>
+
+<div id="home-page" class="page active-page">
+    <div class="categories-grid">
+        <div class="category-card" onclick="openCategory('مايكب', '💄')">
+            <i class="fas fa-magic"></i>
+            <span>مايكب</span>
+        </div>
+        <div class="category-card" onclick="openCategory('عناية', '✨')">
+            <i class="fas fa-sparkles"></i>
+            <span>عناية</span>
+        </div>
+        <div class="category-card" onclick="openCategory('أظافر', '💅')">
+            <i class="fas fa-hand-sparkles"></i>
+            <span>أظافر</span>
+        </div>
+        <div class="category-card" onclick="openCategory('عطور', '🌬️')">
+            <i class="fas fa-wind"></i>
+            <span>عطور</span>
+        </div>
+    </div>
+</div>
+
+<div id="category-page" class="page">
+    <h3 id="cat-title">المتاجر</h3>
+    <div id="stores-container">
+        </div>
+</div>
+
+<div class="bottom-nav">
+    <div class="nav-item active" onclick="showHome()">
+        <i class="fas fa-home"></i>
+        <span>الرئيسية</span>
+    </div>
+    <div class="nav-item">
+        <i class="fas fa-heart"></i>
+        <span>المفضلة</span>
+    </div>
+    <div class="nav-item" onclick="showHome()">
+        <i class="fas fa-arrow-right"></i>
+        <span>رجوع</span>
+    </div>
+</div>
+
+<script>
+    function openCategory(name, icon) {
+        document.getElementById('home-page').classList.remove('active-page');
+        document.getElementById('category-page').classList.add('active-page');
+        document.getElementById('cat-title').innerText = icon + " متاجر " + name;
+        
+        // مثال لمتجر يظهر عند الضغط
+        const container = document.getElementById('stores-container');
+        container.innerHTML = `
+            <div class="store-card">
+                <div class="store-img">${name[0]}</div>
+                <div class="store-info">
+                    <div class="store-name">متجر ${name} المميز</div>
+                    <div class="store-desc">أفضل المنتجات المختارة لكِ</div>
+                </div>
+                <button class="btn-visit">زيارة</button>
+            </div>
+        `;
+    }
+
+    function showHome() {
+        document.getElementById('category-page').classList.remove('active-page');
+        document.getElementById('home-page').classList.add('active-page');
+    }
+</script>
+
+</body>
+</html>

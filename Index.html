@@ -19,21 +19,20 @@ header {
     font-weight: bold;
     position: sticky;
     top: 0;
+    z-index: 100;
 }
-.store-list {
-    display: flex;
-    overflow-x: auto;
-    padding: 20px;
+.store-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 15px;
+    padding: 20px;
 }
 .store-card {
-    min-width: 160px;
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    padding: 15px;
     text-align: center;
-    flex-shrink: 0;
+    padding: 15px;
     transition: transform 0.2s;
 }
 .store-card:hover {
@@ -62,22 +61,14 @@ header {
 .store-card a:hover {
     background-color: #FF1493;
 }
-
-/* Scrollbar hide for mobile feel */
-.store-list::-webkit-scrollbar {
-    display: none;
-}
-.store-list {
-    -ms-overflow-style: none;  
-    scrollbar-width: none;  
-}
 </style>
 </head>
 <body>
 <header>دليل المتاجر النسائية</header>
-<div class="store-list" id="storeList"></div>
+<div class="store-grid" id="storeGrid"></div>
 
 <script>
+// مثال على 20 متجر، يمكن توسعته لأي عدد
 const stores = [
     {name:"متجر الجمال", logo:"https://via.placeholder.com/80?text=G1", link:"#"},
     {name:"متجر الموضة", logo:"https://via.placeholder.com/80?text=M2", link:"#"},
@@ -86,11 +77,22 @@ const stores = [
     {name:"متجر الإكسسوارات", logo:"https://via.placeholder.com/80?text=A5", link:"#"},
     {name:"متجر الملابس", logo:"https://via.placeholder.com/80?text=C6", link:"#"},
     {name:"متجر الأحذية", logo:"https://via.placeholder.com/80?text=S7", link:"#"},
-    {name:"متجر المكياج", logo:"https://via.placeholder.com/80?text=CM8", link:"#"}
+    {name:"متجر المكياج", logo:"https://via.placeholder.com/80?text=CM8", link:"#"},
+    {name:"متجر الساعات", logo:"https://via.placeholder.com/80?text=W9", link:"#"},
+    {name:"متجر المجوهرات", logo:"https://via.placeholder.com/80?text=J10", link:"#"},
+    {name:"متجر النظارات", logo:"https://via.placeholder.com/80?text=G11", link:"#"},
+    {name:"متجر الأوشحة", logo:"https://via.placeholder.com/80?text=S12", link:"#"},
+    {name:"متجر الأحزمة", logo:"https://via.placeholder.com/80?text=B13", link:"#"},
+    {name:"متجر القبعات", logo:"https://via.placeholder.com/80?text=H14", link:"#"},
+    {name:"متجر الجوارب", logo:"https://via.placeholder.com/80?text=SO15", link:"#"},
+    {name:"متجر ملابس النوم", logo:"https://via.placeholder.com/80?text=PN16", link:"#"},
+    {name:"متجر العناية بالشعر", logo:"https://via.placeholder.com/80?text=HS17", link:"#"},
+    {name:"متجر العناية بالبشرة", logo:"https://via.placeholder.com/80?text=BS18", link:"#"},
+    {name:"متجر الصحة والجمال", logo:"https://via.placeholder.com/80?text=HB19", link:"#"},
+    {name:"متجر الإلكترونيات النسائية", logo:"https://via.placeholder.com/80?text=E20", link:"#"}
 ];
 
-const container = document.getElementById("storeList");
-
+const grid = document.getElementById("storeGrid");
 stores.forEach(store => {
     const card = document.createElement("div");
     card.className = "store-card";
@@ -99,7 +101,7 @@ stores.forEach(store => {
         <h3>${store.name}</h3>
         <a href="${store.link}" target="_blank">زيارة المتجر</a>
     `;
-    container.appendChild(card);
+    grid.appendChild(card);
 });
 </script>
 </body>

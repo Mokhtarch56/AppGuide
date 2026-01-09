@@ -20,10 +20,22 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header button {
+    background-color: white;
+    color: #FF69B4;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: bold;
 }
 .store-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 15px;
     padding: 20px;
 }
@@ -34,6 +46,7 @@ header {
     text-align: center;
     padding: 15px;
     transition: transform 0.2s;
+    cursor: pointer;
 }
 .store-card:hover {
     transform: translateY(-5px);
@@ -48,61 +61,107 @@ header {
     font-size: 16px;
     margin: 5px 0;
 }
-.store-card a {
+.store-card a, .store-card button {
     display: inline-block;
-    margin-top: 8px;
-    padding: 8px 12px;
+    margin-top: 5px;
+    padding: 6px 10px;
     border-radius: 8px;
-    background-color: #FF69B4;
+    border: none;
     color: white;
+    background-color: #FF69B4;
     text-decoration: none;
+    cursor: pointer;
     transition: background-color 0.2s;
+    font-size: 14px;
 }
-.store-card a:hover {
+.store-card a:hover, .store-card button:hover {
     background-color: #FF1493;
+}
+.details-view {
+    display: none;
+    padding: 20px;
+}
+.details-view img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+.details-view h2 {
+    margin: 10px 0;
+}
+.favorite {
+    background-color: #FFD700;
+    color: #FF1493;
 }
 </style>
 </head>
 <body>
-<header>دليل المتاجر النسائية</header>
-<div class="store-grid" id="storeGrid"></div>
+
+<header>
+    <button id="backBtn" style="display:none;">⬅ رجوع</button>
+    دليل المتاجر النسائية
+    <div></div>
+</header>
+
+<div id="homeView" class="store-grid"></div>
+<div id="detailsView" class="details-view">
+    <img id="detailsLogo" src="" alt="">
+    <h2 id="detailsName"></h2>
+    <a id="visitBtn" href="#" target="_blank">زيارة المتجر</a>
+    <button id="favBtn">إضافة للمفضلة</button>
+</div>
 
 <script>
-// مثال على 20 متجر، يمكن توسعته لأي عدد
-const stores = [
-    {name:"متجر الجمال", logo:"https://via.placeholder.com/80?text=G1", link:"#"},
-    {name:"متجر الموضة", logo:"https://via.placeholder.com/80?text=M2", link:"#"},
-    {name:"متجر العطور", logo:"https://via.placeholder.com/80?text=P3", link:"#"},
-    {name:"متجر الحقائب", logo:"https://via.placeholder.com/80?text=B4", link:"#"},
-    {name:"متجر الإكسسوارات", logo:"https://via.placeholder.com/80?text=A5", link:"#"},
-    {name:"متجر الملابس", logo:"https://via.placeholder.com/80?text=C6", link:"#"},
-    {name:"متجر الأحذية", logo:"https://via.placeholder.com/80?text=S7", link:"#"},
-    {name:"متجر المكياج", logo:"https://via.placeholder.com/80?text=CM8", link:"#"},
-    {name:"متجر الساعات", logo:"https://via.placeholder.com/80?text=W9", link:"#"},
-    {name:"متجر المجوهرات", logo:"https://via.placeholder.com/80?text=J10", link:"#"},
-    {name:"متجر النظارات", logo:"https://via.placeholder.com/80?text=G11", link:"#"},
-    {name:"متجر الأوشحة", logo:"https://via.placeholder.com/80?text=S12", link:"#"},
-    {name:"متجر الأحزمة", logo:"https://via.placeholder.com/80?text=B13", link:"#"},
-    {name:"متجر القبعات", logo:"https://via.placeholder.com/80?text=H14", link:"#"},
-    {name:"متجر الجوارب", logo:"https://via.placeholder.com/80?text=SO15", link:"#"},
-    {name:"متجر ملابس النوم", logo:"https://via.placeholder.com/80?text=PN16", link:"#"},
-    {name:"متجر العناية بالشعر", logo:"https://via.placeholder.com/80?text=HS17", link:"#"},
-    {name:"متجر العناية بالبشرة", logo:"https://via.placeholder.com/80?text=BS18", link:"#"},
-    {name:"متجر الصحة والجمال", logo:"https://via.placeholder.com/80?text=HB19", link:"#"},
-    {name:"متجر الإلكترونيات النسائية", logo:"https://via.placeholder.com/80?text=E20", link:"#"}
-];
+const stores = [];
+for(let i=1;i<=40;i++){
+    stores.push({
+        name:`متجر ${i}`,
+        logo:`https://via.placeholder.com/80?text=S${i}`,
+        link:"#"
+    });
+}
 
-const grid = document.getElementById("storeGrid");
-stores.forEach(store => {
+const homeView = document.getElementById("homeView");
+const detailsView = document.getElementById("detailsView");
+const backBtn = document.getElementById("backBtn");
+const detailsLogo = document.getElementById("detailsLogo");
+const detailsName = document.getElementById("detailsName");
+const visitBtn = document.getElementById("visitBtn");
+const favBtn = document.getElementById("favBtn");
+
+let favorites = [];
+
+stores.forEach((store,index)=>{
     const card = document.createElement("div");
     card.className = "store-card";
-    card.innerHTML = `
-        <img src="${store.logo}" alt="${store.name}">
-        <h3>${store.name}</h3>
-        <a href="${store.link}" target="_blank">زيارة المتجر</a>
-    `;
-    grid.appendChild(card);
+    card.innerHTML = `<img src="${store.logo}" alt="${store.name}"><h3>${store.name}</h3>`;
+    card.addEventListener("click", ()=>{
+        homeView.style.display = "none";
+        detailsView.style.display = "block";
+        backBtn.style.display = "inline-block";
+        detailsLogo.src = store.logo;
+        detailsName.textContent = store.name;
+        visitBtn.href = store.link;
+        favBtn.textContent = favorites.includes(index) ? "حذف من المفضلة" : "إضافة للمفضلة";
+        favBtn.onclick = ()=>{
+            if(favorites.includes(index)){
+                favorites = favorites.filter(i=>i!==index);
+            } else {
+                favorites.push(index);
+            }
+            favBtn.textContent = favorites.includes(index) ? "حذف من المفضلة" : "إضافة للمفضلة";
+        }
+    });
+    homeView.appendChild(card);
+});
+
+backBtn.addEventListener("click", ()=>{
+    detailsView.style.display = "none";
+    homeView.style.display = "grid";
+    backBtn.style.display = "none";
 });
 </script>
+
 </body>
 </html>

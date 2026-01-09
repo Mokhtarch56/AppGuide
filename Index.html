@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دليل المتاجر النسائية</title>
+    <title>دليل المتاجر النسائية - دليل الجمال</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -164,18 +164,19 @@
             display: block;
             width: 100%;
             padding: 8px;
-            background-color: #f0f0f0;
-            color: #333;
+            background-color: #e91e63;
+            color: white;
             border: none;
             border-radius: 6px;
             font-size: 14px;
             text-align: center;
             cursor: pointer;
             transition: background-color 0.3s;
+            text-decoration: none;
         }
         
         .visit-store-btn:hover {
-            background-color: #e0e0e0;
+            background-color: #d81b60;
         }
         
         .bottom-nav {
@@ -354,7 +355,7 @@
     </div>
 
     <script>
-        // بيانات المتاجر
+        // بيانات المتاجر مع رواقع حقيقية
         const stores = [
             {
                 id: 1,
@@ -362,7 +363,9 @@
                 category: "beauty",
                 description: "المتجر الأشمل للعطور ومستحضرات التجميل",
                 color: "#ff4081",
-                icon: "fas fa-paint-brush"
+                icon: "fas fa-paint-brush",
+                website: "https://www.sephora.com",
+                arabicWebsite: "https://www.sephora.sa"
             },
             {
                 id: 2,
@@ -370,7 +373,9 @@
                 category: "perfume",
                 description: "متجر فخم للعطور والتحف الفنية",
                 color: "#000000",
-                icon: "fas fa-wine-bottle"
+                icon: "fas fa-wine-bottle",
+                website: "https://www.chanel.com",
+                arabicWebsite: "https://www.chanel.com/ar_AE"
             },
             {
                 id: 3,
@@ -378,7 +383,9 @@
                 category: "fashion",
                 description: "ملابس نسائية فخمة وعصرية",
                 color: "#2196f3",
-                icon: "fas fa-tshirt"
+                icon: "fas fa-tshirt",
+                website: "https://www.zara.com",
+                arabicWebsite: "https://www.zara.com/sa"
             },
             {
                 id: 4,
@@ -386,7 +393,9 @@
                 category: "accessories",
                 description: "مجوهرات وإكسسوارات فاخرة",
                 color: "#9c27b0",
-                icon: "fas fa-gem"
+                icon: "fas fa-gem",
+                website: "https://www.pandora.net",
+                arabicWebsite: "https://sa.pandora.net"
             },
             {
                 id: 5,
@@ -394,7 +403,9 @@
                 category: "beauty",
                 description: "أفضل منتجات المكياج العالمية",
                 color: "#e91e63",
-                icon: "fas fa-spa"
+                icon: "fas fa-spa",
+                website: "https://www.makeupforever.com",
+                arabicWebsite: "https://www.makeupforever.com/me_ar"
             },
             {
                 id: 6,
@@ -402,13 +413,35 @@
                 category: "beauty",
                 description: "متجر متخصص في مستحضرات التجميل",
                 color: "#ff9800",
-                icon: "fas fa-palette"
+                icon: "fas fa-palette",
+                website: "https://www.nccarabia.com",
+                arabicWebsite: "https://www.nccarabia.com"
+            },
+            {
+                id: 7,
+                name: "MAC Cosmetics",
+                category: "beauty",
+                description: "مستحضرات تجميل عالية الجودة",
+                color: "#9c27b0",
+                icon: "fas fa-lipstick",
+                website: "https://www.maccosmetics.com",
+                arabicWebsite: "https://www.maccosmetics.ae"
+            },
+            {
+                id: 8,
+                name: "H&M",
+                category: "fashion",
+                description: "موضة عصرية بأسعار مناسبة",
+                color: "#f44336",
+                icon: "fas fa-shopping-bag",
+                website: "https://www.hm.com",
+                arabicWebsite: "https://www.hm.com/sa_ar"
             }
         ];
         
         // توليد ألوان عشوائية للمتاجر
         function getRandomColor() {
-            const colors = ['#e91e63', '#9c27b0', '#2196f3', '#009688', '#ff9800', '#795548'];
+            const colors = ['#e91e63', '#9c27b0', '#2196f3', '#009688', '#ff9800', '#795548', '#3f51b5', '#ff5722'];
             return colors[Math.floor(Math.random() * colors.length)];
         }
         
@@ -433,15 +466,11 @@
                         <div class="store-name">${store.name}</div>
                         <div class="store-category">${getCategoryName(store.category)}</div>
                         <div class="store-description">${store.description}</div>
-                        <button class="visit-store-btn">زيارة المتجر</button>
+                        <a href="${store.arabicWebsite || store.website}" target="_blank" class="visit-store-btn">
+                            <i class="fas fa-external-link-alt"></i> زيارة المتجر
+                        </a>
                     </div>
                 `;
-                
-                // إضافة حدث النقر لزر زيارة المتجر
-                const visitBtn = storeElement.querySelector('.visit-store-btn');
-                visitBtn.addEventListener('click', function() {
-                    alert(`جاري توجيهك إلى متجر ${store.name}`);
-                });
                 
                 container.appendChild(storeElement);
             });
@@ -503,23 +532,27 @@
                     // إضافة الفعالية للزر المنقور
                     this.classList.add('active');
                     
-                    // في تطبيق حقيقي، هنا سيتم تغيير الصفحة
+                    // عرض محتوى القسم المحدد
                     const navText = this.querySelector('span').textContent;
-                    alert(`جاري الانتقال إلى صفحة ${navText}`);
+                    handleBottomNavClick(navText);
                 });
             });
             
             // زر الرجوع
             const backBtn = document.querySelector('.back-btn');
             backBtn.addEventListener('click', function() {
-                alert('جاري الرجوع للصفحة السابقة');
-                // في تطبيق حقيقي، هنا سيتم الرجوع للصفحة السابقة
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    window.location.href = 'https://www.google.com';
+                }
             });
         });
         
         // تحديث المحتوى بناءً على التبويب
         function updateContentByTab(tabId) {
             const sectionTitle = document.querySelector('.section-title');
+            const container = document.getElementById('stores-container');
             
             switch(tabId) {
                 case 'main':
@@ -528,15 +561,132 @@
                     break;
                 case 'offers':
                     sectionTitle.innerHTML = '<i class="fas fa-tag"></i> عروض مصرية';
-                    // في تطبيق حقيقي، هنا سيتم جلب متاجر العروض
+                    container.innerHTML = `
+                        <div style="grid-column: span 2; text-align: center; padding: 40px 20px;">
+                            <i class="fas fa-tag" style="font-size: 60px; color: #e91e63; margin-bottom: 20px;"></i>
+                            <h3 style="margin-bottom: 15px; color: #333;">عروض خاصة من المتاجر المصرية</h3>
+                            <p style="color: #666; margin-bottom: 25px;">جاري تحضير العروض الحصرية من أفضل المتاجر المصرية</p>
+                            <button style="padding: 10px 25px; background-color: #e91e63; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                                تصفح العروض قريباً
+                            </button>
+                        </div>
+                    `;
                     break;
                 case 'trending':
                     sectionTitle.innerHTML = '<i class="fas fa-fire"></i> الأكثر شهرة';
-                    // في تطبيق حقيقي، هنا سيتم جلب المتاجر الأكثر شهرة
+                    // عرض المتاجر الأكثر شهرة (نفس المتاجر لكن بترتيب مختلف)
+                    renderStores();
                     break;
                 case 'nails':
                     sectionTitle.innerHTML = '<i class="fas fa-hand-sparkles"></i> أظافر';
-                    // في تطبيق حقيقي، هنا سيتم جلب متاجر الأظافر
+                    container.innerHTML = `
+                        <div style="grid-column: span 2; text-align: center; padding: 40px 20px;">
+                            <i class="fas fa-hand-sparkles" style="font-size: 60px; color: #e91e63; margin-bottom: 20px;"></i>
+                            <h3 style="margin-bottom: 15px; color: #333;">متاجر متخصصة في العناية بالأظافر</h3>
+                            <p style="color: #666; margin-bottom: 25px;">جاري إضافة أفضل متاجر الأظافر ومنتجات العناية بها</p>
+                            <button style="padding: 10px 25px; background-color: #e91e63; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                                تصفح متاجر الأظافر قريباً
+                            </button>
+                        </div>
+                        <div class="store-card">
+                            <div class="store-image" style="background-color: #ff4081; display: flex; align-items: center; justify-content: center; color: white; font-size: 40px;">
+                                <i class="fas fa-hand-sparkles"></i>
+                            </div>
+                            <div class="store-details">
+                                <div class="store-name">Nailaholic</div>
+                                <div class="store-category">أظافر</div>
+                                <div class="store-description">أفضل منتجات العناية بالأظافر والتزيين</div>
+                                <a href="https://www.instagram.com/nailaholic" target="_blank" class="visit-store-btn">
+                                    <i class="fas fa-external-link-alt"></i> زيارة المتجر
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+        
+        // معالجة النقر على التنقل السفلي
+        function handleBottomNavClick(navText) {
+            const container = document.getElementById('stores-container');
+            
+            switch(navText) {
+                case 'بحث':
+                    container.innerHTML = `
+                        <div style="grid-column: span 2; padding: 30px 20px;">
+                            <div style="position: relative; margin-bottom: 30px;">
+                                <input type="text" placeholder="ابحث عن متجر أو منتج..." style="width: 100%; padding: 12px 45px 12px 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;">
+                                <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #888;"></i>
+                            </div>
+                            <h3 style="margin-bottom: 15px; color: #333;">نتائج البحث الشائعة</h3>
+                            <ul style="list-style: none;">
+                                <li style="padding: 10px; border-bottom: 1px solid #eee; cursor: pointer;">مستحضرات تجميل</li>
+                                <li style="padding: 10px; border-bottom: 1px solid #eee; cursor: pointer;">أحمر شفاه</li>
+                                <li style="padding: 10px; border-bottom: 1px solid #eee; cursor: pointer;">عطور نسائية</li>
+                                <li style="padding: 10px; border-bottom: 1px solid #eee; cursor: pointer;">مجوهرات</li>
+                                <li style="padding: 10px; cursor: pointer;">ملابس صيفية</li>
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'المفضلة':
+                    container.innerHTML = `
+                        <div style="grid-column: span 2; text-align: center; padding: 50px 20px;">
+                            <i class="fas fa-heart" style="font-size: 70px; color: #e91e63; margin-bottom: 20px;"></i>
+                            <h3 style="margin-bottom: 15px; color: #333;">المفضلة</h3>
+                            <p style="color: #666; margin-bottom: 25px;">لم تقم بإضافة أي متاجر إلى المفضلة بعد</p>
+                            <button style="padding: 10px 25px; background-color: #e91e63; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                                تصفح المتاجر
+                            </button>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'حسابي':
+                    container.innerHTML = `
+                        <div style="grid-column: span 2; padding: 30px 20px;">
+                            <div style="text-align: center; margin-bottom: 30px;">
+                                <div style="width: 80px; height: 80px; background-color: #e91e63; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: white; font-size: 30px; margin-bottom: 15px;">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <h3 style="margin-bottom: 5px; color: #333;">زائرة</h3>
+                                <p style="color: #666;">لم تسجل الدخول بعد</p>
+                            </div>
+                            
+                            <div style="background-color: #f9f9f9; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                                <h4 style="margin-bottom: 15px; color: #333;">خيارات الحساب</h4>
+                                <ul style="list-style: none;">
+                                    <li style="padding: 12px; border-bottom: 1px solid #eee; cursor: pointer; display: flex; align-items: center;">
+                                        <i class="fas fa-user-plus" style="margin-left: 10px; color: #e91e63;"></i>
+                                        تسجيل الدخول / إنشاء حساب
+                                    </li>
+                                    <li style="padding: 12px; border-bottom: 1px solid #eee; cursor: pointer; display: flex; align-items: center;">
+                                        <i class="fas fa-cog" style="margin-left: 10px; color: #e91e63;"></i>
+                                        الإعدادات
+                                    </li>
+                                    <li style="padding: 12px; border-bottom: 1px solid #eee; cursor: pointer; display: flex; align-items: center;">
+                                        <i class="fas fa-question-circle" style="margin-left: 10px; color: #e91e63;"></i>
+                                        المساعدة والدعم
+                                    </li>
+                                    <li style="padding: 12px; cursor: pointer; display: flex; align-items: center;">
+                                        <i class="fas fa-info-circle" style="margin-left: 10px; color: #e91e63;"></i>
+                                        عن التطبيق
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <button style="width: 100%; padding: 12px; background-color: #f0f0f0; color: #333; border: none; border-radius: 8px; cursor: pointer; font-size: 16px;">
+                                <i class="fas fa-sign-out-alt" style="margin-left: 8px;"></i>
+                                خروج
+                            </button>
+                        </div>
+                    `;
+                    break;
+                    
+                default:
+                    // الرجوع للرئيسية
+                    document.querySelector('.nav-tab[data-tab="main"]').click();
                     break;
             }
         }

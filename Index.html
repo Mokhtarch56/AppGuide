@@ -225,9 +225,9 @@
         }
         
         .category-item {
-            min-width: 110px;
+            min-width: 100px;
             text-align: center;
-            padding: 18px 10px;
+            padding: 15px 8px;
             background: var(--white);
             border-radius: 12px;
             cursor: pointer;
@@ -237,15 +237,15 @@
         }
         
         .category-item i {
-            font-size: 28px;
-            margin-bottom: 12px;
+            font-size: 26px;
+            margin-bottom: 10px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
         .category-item span {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: var(--dark);
         }
@@ -293,13 +293,15 @@
         
         .store-image {
             height: 140px;
-            background-size: cover;
+            background-size: contain;
             background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
+            background-color: var(--white);
         }
         
         .store-image::after {
@@ -309,14 +311,14 @@
             right: 0;
             bottom: 0;
             left: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+            background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
         }
         
         .store-logo {
             position: relative;
             z-index: 2;
-            max-width: 80%;
-            max-height: 70px;
+            max-width: 90%;
+            max-height: 80px;
             object-fit: contain;
         }
         
@@ -506,13 +508,21 @@
             animation: fadeInUp 0.5s ease forwards;
         }
         
-        /* تحسينات للشعارات */
-        .logo-placeholder {
-            font-size: 36px;
-            color: white;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            font-weight: bold;
-        }
+        /* شعارات المتاجر الملونة */
+        .sephora-logo { background: #ff4081; }
+        .chanel-logo { background: #000000; }
+        .zara-logo { background: #ffffff; }
+        .pandora-logo { background: #ffffff; }
+        .mac-logo { background: #ffffff; }
+        .hm-logo { background: #ffffff; }
+        .nars-logo { background: #ffffff; }
+        .kiko-logo { background: #ffffff; }
+        .loreal-logo { background: #ffffff; }
+        .gucci-logo { background: #000000; }
+        .dior-logo { background: #ffffff; }
+        .skincare-logo { background: #87CEEB; }
+        .clothes-logo { background: #FFB6C1; }
+        .accessories-logo { background: #DDA0DD; }
         
         @media (max-width: 480px) {
             .container {
@@ -527,17 +537,16 @@
             .store-card:hover {
                 transform: translateY(-5px);
             }
+            
+            .category-item {
+                min-width: 90px;
+                padding: 12px 6px;
+            }
+            
+            .category-item i {
+                font-size: 22px;
+            }
         }
-        
-        /* شعارات المتاجر الملونة */
-        .sephora-logo { background: linear-gradient(135deg, #FF4081, #9C27B0); }
-        .chanel-logo { background: linear-gradient(135deg, #000000, #333333); }
-        .zara-logo { background: linear-gradient(135deg, #000000, #666666); }
-        .pandora-logo { background: linear-gradient(135deg, #9C27B0, #673AB7); }
-        .mac-logo { background: linear-gradient(135deg, #000000, #FF4081); }
-        .hm-logo { background: linear-gradient(135deg, #FF4081, #000000); }
-        .nails-logo { background: linear-gradient(135deg, #FF9800, #FF5722); }
-        .beauty-logo { background: linear-gradient(135deg, #E91E63, #FF9800); }
     </style>
 </head>
 <body>
@@ -563,8 +572,8 @@
             <div class="nav-tab" data-tab="trending">
                 <i class="fas fa-fire"></i> الأكثر شهرة
             </div>
-            <div class="nav-tab" data-tab="nails">
-                <i class="fas fa-hand-sparkles"></i> أظافر
+            <div class="nav-tab" data-tab="skincare">
+                <i class="fas fa-spa"></i> العناية بالبشرة
             </div>
         </div>
         
@@ -573,32 +582,40 @@
             <!-- قسم الفئات -->
             <div class="category-section">
                 <div class="category-title">
-                    <i class="fas fa-th-large"></i> فئات المتاجر
+                    <i class="fas fa-th-large"></i> تصفح حسب الفئة
                 </div>
                 <div class="categories">
                     <div class="category-item active" data-category="all">
                         <i class="fas fa-store"></i>
                         <span>الكل</span>
                     </div>
-                    <div class="category-item" data-category="beauty">
-                        <i class="fas fa-spa"></i>
-                        <span>التجميل</span>
+                    <div class="category-item" data-category="makeup">
+                        <i class="fas fa-palette"></i>
+                        <span>مايكاب</span>
                     </div>
-                    <div class="category-item" data-category="fashion">
-                        <i class="fas fa-tshirt"></i>
-                        <span>الموضة</span>
+                    <div class="category-item" data-category="skincare">
+                        <i class="fas fa-spa"></i>
+                        <span>العناية بالبشرة</span>
+                    </div>
+                    <div class="category-item" data-category="nails">
+                        <i class="fas fa-hand-sparkles"></i>
+                        <span>أظافر</span>
                     </div>
                     <div class="category-item" data-category="accessories">
                         <i class="fas fa-gem"></i>
-                        <span>الإكسسوارات</span>
+                        <span>إكسسوارات</span>
+                    </div>
+                    <div class="category-item" data-category="clothes">
+                        <i class="fas fa-tshirt"></i>
+                        <span>ملابس</span>
                     </div>
                     <div class="category-item" data-category="perfume">
                         <i class="fas fa-wine-bottle"></i>
-                        <span>العطور</span>
+                        <span>عطور</span>
                     </div>
-                    <div class="category-item" data-category="makeup">
-                        <i class="fas fa-palette"></i>
-                        <span>المكياج</span>
+                    <div class="category-item" data-category="hair">
+                        <i class="fas fa-cut"></i>
+                        <span>العناية بالشعر</span>
                     </div>
                 </div>
             </div>
@@ -641,102 +658,182 @@
     </div>
 
     <script>
-        // بيانات المتاجر المحسّنة مع شعارات وألوان
+        // بيانات المتاجر المحسّنة مع شعارات حقيقية وفئات جديدة
         const stores = [
+            // متاجر الماكياج (مايكاب)
             {
                 id: 1,
                 name: "SEPHORA",
-                category: "beauty",
-                description: "المتجر الأشمل للعطور ومستحضرات التجميل العالمية",
-                color: "#ff4081",
+                category: "makeup",
+                description: "المتجر الأشمل للمكياج ومستحضرات التجميل العالمية",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Sephora_logo.svg/2560px-Sephora_logo.svg.png",
                 logoClass: "sephora-logo",
-                logoText: "S",
                 website: "https://www.sephora.sa",
                 rating: 4.8,
                 favorite: true
             },
             {
                 id: 2,
-                name: "CHANEL",
-                category: "perfume",
-                description: "عطور ومستحضرات تجميل فاخرة من أشهر الماركات العالمية",
-                color: "#000000",
-                logoClass: "chanel-logo",
-                logoText: "C",
-                website: "https://www.chanel.com/ar_AE",
-                rating: 4.9,
+                name: "MAC Cosmetics",
+                category: "makeup",
+                description: "مستحضرات مكياج عالية الجودة للمحترفين",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/MAC_Cosmetics_logo.svg/2560px-MAC_Cosmetics_logo.svg.png",
+                logoClass: "mac-logo",
+                website: "https://www.maccosmetics.ae",
+                rating: 4.8,
                 favorite: true
             },
             {
                 id: 3,
-                name: "ZARA",
-                category: "fashion",
-                description: "أحدث صيحات الموضة والملابس النسائية العصرية",
-                color: "#2196f3",
-                logoClass: "zara-logo",
-                logoText: "ZARA",
-                website: "https://www.zara.com/sa",
-                rating: 4.6,
+                name: "NARS Cosmetics",
+                category: "makeup",
+                description: "مكياج فاخر بألوان جريئة وتصميمات مبتكرة",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/NARS_logo.svg/2560px-NARS_logo.svg.png",
+                logoClass: "nars-logo",
+                website: "https://www.narscosmetics.com",
+                rating: 4.7,
                 favorite: false
             },
             {
                 id: 4,
+                name: "KIKO Milano",
+                category: "makeup",
+                description: "مكياج إيطالي بجودة عالية وأسعار مناسبة",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/KIKO_Milano_logo.svg/2560px-KIKO_Milano_logo.svg.png",
+                logoClass: "kiko-logo",
+                website: "https://www.kikocosmetics.com",
+                rating: 4.5,
+                favorite: false
+            },
+            
+            // متاجر العناية بالبشرة
+            {
+                id: 5,
+                name: "L'Oréal Paris",
+                category: "skincare",
+                description: "مستحضرات عناية بالبشرة من أبحاث متطورة",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/L%27Or%C3%A9al_logo.svg/2560px-L%27Or%C3%A9al_logo.svg.png",
+                logoClass: "loreal-logo",
+                website: "https://www.loreal-paris.com",
+                rating: 4.6,
+                favorite: true
+            },
+            {
+                id: 6,
+                name: "The Ordinary",
+                category: "skincare",
+                description: "مستحضرات عناية بالبشرة بتركيبات فعالة وبسيطة",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/The_Ordinary_logo.svg/1280px-The_Ordinary_logo.svg.png",
+                logoClass: "skincare-logo",
+                website: "https://theordinary.com",
+                rating: 4.7,
+                favorite: false
+            },
+            
+            // متاجر الأظافر
+            {
+                id: 7,
+                name: "OPI",
+                category: "nails",
+                description: "أشهر ماركة طلاء أظافر بألوان متنوعة وجودة عالية",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/O.P.I._logo.svg/2560px-O.P.I._logo.svg.png",
+                logoClass: "nails-logo",
+                website: "https://www.opi.com",
+                rating: 4.6,
+                favorite: true
+            },
+            {
+                id: 8,
+                name: "CND",
+                category: "nails",
+                description: "منتجات متخصصة للعناية بالأظافر وتطويلها",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/CND_logo.svg/1280px-CND_logo.svg.png",
+                logoClass: "nails-logo",
+                website: "https://www.cnd.com",
+                rating: 4.5,
+                favorite: false
+            },
+            
+            // متاجر الإكسسوارات
+            {
+                id: 9,
                 name: "Pandora",
                 category: "accessories",
                 description: "مجوهرات وإكسسوارات فاخرة بتصميمات مبتكرة",
-                color: "#9c27b0",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Pandora_Logo.svg/2560px-Pandora_Logo.svg.png",
                 logoClass: "pandora-logo",
-                logoText: "P",
                 website: "https://sa.pandora.net",
                 rating: 4.7,
                 favorite: true
             },
             {
-                id: 5,
-                name: "MAC Cosmetics",
-                category: "makeup",
-                description: "مستحضرات مكياج عالية الجودة للمحترفين",
-                color: "#000000",
-                logoClass: "mac-logo",
-                logoText: "MAC",
-                website: "https://www.maccosmetics.ae",
+                id: 10,
+                name: "Swarovski",
+                category: "accessories",
+                description: "كريستالات ومجوهرات براقة بتصميمات أنيقة",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Swarovski_Logo.svg/2560px-Swarovski_Logo.svg.png",
+                logoClass: "accessories-logo",
+                website: "https://www.swarovski.com",
                 rating: 4.8,
+                favorite: true
+            },
+            
+            // متاجر الملابس
+            {
+                id: 11,
+                name: "ZARA",
+                category: "clothes",
+                description: "أحدث صيحات الموضة والملابس النسائية العصرية",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Zara_Logo.svg/2560px-Zara_Logo.svg.png",
+                logoClass: "zara-logo",
+                website: "https://www.zara.com/sa",
+                rating: 4.6,
                 favorite: false
             },
             {
-                id: 6,
+                id: 12,
                 name: "H&M",
-                category: "fashion",
+                category: "clothes",
                 description: "موضة عصرية بأسعار مناسبة للنساء والفتيات",
-                color: "#f44336",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/H%26M-Logo.svg/2560px-H%26M-Logo.svg.png",
                 logoClass: "hm-logo",
-                logoText: "H&M",
                 website: "https://www.hm.com/sa_ar",
                 rating: 4.5,
                 favorite: false
             },
+            
+            // متاجر العطور
             {
-                id: 7,
-                name: "Nail Studio",
-                category: "beauty",
-                description: "مستحضرات متخصصة للعناية بالأظافر وتزيينها",
-                color: "#ff9800",
-                logoClass: "nails-logo",
-                logoText: "NAIL",
-                website: "https://www.instagram.com/nailaholic",
-                rating: 4.4,
+                id: 13,
+                name: "CHANEL",
+                category: "perfume",
+                description: "عطور ومستحضرات تجميل فاخرة من أشهر الماركات العالمية",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Chanel_logo.svg/2560px-Chanel_logo.svg.png",
+                logoClass: "chanel-logo",
+                website: "https://www.chanel.com/ar_AE",
+                rating: 4.9,
                 favorite: true
             },
             {
-                id: 8,
-                name: "Beauty Shop",
-                category: "beauty",
-                description: "كل ما تحتاجينه للعناية بالبشرة والشعر",
-                color: "#e91e63",
-                logoClass: "beauty-logo",
-                logoText: "BS",
-                website: "https://www.nccarabia.com",
-                rating: 4.3,
+                id: 14,
+                name: "Dior",
+                category: "perfume",
+                description: "عطور فرنسية فاخرة بروائح مميزة وأنيقة",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Dior_logo.svg/2560px-Dior_logo.svg.png",
+                logoClass: "dior-logo",
+                website: "https://www.dior.com",
+                rating: 4.8,
+                favorite: true
+            },
+            {
+                id: 15,
+                name: "Gucci",
+                category: "perfume",
+                description: "عطور إيطالية فاخرة بتصميمات جريئة",
+                logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Gucci_Logo.svg/2560px-Gucci_Logo.svg.png",
+                logoClass: "gucci-logo",
+                website: "https://www.gucci.com",
+                rating: 4.7,
                 favorite: false
             }
         ];
@@ -756,8 +853,7 @@
                 storeElement.className = 'store-card';
                 storeElement.style.animationDelay = `${index * 0.1}s`;
                 storeElement.innerHTML = `
-                    <div class="store-image ${store.logoClass}">
-                        <div class="logo-placeholder">${store.logoText}</div>
+                    <div class="store-image ${store.logoClass}" style="background-image: url('${store.logoUrl}');">
                     </div>
                     <div class="store-details">
                         <div class="store-name">
@@ -789,6 +885,9 @@
                         stores[storeIndex].favorite = !stores[storeIndex].favorite;
                         const icon = this.querySelector('i');
                         icon.className = stores[storeIndex].favorite ? 'fas fa-heart' : 'far fa-heart';
+                        
+                        // إشعار صغير
+                        showNotification(`${stores[storeIndex].favorite ? 'أضيف إلى' : 'أزيل من'} المفضلة`);
                     }
                 });
                 
@@ -800,31 +899,51 @@
         function getCategoryName(category) {
             const categories = {
                 'all': 'الكل',
-                'beauty': 'التجميل والعناية',
-                'fashion': 'الموضة',
-                'accessories': 'الإكسسوارات',
-                'perfume': 'العطور',
-                'makeup': 'المكياج'
+                'makeup': 'مايكاب',
+                'skincare': 'العناية بالبشرة',
+                'nails': 'أظافر',
+                'accessories': 'إكسسوارات',
+                'clothes': 'ملابس',
+                'perfume': 'عطور',
+                'hair': 'العناية بالشعر'
             };
             return categories[category] || category;
         }
 
-        // توليد نجوم التقييم
-        function generateRatingStars(rating) {
-            let stars = '';
-            const fullStars = Math.floor(rating);
-            const hasHalfStar = rating % 1 !== 0;
+        // عرض إشعار
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 50%;
+                transform: translateX(50%);
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                color: white;
+                padding: 12px 25px;
+                border-radius: 25px;
+                z-index: 1000;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                animation: slideDown 0.3s ease;
+            `;
             
-            for (let i = 1; i <= 5; i++) {
-                if (i <= fullStars) {
-                    stars += '<i class="fas fa-star"></i>';
-                } else if (i === fullStars + 1 && hasHalfStar) {
-                    stars += '<i class="fas fa-star-half-alt"></i>';
-                } else {
-                    stars += '<i class="far fa-star"></i>';
+            // أضف أنيميشن CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideDown {
+                    from { top: 50px; opacity: 0; }
+                    to { top: 100px; opacity: 1; }
                 }
-            }
-            return stars;
+            `;
+            document.head.appendChild(style);
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+                style.remove();
+            }, 2000);
         }
 
         // تهيئة الصفحة
@@ -880,14 +999,13 @@
                 const modalContent = `
                     <div style="position: fixed; top: 0; right: 0; bottom: 0; left: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;">
                         <div style="background: white; padding: 30px; border-radius: 20px; max-width: 400px; width: 90%;">
-                            <h3 style="margin-bottom: 20px; color: #e91e63; text-align: center;">إضافة متجر جديد</h3>
-                            <input type="text" placeholder="اسم المتجر" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px;">
-                            <input type="text" placeholder="رابط المتجر" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px;">
-                            <button style="width: 100%; padding: 12px; background: linear-gradient(135deg, #e91e63, #9c27b0); color: white; border: none; border-radius: 8px; cursor: pointer;">
-                                إضافة المتجر
+                            <h3 style="margin-bottom: 20px; color: #e91e63; text-align: center;">اقتراح متجر جديد</h3>
+                            <p style="margin-bottom: 20px; text-align: center; color: #666;">هل تريدين إضافة متجر جديد إلى الدليل؟</p>
+                            <button onclick="window.open('mailto:suggest@beautyguide.com?subject=اقتراح متجر جديد&body=اسم المتجر:%0Aرابط المتجر:%0AFacebook/Instagram:%0Aالفئة:')" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #e91e63, #9c27b0); color: white; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 10px;">
+                                <i class="fas fa-envelope" style="margin-left: 8px;"></i> اقتراح متجر عبر البريد
                             </button>
-                            <button onclick="this.parentElement.parentElement.remove()" style="width: 100%; padding: 10px; margin-top: 10px; background: #f0f0f0; color: #333; border: none; border-radius: 8px; cursor: pointer;">
-                                إلغاء
+                            <button onclick="this.parentElement.parentElement.remove()" style="width: 100%; padding: 10px; background: #f0f0f0; color: #333; border: none; border-radius: 8px; cursor: pointer;">
+                                <i class="fas fa-times" style="margin-left: 8px;"></i> إلغاء
                             </button>
                         </div>
                     </div>
@@ -899,6 +1017,7 @@
         // تحديث المحتوى بناءً على التبويب
         function updateContentByTab(tabId) {
             const sectionTitle = document.querySelector('.section-title');
+            const container = document.getElementById('stores-container');
             
             switch(tabId) {
                 case 'main':
@@ -907,104 +1026,85 @@
                     break;
                 case 'offers':
                     sectionTitle.innerHTML = '<i class="fas fa-tag"></i> عروض مصرية حصرية';
-                    showOffersContent();
+                    container.innerHTML = `
+                        <div style="grid-column: span 2; background: linear-gradient(135deg, #ff9800, #ff5722); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(255, 152, 0, 0.3);">
+                            <i class="fas fa-gift" style="font-size: 50px; margin-bottom: 15px;"></i>
+                            <h3 style="margin-bottom: 10px; font-size: 20px;">خصم 30% على جميع منتجات التجميل</h3>
+                            <p>عرض ساري حتى نهاية الشهر - استخدمي كود: BEAUTY30</p>
+                        </div>
+                        <div style="grid-column: span 2; background: linear-gradient(135deg, #9c27b0, #673ab7); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(156, 39, 176, 0.3);">
+                            <i class="fas fa-percentage" style="font-size: 50px; margin-bottom: 15px;"></i>
+                            <h3 style="margin-bottom: 10px; font-size: 20px;">اشتري 2 واحصلي على الثالث مجاناً</h3>
+                            <p>على جميع العطور الفرنسية - في المتاجر المشاركة</p>
+                        </div>
+                        <div style="grid-column: span 2; background: linear-gradient(135deg, #2196f3, #03a9f4); color: white; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 8px 25px rgba(33, 150, 243, 0.3);">
+                            <i class="fas fa-shopping-bag" style="font-size: 50px; margin-bottom: 15px;"></i>
+                            <h3 style="margin-bottom: 10px; font-size: 20px;">توصيل مجاني للطلبات فوق 200 ريال</h3>
+                            <p>في جميع أنحاء المملكة - لمدة محدودة</p>
+                        </div>
+                    `;
                     break;
                 case 'trending':
                     sectionTitle.innerHTML = '<i class="fas fa-fire"></i> الأكثر شهرة هذا الأسبوع';
-                    showTrendingContent();
+                    // ترتيب المتاجر حسب التقييم
+                    const sortedStores = [...stores].sort((a, b) => b.rating - a.rating);
+                    
+                    container.innerHTML = '';
+                    
+                    sortedStores.slice(0, 6).forEach((store, index) => {
+                        const storeElement = document.createElement('div');
+                        storeElement.className = 'store-card';
+                        storeElement.innerHTML = `
+                            <div class="store-image ${store.logoClass}" style="background-image: url('${store.logoUrl}'); position: relative;">
+                                ${index < 3 ? `<div style="position: absolute; top: 10px; right: 10px; background: gold; color: #333; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">${index + 1}</div>` : ''}
+                            </div>
+                            <div class="store-details">
+                                <div class="store-name">
+                                    ${store.name}
+                                    <span class="store-favorite" data-id="${store.id}">
+                                        <i class="${store.favorite ? 'fas' : 'far'} fa-heart"></i>
+                                    </span>
+                                </div>
+                                <div class="store-category">${getCategoryName(store.category)}</div>
+                                <div class="store-description">${store.description}</div>
+                                <div class="store-footer">
+                                    <div class="store-rating">
+                                        <i class="fas fa-star"></i> ${store.rating}
+                                    </div>
+                                    <a href="${store.website}" target="_blank" class="visit-store-btn">
+                                        <i class="fas fa-external-link-alt"></i> زيارة المتجر
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(storeElement);
+                    });
                     break;
-                case 'nails':
-                    sectionTitle.innerHTML = '<i class="fas fa-hand-sparkles"></i> متاجر الأظافر والعناية';
-                    showNailsContent();
+                case 'skincare':
+                    sectionTitle.innerHTML = '<i class="fas fa-spa"></i> متاجر العناية بالبشرة';
+                    // تصفية متاجر العناية بالبشرة
+                    const skincareStores = stores.filter(store => store.category === 'skincare');
+                    if (skincareStores.length > 0) {
+                        renderStores('skincare');
+                    } else {
+                        container.innerHTML = `
+                            <div style="grid-column: span 2; text-align: center; padding: 60px 20px;">
+                                <i class="fas fa-spa" style="font-size: 70px; color: #87CEEB; margin-bottom: 20px;"></i>
+                                <h3 style="margin-bottom: 15px; color: #333;">جاري إضافة متاجر العناية بالبشرة</h3>
+                                <p style="color: #666; margin-bottom: 25px;">سيتم إضافة أفضل متاجر العناية بالبشرة قريباً</p>
+                                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-top: 20px; text-align: right;">
+                                    <h4 style="color: #333; margin-bottom: 15px;">نصائح للعناية بالبشرة:</h4>
+                                    <ul style="list-style: none;">
+                                        <li style="padding: 8px 0; border-bottom: 1px solid #eee;">✨ تنظيف البشرة مرتين يومياً</li>
+                                        <li style="padding: 8px 0; border-bottom: 1px solid #eee;">💦 ترطيب البشرة بانتظام</li>
+                                        <li style="padding: 8px 0;">☀️ استخدام واقي الشمس يومياً</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `;
+                    }
                     break;
             }
-        }
-
-        // عرض محتوى العروض
-        function showOffersContent() {
-            const container = document.getElementById('stores-container');
-            container.innerHTML = `
-                <div style="grid-column: span 2; background: linear-gradient(135deg, #ff9800, #ff5722); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 20px;">
-                    <i class="fas fa-gift" style="font-size: 50px; margin-bottom: 15px;"></i>
-                    <h3 style="margin-bottom: 10px;">خصم 30% على جميع منتجات التجميل</h3>
-                    <p>عرض ساري حتى نهاية الشهر</p>
-                </div>
-                <div style="grid-column: span 2; background: linear-gradient(135deg, #9c27b0, #673ab7); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 20px;">
-                    <i class="fas fa-percentage" style="font-size: 50px; margin-bottom: 15px;"></i>
-                    <h3 style="margin-bottom: 10px;">اشتري 2 واحصلي على الثالث مجاناً</h3>
-                    <p>على جميع العطور الفرنسية</p>
-                </div>
-            `;
-        }
-
-        // عرض المحتوى الرائج
-        function showTrendingContent() {
-            // ترتيب المتاجر حسب التقييم
-            const sortedStores = [...stores].sort((a, b) => b.rating - a.rating);
-            
-            const container = document.getElementById('stores-container');
-            container.innerHTML = '';
-            
-            sortedStores.forEach((store, index) => {
-                const storeElement = document.createElement('div');
-                storeElement.className = 'store-card';
-                storeElement.innerHTML = `
-                    <div class="store-image ${store.logoClass}" style="position: relative;">
-                        ${index < 3 ? `<div style="position: absolute; top: 10px; right: 10px; background: gold; color: #333; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">${index + 1}</div>` : ''}
-                        <div class="logo-placeholder">${store.logoText}</div>
-                    </div>
-                    <div class="store-details">
-                        <div class="store-name">
-                            ${store.name}
-                            <span class="store-favorite" data-id="${store.id}">
-                                <i class="${store.favorite ? 'fas' : 'far'} fa-heart"></i>
-                            </span>
-                        </div>
-                        <div class="store-category">${getCategoryName(store.category)}</div>
-                        <div class="store-description">${store.description}</div>
-                        <div class="store-footer">
-                            <div class="store-rating">
-                                <i class="fas fa-star"></i> ${store.rating}
-                            </div>
-                            <a href="${store.website}" target="_blank" class="visit-store-btn">
-                                <i class="fas fa-external-link-alt"></i> زيارة المتجر
-                            </a>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(storeElement);
-            });
-        }
-
-        // عرض محتوى الأظافر
-        function showNailsContent() {
-            const container = document.getElementById('stores-container');
-            container.innerHTML = `
-                <div class="store-card">
-                    <div class="store-image nails-logo">
-                        <div class="logo-placeholder">NAIL</div>
-                    </div>
-                    <div class="store-details">
-                        <div class="store-name">Nailaholic</div>
-                        <div class="store-category">أظافر</div>
-                        <div class="store-description">أفضل منتجات العناية بالأظافر والتزيين</div>
-                        <div class="store-footer">
-                            <div class="store-rating"><i class="fas fa-star"></i> 4.4</div>
-                            <a href="https://www.instagram.com/nailaholic" target="_blank" class="visit-store-btn">
-                                <i class="fas fa-external-link-alt"></i> زيارة المتجر
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div style="grid-column: span 2; background: #f8f9fa; padding: 25px; border-radius: 15px; text-align: center;">
-                    <h3 style="margin-bottom: 15px; color: #333;">نصائح للعناية بالأظافر</h3>
-                    <ul style="text-align: right; list-style: none; margin-bottom: 20px;">
-                        <li style="padding: 8px 0; border-bottom: 1px solid #eee;">💅 ترطيب الأظافر بزيت الزيتون يومياً</li>
-                        <li style="padding: 8px 0; border-bottom: 1px solid #eee;">✨ استخدام مقوي الأظافر مرتين أسبوعياً</li>
-                        <li style="padding: 8px 0;">🎨 اختيار طلاء أظافر خالي من المواد الضارة</li>
-                    </ul>
-                </div>
-            `;
         }
 
         // معالجة النقر على التنقل السفلي
@@ -1015,13 +1115,22 @@
                     setTimeout(() => {
                         const searchModal = `
                             <div style="position: fixed; top: 0; right: 0; bottom: 0; left: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;">
-                                <div style="background: white; padding: 25px; border-radius: 20px; max-width: 400px; width: 90%;">
-                                    <h3 style="margin-bottom: 20px; color: #e91e63; text-align: center;">بحث عن متجر</h3>
+                                <div style="background: white; padding: 25px; border-radius: 20px; max-width: 400px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                                    <h3 style="margin-bottom: 20px; color: #e91e63; text-align: center; font-size: 22px;">🔍 بحث عن متجر</h3>
                                     <div style="position: relative; margin-bottom: 20px;">
                                         <input type="text" placeholder="ابحث عن متجر أو منتج..." style="width: 100%; padding: 15px 45px 15px 15px; border: 2px solid #e91e63; border-radius: 12px; font-size: 16px;">
                                         <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #e91e63;"></i>
                                     </div>
-                                    <button style="width: 100%; padding: 15px; background: linear-gradient(135deg, #e91e63, #9c27b0); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer;">
+                                    <div style="margin-bottom: 20px;">
+                                        <p style="color: #666; margin-bottom: 10px; font-size: 14px;">بحث شائع:</p>
+                                        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                            <span style="padding: 8px 15px; background: #f0f0f0; border-radius: 20px; font-size: 14px; cursor: pointer;">مكياج</span>
+                                            <span style="padding: 8px 15px; background: #f0f0f0; border-radius: 20px; font-size: 14px; cursor: pointer;">عطور</span>
+                                            <span style="padding: 8px 15px; background: #f0f0f0; border-radius: 20px; font-size: 14px; cursor: pointer;">ملابس</span>
+                                            <span style="padding: 8px 15px; background: #f0f0f0; border-radius: 20px; font-size: 14px; cursor: pointer;">إكسسوارات</span>
+                                        </div>
+                                    </div>
+                                    <button onclick="this.parentElement.parentElement.remove()" style="width: 100%; padding: 15px; background: linear-gradient(135deg, #e91e63, #9c27b0); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer;">
                                         بحث
                                     </button>
                                 </div>
@@ -1040,8 +1149,7 @@
                             const storeElement = document.createElement('div');
                             storeElement.className = 'store-card';
                             storeElement.innerHTML = `
-                                <div class="store-image ${store.logoClass}">
-                                    <div class="logo-placeholder">${store.logoText}</div>
+                                <div class="store-image ${store.logoClass}" style="background-image: url('${store.logoUrl}');">
                                 </div>
                                 <div class="store-details">
                                     <div class="store-name">
@@ -1068,8 +1176,8 @@
                             <div style="grid-column: span 2; text-align: center; padding: 60px 20px;">
                                 <i class="far fa-heart" style="font-size: 70px; color: #e0e0e0; margin-bottom: 20px;"></i>
                                 <h3 style="margin-bottom: 15px; color: #666;">لا توجد متاجر في المفضلة</h3>
-                                <p style="color: #999; margin-bottom: 30px;">أضيفي متاجرك المفضلة بالضغط على رمز القلب</p>
-                                <button onclick="document.querySelector('.nav-tab[data-tab=\\'main\\']').click()" style="padding: 12px 30px; background: linear-gradient(135deg, #e91e63, #9c27b0); color: white; border: none; border-radius: 25px; font-size: 16px; cursor: pointer;">
+                                <p style="color: #999; margin-bottom: 30px;">أضيفي متاجرك المفضلة بالضغط على رمز القلب ♥️</p>
+                                <button onclick="document.querySelector('.nav-tab[data-tab=\\'main\\']').click()" style="padding: 12px 30px; background: linear-gradient(135deg, #e91e63, #9c27b0); color: white; border: none; border-radius: 25px; font-size: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);">
                                     تصفح المتاجر
                                 </button>
                             </div>
@@ -1084,25 +1192,43 @@
                             <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #e91e63, #9c27b0); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: white; font-size: 40px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(233, 30, 99, 0.3);">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <h3 style="margin-bottom: 10px; color: #333;">مرحباً بك!</h3>
-                            <p style="color: #666; margin-bottom: 30px;">في دليل الجمال النسائي</p>
+                            <h3 style="margin-bottom: 10px; color: #333; font-size: 22px;">مرحباً بك في دليل الجمال!</h3>
+                            <p style="color: #666; margin-bottom: 30px;">كل ما تحتاجينه للجمال في مكان واحد</p>
                             
                             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px;">
-                                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center;">
-                                    <div style="font-size: 24px; color: #e91e63; font-weight: bold; margin-bottom: 5px;">${stores.filter(s => s.favorite).length}</div>
-                                    <div style="color: #666;">المفضلة</div>
+                                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                                    <div style="font-size: 28px; color: #e91e63; font-weight: bold; margin-bottom: 5px;">${stores.filter(s => s.favorite).length}</div>
+                                    <div style="color: #666; font-weight: 500;">المفضلة</div>
                                 </div>
-                                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center;">
-                                    <div style="font-size: 24px; color: #e91e63; font-weight: bold; margin-bottom: 5px;">${stores.length}</div>
-                                    <div style="color: #666;">المتاجر</div>
+                                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                                    <div style="font-size: 28px; color: #e91e63; font-weight: bold; margin-bottom: 5px;">${stores.length}</div>
+                                    <div style="color: #666; font-weight: 500;">المتاجر</div>
                                 </div>
                             </div>
                             
-                            <button style="width: 100%; padding: 15px; background: linear-gradient(135deg, #e91e63, #9c27b0); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; margin-bottom: 15px; cursor: pointer;">
-                                <i class="fas fa-sign-in-alt" style="margin-left: 10px;"></i> تسجيل الدخول
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: right;">
+                                <h4 style="color: #333; margin-bottom: 15px; font-size: 18px;">إعدادات الحساب:</h4>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <button style="padding: 12px; background: white; border: 1px solid #e0e0e0; border-radius: 8px; text-align: right; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                                        <span>الإشعارات</span>
+                                        <i class="fas fa-bell" style="color: #e91e63;"></i>
+                                    </button>
+                                    <button style="padding: 12px; background: white; border: 1px solid #e0e0e0; border-radius: 8px; text-align: right; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                                        <span>اللغة</span>
+                                        <i class="fas fa-language" style="color: #e91e63;"></i>
+                                    </button>
+                                    <button style="padding: 12px; background: white; border: 1px solid #e0e0e0; border-radius: 8px; text-align: right; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                                        <span>سياسة الخصوصية</span>
+                                        <i class="fas fa-shield-alt" style="color: #e91e63;"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <button style="width: 100%; padding: 15px; background: linear-gradient(135deg, #e91e63, #9c27b0); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; margin-bottom: 15px; cursor: pointer; box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);">
+                                <i class="fas fa-sign-in-alt" style="margin-left: 10px;"></i> تسجيل الدخول / إنشاء حساب
                             </button>
                             <button style="width: 100%; padding: 15px; background: #f0f0f0; color: #333; border: none; border-radius: 12px; font-size: 16px; cursor: pointer;">
-                                <i class="fas fa-cog" style="margin-left: 10px;"></i> الإعدادات
+                                <i class="fas fa-question-circle" style="margin-left: 10px;"></i> المساعدة والدعم
                             </button>
                         </div>
                     `;

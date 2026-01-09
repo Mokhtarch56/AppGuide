@@ -1,246 +1,545 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>دليل المتاجر النسائية</title>
-<style>
-/* ألوان هادئة */
-:root {
-    --primary-color: #A3C4BC;
-    --secondary-color: #FFFFFF;
-    --accent-color: #FF69B4;
-    --text-color: #333;
-    --favorite-color: #FFD700;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: var(--primary-color);
-}
-
-header {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    padding: 20px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.store-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 15px;
-    padding: 20px;
-    margin-bottom: 70px; /* مساحة لشريط السفلي */
-}
-
-.store-card {
-    background-color: var(--secondary-color);
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    text-align: center;
-    padding: 15px;
-    transition: transform 0.2s;
-    cursor: pointer;
-}
-.store-card:hover {
-    transform: translateY(-5px);
-}
-.store-card img {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    margin-bottom: 10px;
-}
-.store-card h3 {
-    font-size: 16px;
-    margin: 5px 0;
-}
-.store-card a, .store-card button {
-    display: inline-block;
-    margin-top: 5px;
-    padding: 6px 10px;
-    border-radius: 8px;
-    border: none;
-    color: var(--secondary-color);
-    background-color: var(--accent-color);
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    font-size: 14px;
-}
-.store-card a:hover, .store-card button:hover {
-    background-color: #FF1493;
-}
-
-.details-view {
-    display: none;
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 70px; /* مساحة لشريط السفلي */
-}
-.details-view img {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
-    margin-bottom: 10px;
-}
-.details-view h2 {
-    margin: 10px 0;
-}
-.favorite {
-    background-color: var(--favorite-color);
-    color: #FF1493;
-}
-
-/* Bottom Navigation Bar */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--secondary-color);
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-    z-index: 100;
-}
-.bottom-nav button {
-    background: none;
-    border: none;
-    font-size: 16px;
-    color: var(--text-color);
-    cursor: pointer;
-    font-weight: bold;
-}
-.bottom-nav button.active {
-    color: var(--accent-color);
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل المتاجر النسائية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .back-btn {
+            position: absolute;
+            right: 15px;
+            top: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #eee;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        
+        .nav-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .nav-tab.active {
+            color: #e91e63;
+            border-bottom: 3px solid #e91e63;
+            font-weight: 600;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-left: 8px;
+            color: #e91e63;
+        }
+        
+        .stores-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .store-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .store-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .store-image {
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .store-details {
+            padding: 15px;
+        }
+        
+        .store-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .store-category {
+            font-size: 12px;
+            color: #e91e63;
+            margin-bottom: 10px;
+        }
+        
+        .store-description {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .visit-store-btn {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            background-color: #f0f0f0;
+            color: #333;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .visit-store-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 500px;
+            background-color: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #888;
+            font-size: 12px;
+            cursor: pointer;
+            transition: color 0.3s;
+            padding: 5px 10px;
+        }
+        
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .nav-item.active {
+            color: #e91e63;
+        }
+        
+        .nav-item:hover {
+            color: #e91e63;
+        }
+        
+        .category-section {
+            margin-bottom: 25px;
+        }
+        
+        .category-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding-bottom: 10px;
+        }
+        
+        .category-item {
+            min-width: 100px;
+            text-align: center;
+            padding: 12px 5px;
+            background-color: #f8f8f8;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-item i {
+            font-size: 22px;
+            color: #e91e63;
+            margin-bottom: 8px;
+        }
+        
+        .category-item.active {
+            background-color: #e91e63;
+            color: white;
+        }
+        
+        .category-item.active i {
+            color: white;
+        }
+        
+        .category-item:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .category-item.active:hover {
+            background-color: #d81b60;
+        }
+        
+        @media (max-width: 500px) {
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <!-- الهيدر -->
+        <div class="header">
+            <button class="back-btn"><i class="fas fa-arrow-right"></i></button>
+            <h1>دليل الجمال</h1>
+            <p>اكتشفي أفضل متاجر الجمال</p>
+        </div>
+        
+        <!-- تبويبات التنقل -->
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-tab="main">الرئيسية</div>
+            <div class="nav-tab" data-tab="offers">عروض مصرية</div>
+            <div class="nav-tab" data-tab="trending">الأكثر شهرة</div>
+            <div class="nav-tab" data-tab="nails">أظافر</div>
+        </div>
+        
+        <!-- المحتوى -->
+        <div class="content" id="content">
+            <!-- قسم الفئات -->
+            <div class="category-section">
+                <div class="category-title">فئات المتاجر</div>
+                <div class="categories">
+                    <div class="category-item active" data-category="all">
+                        <i class="fas fa-store"></i>
+                        <div>الكل</div>
+                    </div>
+                    <div class="category-item" data-category="beauty">
+                        <i class="fas fa-spa"></i>
+                        <div>التجميل</div>
+                    </div>
+                    <div class="category-item" data-category="fashion">
+                        <i class="fas fa-tshirt"></i>
+                        <div>الموضة</div>
+                    </div>
+                    <div class="category-item" data-category="accessories">
+                        <i class="fas fa-gem"></i>
+                        <div>الإكسسوارات</div>
+                    </div>
+                    <div class="category-item" data-category="perfume">
+                        <i class="fas fa-wine-bottle"></i>
+                        <div>العطور</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قسم المتاجر -->
+            <div class="section-title">
+                <i class="fas fa-crown"></i>
+                أفضل المتاجر
+            </div>
+            
+            <div class="stores-grid" id="stores-container">
+                <!-- سيتم إضافة المتاجر هنا عبر JavaScript -->
+            </div>
+        </div>
+        
+        <!-- التنقل السفلي -->
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-search"></i>
+                <span>بحث</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-heart"></i>
+                <span>المفضلة</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>حسابي</span>
+            </div>
+        </div>
+    </div>
 
-<header>دليل المتاجر النسائية</header>
-
-<!-- Home View -->
-<div id="homeView" class="store-grid"></div>
-
-<!-- Details View -->
-<div id="detailsView" class="details-view">
-    <img id="detailsLogo" src="" alt="">
-    <h2 id="detailsName"></h2>
-    <a id="visitBtn" href="#" target="_blank">زيارة المتجر</a>
-    <button id="favBtn">إضافة للمفضلة</button>
-</div>
-
-<!-- Bottom Navigation Bar -->
-<div class="bottom-nav">
-    <button id="homeBtn" class="active">الرئيسية</button>
-    <button id="favNavBtn">المفضلة</button>
-    <button id="backBtn">رجوع</button>
-</div>
-
-<script>
-// إعداد المتاجر
-const stores = [];
-for(let i=1;i<=40;i++){
-    stores.push({
-        name:`متجر ${i}`,
-        logo:`https://via.placeholder.com/80?text=S${i}`,
-        link:"#"
-    });
-}
-
-const homeView = document.getElementById("homeView");
-const detailsView = document.getElementById("detailsView");
-const backBtn = document.getElementById("backBtn");
-const detailsLogo = document.getElementById("detailsLogo");
-const detailsName = document.getElementById("detailsName");
-const visitBtn = document.getElementById("visitBtn");
-const favBtn = document.getElementById("favBtn");
-const homeBtn = document.getElementById("homeBtn");
-const favNavBtn = document.getElementById("favNavBtn");
-
-let favorites = [];
-
-// دالة عرض Home
-function showHome(){
-    homeView.style.display = "grid";
-    detailsView.style.display = "none";
-    homeBtn.classList.add("active");
-    favNavBtn.classList.remove("active");
-}
-
-// دالة عرض المفضلة
-function showFavorites(){
-    homeView.style.display = "grid";
-    detailsView.style.display = "none";
-    homeView.innerHTML = "";
-    favorites.forEach(i=>{
-        const store = stores[i];
-        const card = document.createElement("div");
-        card.className = "store-card";
-        card.innerHTML = `<img src="${store.logo}" alt="${store.name}"><h3>${store.name}</h3>`;
-        card.addEventListener("click", ()=>showDetails(i));
-        homeView.appendChild(card);
-    });
-    homeBtn.classList.remove("active");
-    favNavBtn.classList.add("active");
-}
-
-// دالة عرض التفاصيل
-function showDetails(index){
-    const store = stores[index];
-    homeView.style.display = "none";
-    detailsView.style.display = "block";
-    detailsLogo.src = store.logo;
-    detailsName.textContent = store.name;
-    visitBtn.href = store.link;
-    favBtn.textContent = favorites.includes(index) ? "حذف من المفضلة" : "إضافة للمفضلة";
-    favBtn.onclick = ()=>{
-        if(favorites.includes(index)){
-            favorites = favorites.filter(i=>i!==index);
-        } else {
-            favorites.push(index);
+    <script>
+        // بيانات المتاجر
+        const stores = [
+            {
+                id: 1,
+                name: "SEPHORA",
+                category: "beauty",
+                description: "المتجر الأشمل للعطور ومستحضرات التجميل",
+                color: "#ff4081",
+                icon: "fas fa-paint-brush"
+            },
+            {
+                id: 2,
+                name: "CHANEL",
+                category: "perfume",
+                description: "متجر فخم للعطور والتحف الفنية",
+                color: "#000000",
+                icon: "fas fa-wine-bottle"
+            },
+            {
+                id: 3,
+                name: "ZARA",
+                category: "fashion",
+                description: "ملابس نسائية فخمة وعصرية",
+                color: "#2196f3",
+                icon: "fas fa-tshirt"
+            },
+            {
+                id: 4,
+                name: "Pandora",
+                category: "accessories",
+                description: "مجوهرات وإكسسوارات فاخرة",
+                color: "#9c27b0",
+                icon: "fas fa-gem"
+            },
+            {
+                id: 5,
+                name: "ميك أب فور إيفر",
+                category: "beauty",
+                description: "أفضل منتجات المكياج العالمية",
+                color: "#e91e63",
+                icon: "fas fa-spa"
+            },
+            {
+                id: 6,
+                name: "مستحضرات تجميل",
+                category: "beauty",
+                description: "متجر متخصص في مستحضرات التجميل",
+                color: "#ff9800",
+                icon: "fas fa-palette"
+            }
+        ];
+        
+        // توليد ألوان عشوائية للمتاجر
+        function getRandomColor() {
+            const colors = ['#e91e63', '#9c27b0', '#2196f3', '#009688', '#ff9800', '#795548'];
+            return colors[Math.floor(Math.random() * colors.length)];
         }
-        favBtn.textContent = favorites.includes(index) ? "حذف من المفضلة" : "إضافة للمفضلة";
-    }
-}
-
-// إنشاء Cards في Home View
-stores.forEach((store,index)=>{
-    const card = document.createElement("div");
-    card.className = "store-card";
-    card.innerHTML = `<img src="${store.logo}" alt="${store.name}"><h3>${store.name}</h3>`;
-    card.addEventListener("click", ()=>showDetails(index));
-    homeView.appendChild(card);
-});
-
-// التعامل مع أزرار شريط السفلي
-homeBtn.addEventListener("click", ()=>{
-    homeView.innerHTML = "";
-    stores.forEach((store,index)=>{
-        const card = document.createElement("div");
-        card.className = "store-card";
-        card.innerHTML = `<img src="${store.logo}" alt="${store.name}"><h3>${store.name}</h3>`;
-        card.addEventListener("click", ()=>showDetails(index));
-        homeView.appendChild(card);
-    });
-    showHome();
-});
-
-favNavBtn.addEventListener("click", showFavorites);
-backBtn.addEventListener("click", showHome);
-
-showHome();
-</script>
-
+        
+        // عرض المتاجر
+        function renderStores(filterCategory = 'all') {
+            const container = document.getElementById('stores-container');
+            container.innerHTML = '';
+            
+            let filteredStores = stores;
+            if (filterCategory !== 'all') {
+                filteredStores = stores.filter(store => store.category === filterCategory);
+            }
+            
+            filteredStores.forEach(store => {
+                const storeElement = document.createElement('div');
+                storeElement.className = 'store-card';
+                storeElement.innerHTML = `
+                    <div class="store-image" style="background-color: ${store.color}; display: flex; align-items: center; justify-content: center; color: white; font-size: 40px;">
+                        <i class="${store.icon}"></i>
+                    </div>
+                    <div class="store-details">
+                        <div class="store-name">${store.name}</div>
+                        <div class="store-category">${getCategoryName(store.category)}</div>
+                        <div class="store-description">${store.description}</div>
+                        <button class="visit-store-btn">زيارة المتجر</button>
+                    </div>
+                `;
+                
+                // إضافة حدث النقر لزر زيارة المتجر
+                const visitBtn = storeElement.querySelector('.visit-store-btn');
+                visitBtn.addEventListener('click', function() {
+                    alert(`جاري توجيهك إلى متجر ${store.name}`);
+                });
+                
+                container.appendChild(storeElement);
+            });
+        }
+        
+        // الحصول على اسم الفئة بالعربية
+        function getCategoryName(category) {
+            const categories = {
+                'all': 'الكل',
+                'beauty': 'التجميل',
+                'fashion': 'الموضة',
+                'accessories': 'الإكسسوارات',
+                'perfume': 'العطور'
+            };
+            return categories[category] || category;
+        }
+        
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // عرض المتاجر عند التحميل
+            renderStores();
+            
+            // أحداث تبويبات التنقل
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // إزالة الفعالية من جميع التبويبات
+                    navTabs.forEach(t => t.classList.remove('active'));
+                    // إضافة الفعالية للتبويب المنقور
+                    this.classList.add('active');
+                    
+                    // تغيير المحتوى بناءً على التبويب
+                    const tabId = this.getAttribute('data-tab');
+                    updateContentByTab(tabId);
+                });
+            });
+            
+            // أحداث فئات المتاجر
+            const categoryItems = document.querySelectorAll('.category-item');
+            categoryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // إزالة الفعالية من جميع الفئات
+                    categoryItems.forEach(c => c.classList.remove('active'));
+                    // إضافة الفعالية للفئة المنقورة
+                    this.classList.add('active');
+                    
+                    // تصفية المتاجر حسب الفئة
+                    const category = this.getAttribute('data-category');
+                    renderStores(category);
+                });
+            });
+            
+            // أحداث التنقل السفلي
+            const bottomNavItems = document.querySelectorAll('.bottom-nav .nav-item');
+            bottomNavItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // إزالة الفعالية من جميع الأزرار
+                    bottomNavItems.forEach(nav => nav.classList.remove('active'));
+                    // إضافة الفعالية للزر المنقور
+                    this.classList.add('active');
+                    
+                    // في تطبيق حقيقي، هنا سيتم تغيير الصفحة
+                    const navText = this.querySelector('span').textContent;
+                    alert(`جاري الانتقال إلى صفحة ${navText}`);
+                });
+            });
+            
+            // زر الرجوع
+            const backBtn = document.querySelector('.back-btn');
+            backBtn.addEventListener('click', function() {
+                alert('جاري الرجوع للصفحة السابقة');
+                // في تطبيق حقيقي، هنا سيتم الرجوع للصفحة السابقة
+            });
+        });
+        
+        // تحديث المحتوى بناءً على التبويب
+        function updateContentByTab(tabId) {
+            const sectionTitle = document.querySelector('.section-title');
+            
+            switch(tabId) {
+                case 'main':
+                    sectionTitle.innerHTML = '<i class="fas fa-crown"></i> أفضل المتاجر';
+                    renderStores();
+                    break;
+                case 'offers':
+                    sectionTitle.innerHTML = '<i class="fas fa-tag"></i> عروض مصرية';
+                    // في تطبيق حقيقي، هنا سيتم جلب متاجر العروض
+                    break;
+                case 'trending':
+                    sectionTitle.innerHTML = '<i class="fas fa-fire"></i> الأكثر شهرة';
+                    // في تطبيق حقيقي، هنا سيتم جلب المتاجر الأكثر شهرة
+                    break;
+                case 'nails':
+                    sectionTitle.innerHTML = '<i class="fas fa-hand-sparkles"></i> أظافر';
+                    // في تطبيق حقيقي، هنا سيتم جلب متاجر الأظافر
+                    break;
+            }
+        }
+    </script>
 </body>
 </html>

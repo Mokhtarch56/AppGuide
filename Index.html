@@ -5,14 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>دليل المتاجر النسائية</title>
 <style>
+/* ألوان هادئة */
+:root {
+    --primary-color: #A3C4BC;
+    --secondary-color: #FFFFFF;
+    --accent-color: #FF69B4;
+    --text-color: #333;
+    --favorite-color: #FFD700;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #FFF0F5;
+    background-color: var(--primary-color);
 }
+
 header {
-    background-color: #FF69B4;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--text-color);
     padding: 20px;
     text-align: center;
     font-size: 24px;
@@ -20,27 +30,18 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
-header button {
-    background-color: white;
-    color: #FF69B4;
-    border: none;
-    border-radius: 8px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-weight: bold;
-}
+
 .store-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 15px;
     padding: 20px;
+    margin-bottom: 70px; /* مساحة لشريط السفلي */
 }
+
 .store-card {
-    background-color: white;
+    background-color: var(--secondary-color);
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     text-align: center;
@@ -67,8 +68,8 @@ header button {
     padding: 6px 10px;
     border-radius: 8px;
     border: none;
-    color: white;
-    background-color: #FF69B4;
+    color: var(--secondary-color);
+    background-color: var(--accent-color);
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -77,9 +78,12 @@ header button {
 .store-card a:hover, .store-card button:hover {
     background-color: #FF1493;
 }
+
 .details-view {
     display: none;
     padding: 20px;
+    text-align: center;
+    margin-bottom: 70px; /* مساحة لشريط السفلي */
 }
 .details-view img {
     width: 120px;
@@ -91,20 +95,44 @@ header button {
     margin: 10px 0;
 }
 .favorite {
-    background-color: #FFD700;
+    background-color: var(--favorite-color);
     color: #FF1493;
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--secondary-color);
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 100;
+}
+.bottom-nav button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: bold;
+}
+.bottom-nav button.active {
+    color: var(--accent-color);
 }
 </style>
 </head>
 <body>
 
-<header>
-    <button id="backBtn" style="display:none;">⬅ رجوع</button>
-    دليل المتاجر النسائية
-    <div></div>
-</header>
+<header>دليل المتاجر النسائية</header>
 
+<!-- Home View -->
 <div id="homeView" class="store-grid"></div>
+
+<!-- Details View -->
 <div id="detailsView" class="details-view">
     <img id="detailsLogo" src="" alt="">
     <h2 id="detailsName"></h2>
@@ -112,7 +140,15 @@ header button {
     <button id="favBtn">إضافة للمفضلة</button>
 </div>
 
+<!-- Bottom Navigation Bar -->
+<div class="bottom-nav">
+    <button id="homeBtn" class="active">الرئيسية</button>
+    <button id="favNavBtn">المفضلة</button>
+    <button id="backBtn">رجوع</button>
+</div>
+
 <script>
+// إعداد المتاجر
 const stores = [];
 for(let i=1;i<=40;i++){
     stores.push({
@@ -129,38 +165,81 @@ const detailsLogo = document.getElementById("detailsLogo");
 const detailsName = document.getElementById("detailsName");
 const visitBtn = document.getElementById("visitBtn");
 const favBtn = document.getElementById("favBtn");
+const homeBtn = document.getElementById("homeBtn");
+const favNavBtn = document.getElementById("favNavBtn");
 
 let favorites = [];
 
+// دالة عرض Home
+function showHome(){
+    homeView.style.display = "grid";
+    detailsView.style.display = "none";
+    homeBtn.classList.add("active");
+    favNavBtn.classList.remove("active");
+}
+
+// دالة عرض المفضلة
+function showFavorites(){
+    homeView.style.display = "grid";
+    detailsView.style.display = "none";
+    homeView.innerHTML = "";
+    favorites.forEach(i=>{
+        const store = stores[i];
+        const card = document.createElement("div");
+        card.className = "store-card";
+        card.innerHTML = `<img src="${store.logo}" alt="${store.name}"><h3>${store.name}</h3>`;
+        card.addEventListener("click", ()=>showDetails(i));
+        homeView.appendChild(card);
+    });
+    homeBtn.classList.remove("active");
+    favNavBtn.classList.add("active");
+}
+
+// دالة عرض التفاصيل
+function showDetails(index){
+    const store = stores[index];
+    homeView.style.display = "none";
+    detailsView.style.display = "block";
+    detailsLogo.src = store.logo;
+    detailsName.textContent = store.name;
+    visitBtn.href = store.link;
+    favBtn.textContent = favorites.includes(index) ? "حذف من المفضلة" : "إضافة للمفضلة";
+    favBtn.onclick = ()=>{
+        if(favorites.includes(index)){
+            favorites = favorites.filter(i=>i!==index);
+        } else {
+            favorites.push(index);
+        }
+        favBtn.textContent = favorites.includes(index) ? "حذف من المفضلة" : "إضافة للمفضلة";
+    }
+}
+
+// إنشاء Cards في Home View
 stores.forEach((store,index)=>{
     const card = document.createElement("div");
     card.className = "store-card";
     card.innerHTML = `<img src="${store.logo}" alt="${store.name}"><h3>${store.name}</h3>`;
-    card.addEventListener("click", ()=>{
-        homeView.style.display = "none";
-        detailsView.style.display = "block";
-        backBtn.style.display = "inline-block";
-        detailsLogo.src = store.logo;
-        detailsName.textContent = store.name;
-        visitBtn.href = store.link;
-        favBtn.textContent = favorites.includes(index) ? "حذف من المفضلة" : "إضافة للمفضلة";
-        favBtn.onclick = ()=>{
-            if(favorites.includes(index)){
-                favorites = favorites.filter(i=>i!==index);
-            } else {
-                favorites.push(index);
-            }
-            favBtn.textContent = favorites.includes(index) ? "حذف من المفضلة" : "إضافة للمفضلة";
-        }
-    });
+    card.addEventListener("click", ()=>showDetails(index));
     homeView.appendChild(card);
 });
 
-backBtn.addEventListener("click", ()=>{
-    detailsView.style.display = "none";
-    homeView.style.display = "grid";
-    backBtn.style.display = "none";
+// التعامل مع أزرار شريط السفلي
+homeBtn.addEventListener("click", ()=>{
+    homeView.innerHTML = "";
+    stores.forEach((store,index)=>{
+        const card = document.createElement("div");
+        card.className = "store-card";
+        card.innerHTML = `<img src="${store.logo}" alt="${store.name}"><h3>${store.name}</h3>`;
+        card.addEventListener("click", ()=>showDetails(index));
+        homeView.appendChild(card);
+    });
+    showHome();
 });
+
+favNavBtn.addEventListener("click", showFavorites);
+backBtn.addEventListener("click", showHome);
+
+showHome();
 </script>
 
 </body>

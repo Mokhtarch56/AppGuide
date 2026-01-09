@@ -6,10 +6,9 @@
 <title>دليل المتاجر النسائية</title>
 <style>
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
     background-color: #FFF0F5;
-    margin: 0;
-    padding: 0;
 }
 header {
     background-color: #FF69B4;
@@ -18,21 +17,23 @@ header {
     text-align: center;
     font-size: 24px;
     font-weight: bold;
+    position: sticky;
+    top: 0;
 }
-.store-container {
+.store-list {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    overflow-x: auto;
     padding: 20px;
     gap: 15px;
 }
 .store-card {
+    min-width: 160px;
     background-color: white;
     border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 180px;
-    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     padding: 15px;
+    text-align: center;
+    flex-shrink: 0;
     transition: transform 0.2s;
 }
 .store-card:hover {
@@ -49,70 +50,48 @@ header {
     margin: 5px 0;
 }
 .store-card a {
-    text-decoration: none;
-    color: white;
-    background-color: #FF69B4;
-    padding: 8px 12px;
-    border-radius: 8px;
     display: inline-block;
     margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #FF69B4;
+    color: white;
+    text-decoration: none;
     transition: background-color 0.2s;
 }
 .store-card a:hover {
     background-color: #FF1493;
 }
+
+/* Scrollbar hide for mobile feel */
+.store-list::-webkit-scrollbar {
+    display: none;
+}
+.store-list {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+}
 </style>
 </head>
 <body>
 <header>دليل المتاجر النسائية</header>
-<div class="store-container" id="storeContainer"></div>
+<div class="store-list" id="storeList"></div>
 
 <script>
 const stores = [
-    {name:"متجر الجمال", logo:"https://via.placeholder.com/80?text=G1", link:"https://example.com/shop1"},
-    {name:"متجر الموضة", logo:"https://via.placeholder.com/80?text=M2", link:"https://example.com/shop2"},
-    {name:"متجر العطور", logo:"https://via.placeholder.com/80?text=P3", link:"https://example.com/shop3"},
-    {name:"متجر الحقائب", logo:"https://via.placeholder.com/80?text=B4", link:"https://example.com/shop4"},
-    {name:"متجر الإكسسوارات", logo:"https://via.placeholder.com/80?text=A5", link:"https://example.com/shop5"},
-    {name:"متجر الملابس", logo:"https://via.placeholder.com/80?text=C6", link:"https://example.com/shop6"},
-    {name:"متجر الأحذية", logo:"https://via.placeholder.com/80?text=S7", link:"https://example.com/shop7"},
-    {name:"متجر المكياج", logo:"https://via.placeholder.com/80?text=CM8", link:"https://example.com/shop8"},
-    {name:"متجر الساعات", logo:"https://via.placeholder.com/80?text=W9", link:"https://example.com/shop9"},
-    {name:"متجر المجوهرات", logo:"https://via.placeholder.com/80?text=J10", link:"https://example.com/shop10"},
-    {name:"متجر النظارات", logo:"https://via.placeholder.com/80?text=G11", link:"https://example.com/shop11"},
-    {name:"متجر الأوشحة", logo:"https://via.placeholder.com/80?text=S12", link:"https://example.com/shop12"},
-    {name:"متجر الأحزمة", logo:"https://via.placeholder.com/80?text=B13", link:"https://example.com/shop13"},
-    {name:"متجر القبعات", logo:"https://via.placeholder.com/80?text=H14", link:"https://example.com/shop14"},
-    {name:"متجر الجوارب", logo:"https://via.placeholder.com/80?text=SO15", link:"https://example.com/shop15"},
-    {name:"متجر ملابس النوم", logo:"https://via.placeholder.com/80?text=PN16", link:"https://example.com/shop16"},
-    {name:"متجر العناية بالشعر", logo:"https://via.placeholder.com/80?text=HS17", link:"https://example.com/shop17"},
-    {name:"متجر العناية بالبشرة", logo:"https://via.placeholder.com/80?text=BS18", link:"https://example.com/shop18"},
-    {name:"متجر الصحة والجمال", logo:"https://via.placeholder.com/80?text=HB19", link:"https://example.com/shop19"},
-    {name:"متجر الإلكترونيات النسائية", logo:"https://via.placeholder.com/80?text=E20", link:"https://example.com/shop20"},
-    {name:"متجر الأزياء الرياضية", logo:"https://via.placeholder.com/80?text=SP21", link:"https://example.com/shop21"},
-    {name:"متجر الحقائب الصغيرة", logo:"https://via.placeholder.com/80?text=LB22", link:"https://example.com/shop22"},
-    {name:"متجر العطور الفرنسية", logo:"https://via.placeholder.com/80?text=PF23", link:"https://example.com/shop23"},
-    {name:"متجر المجوهرات الفاخرة", logo:"https://via.placeholder.com/80?text=LF24", link:"https://example.com/shop24"},
-    {name:"متجر الشالات", logo:"https://via.placeholder.com/80?text=S25", link:"https://example.com/shop25"},
-    {name:"متجر الملابس الداخلية", logo:"https://via.placeholder.com/80?text=IN26", link:"https://example.com/shop26"},
-    {name:"متجر النظارات الشمسية", logo:"https://via.placeholder.com/80?text=SS27", link:"https://example.com/shop27"},
-    {name:"متجر العطور الشرقية", logo:"https://via.placeholder.com/80?text=EO28", link:"https://example.com/shop28"},
-    {name:"متجر الحقائب الجلدية", logo:"https://via.placeholder.com/80?text=LB29", link:"https://example.com/shop29"},
-    {name:"متجر الأحذية الرياضية", logo:"https://via.placeholder.com/80?text=RS30", link:"https://example.com/shop30"},
-    {name:"متجر المكياج الطبيعي", logo:"https://via.placeholder.com/80?text=NM31", link:"https://example.com/shop31"},
-    {name:"متجر العناية بالأظافر", logo:"https://via.placeholder.com/80?text=NA32", link:"https://example.com/shop32"},
-    {name:"متجر الإكسسوارات اليدوية", logo:"https://via.placeholder.com/80?text=HA33", link:"https://example.com/shop33"},
-    {name:"متجر الأحذية الجلدية", logo:"https://via.placeholder.com/80?text=LS34", link:"https://example.com/shop34"},
-    {name:"متجر الملابس الشتوية", logo:"https://via.placeholder.com/80?text=WW35", link:"https://example.com/shop35"},
-    {name:"متجر الأوشحة الفاخرة", logo:"https://via.placeholder.com/80?text=LS36", link:"https://example.com/shop36"},
-    {name:"متجر القبعات الجلدية", logo:"https://via.placeholder.com/80?text=LH37", link:"https://example.com/shop37"},
-    {name:"متجر المجوهرات اليدوية", logo:"https://via.placeholder.com/80?text=HJ38", link:"https://example.com/shop38"},
-    {name:"متجر العطور العالمية", logo:"https://via.placeholder.com/80?text=GW39", link:"https://example.com/shop39"},
-    {name:"متجر الملابس الكاجوال", logo:"https://via.placeholder.com/80?text=CC40", link:"https://example.com/shop40"}
+    {name:"متجر الجمال", logo:"https://via.placeholder.com/80?text=G1", link:"#"},
+    {name:"متجر الموضة", logo:"https://via.placeholder.com/80?text=M2", link:"#"},
+    {name:"متجر العطور", logo:"https://via.placeholder.com/80?text=P3", link:"#"},
+    {name:"متجر الحقائب", logo:"https://via.placeholder.com/80?text=B4", link:"#"},
+    {name:"متجر الإكسسوارات", logo:"https://via.placeholder.com/80?text=A5", link:"#"},
+    {name:"متجر الملابس", logo:"https://via.placeholder.com/80?text=C6", link:"#"},
+    {name:"متجر الأحذية", logo:"https://via.placeholder.com/80?text=S7", link:"#"},
+    {name:"متجر المكياج", logo:"https://via.placeholder.com/80?text=CM8", link:"#"}
 ];
 
-const container = document.getElementById("storeContainer");
-stores.forEach(store=>{
+const container = document.getElementById("storeList");
+
+stores.forEach(store => {
     const card = document.createElement("div");
     card.className = "store-card";
     card.innerHTML = `

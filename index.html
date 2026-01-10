@@ -3,108 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دليل الجمال - أفضل متاجر الجمال في روسيا</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>تعلم رفع الشعارات</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
-        <!-- الهيدر -->
-        <header class="app-header">
-            <div class="header-content">
-                <h1><i class="fas fa-crown"></i> دليل الجمال</h1>
-                <p class="subtitle">أفضل متاجر الجمال للجالية العربية في روسيا</p>
-                <div class="header-actions">
-                    <div class="lang-switch">
-                        <span class="lang-btn active" data-lang="ar">العربية</span>
-                        <span class="lang-separator">|</span>
-                        <span class="lang-btn" data-lang="ru">Русский</span>
-                    </div>
-                    <button class="theme-toggle" id="themeToggle">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </div>
-            </div>
-        </header>
-
-        <!-- شريط البحث -->
-        <div class="search-bar">
-            <div class="search-container">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="ابحث عن متجر أو منتج...">
-                <button class="search-clear" id="clearSearch">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
+    <div class="container">
+        <h1>🔍 تجربة عرض شعار متجر</h1>
+        <p class="subtitle">هنا ستتعلم كيف ترفع شعار وتظهره في الموقع</p>
+        
+        <!-- منطقة عرض المتجر -->
+        <div id="singleShop" class="shop-card">
+            <!-- المتجر سيظهر هنا -->
         </div>
 
-        <!-- التنقل العلوي -->
-        <nav class="main-nav">
-            <div class="nav-tabs">
-                <button class="nav-tab active" data-tab="home">
-                    <i class="fas fa-home"></i>
-                    <span>الرئيسية</span>
-                </button>
-                <button class="nav-tab" data-tab="offers">
-                    <i class="fas fa-tag"></i>
-                    <span>العروض</span>
-                </button>
-                <button class="nav-tab" data-tab="trending">
-                    <i class="fas fa-fire"></i>
-                    <span>الأكثر شهرة</span>
-                </button>
-                <button class="nav-tab" data-tab="categories">
-                    <i class="fas fa-th-large"></i>
-                    <span>الفئات</span>
-                </button>
-            </div>
-        </nav>
-
-        <!-- المحتوى الرئيسي -->
-        <main class="main-content" id="mainContent">
-            <!-- سيتم تحميل المحتوى هنا -->
-        </main>
-
-        <!-- التنقل السفلي -->
-        <footer class="bottom-nav">
-            <button class="nav-btn" id="backBtn" title="رجوع">
-                <i class="fas fa-arrow-right"></i>
-                <span>رجوع</span>
-            </button>
-            <button class="nav-btn" id="favoritesBtn" title="المفضلة">
-                <i class="fas fa-heart"></i>
-                <span>المفضلة</span>
-                <span class="badge" id="favoritesCount">0</span>
-            </button>
-            <button class="nav-btn active" id="homeBtn" title="الرئيسية">
-                <i class="fas fa-home"></i>
-                <span>الرئيسية</span>
-            </button>
-        </footer>
-
-        <!-- صفحة تفاصيل المتجر -->
-        <div class="store-detail-page" id="storeDetailPage">
-            <div class="detail-header">
-                <button class="back-btn" id="closeDetailBtn" title="إغلاق">
-                    <i class="fas fa-times"></i>
-                </button>
-                <h2 id="detailStoreName"></h2>
-                <button class="share-btn" id="shareStoreBtn" title="مشاركة">
-                    <i class="fas fa-share-alt"></i>
-                </button>
-            </div>
-            <div class="detail-content" id="detailContent">
-                <!-- محتوى التفاصيل -->
-            </div>
+        <div class="instructions">
+            <h3>📚 خطوات رفع شعار:</h3>
+            <ol>
+                <li>أنشئ مجلد <code>logos</code> بجوار هذا الملف</li>
+                <li>ضع صورة الشعار في المجلد (مثل: <code>my-logo.png</code>)</li>
+                <li>عدل ملف <code>data.json</code> وأضف اسم الصورة</li>
+                <li>الشعار سيظهر تلقائياً!</li>
+            </ol>
         </div>
-
-        <!-- نافذة التنبيهات -->
-        <div class="notification-container" id="notificationContainer"></div>
     </div>
 
-    <!-- الملفات الخارجية -->
-    <script src="data.js"></script>
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

@@ -1,32 +1,21 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تعلم رفع الشعارات</title>
+    <title>دليل المتاجر</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>🔍 تجربة عرض شعار متجر</h1>
-        <p class="subtitle">هنا ستتعلم كيف ترفع شعار وتظهره في الموقع</p>
-        
-        <!-- منطقة عرض المتجر -->
-        <div id="singleShop" class="shop-card">
-            <!-- المتجر سيظهر هنا -->
-        </div>
-
-        <div class="instructions">
-            <h3>📚 خطوات رفع شعار:</h3>
-            <ol>
-                <li>أنشئ مجلد <code>logos</code> بجوار هذا الملف</li>
-                <li>ضع صورة الشعار في المجلد (مثل: <code>my-logo.png</code>)</li>
-                <li>عدل ملف <code>data.json</code> وأضف اسم الصورة</li>
-                <li>الشعار سيظهر تلقائياً!</li>
-            </ol>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
+    <header>
+        <h1>دليل المتاجر</h1>
+    </header>
+    <main id="categories"></main>
+    <main id="shops" class="hidden"></main>
+    <nav class="bottom-nav">
+        <button onclick="showCategories()">🏠 الرئيسية</button>
+    </nav>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

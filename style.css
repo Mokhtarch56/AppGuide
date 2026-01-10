@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل الجمال - أفضل متاجر الجمال في روسيا</title>
+    
+    <!-- الأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ملف CSS الخاص بنا -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- الخط العربي -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- الهيكل الرئيسي -->
+    <div class="app-container">
+        <!-- الهيدر -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1><i class="fas fa-crown"></i> دليل الجمال</h1>
+                <p class="subtitle">أفضل متاجر الجمال للجالية العربية في روسيا</p>
+                <p class="lang-switch">
+                    <span class="lang-btn active" data-lang="ar">العربية</span>
+                    <span class="lang-separator">|</span>
+                    <span class="lang-btn" data-lang="ru">Русский</span>
+                </p>
+            </div>
+        </header>
+
+        <!-- التنقل العلوي -->
+        <nav class="main-nav">
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-tab="home">
+                    <i class="fas fa-home"></i>
+                    <span>الرئيسية</span>
+                </button>
+                <button class="nav-tab" data-tab="offers">
+                    <i class="fas fa-tag"></i>
+                    <span>العروض</span>
+                </button>
+                <button class="nav-tab" data-tab="trending">
+                    <i class="fas fa-fire"></i>
+                    <span>الأكثر شهرة</span>
+                </button>
+                <button class="nav-tab" data-tab="categories">
+                    <i class="fas fa-th-large"></i>
+                    <span>الفئات</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- المحتوى الرئيسي -->
+        <main class="main-content" id="mainContent">
+            <!-- ⬇️ المحتوى يتغير هنا تلقائياً -->
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>جاري التحميل...</p>
+            </div>
+        </main>
+
+        <!-- التنقل السفلي الثابت -->
+        <footer class="bottom-nav">
+            <button class="nav-btn" id="backBtn">
+                <i class="fas fa-arrow-right"></i>
+                <span>رجوع</span>
+            </button>
+            <button class="nav-btn" id="favoritesBtn">
+                <i class="fas fa-heart"></i>
+                <span>المفضلة</span>
+            </button>
+            <button class="nav-btn active" id="homeBtn">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </button>
+        </footer>
+
+        <!-- صفحة تفاصيل المتجر (مخفية) -->
+        <div class="store-detail-page" id="storeDetailPage">
+            <div class="detail-header">
+                <button class="back-btn" id="closeDetailBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h2 id="detailStoreName"></h2>
+            </div>
+            <div class="detail-content">
+                <!-- ⬇️ تفاصيل المتجر تظهر هنا -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ملف البيانات -->
+    <script src="data.js"></script>
+    
+    <!-- ملف JavaScript الرئيسي -->
+    <script src="script.js"></script>
+    
+    <!-- كود تهيئة -->
+    <script>
+        // بدء التطبيق عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof initApp === 'function') {
+                initApp();
+            }
+        });
+    </script>
+</body>
+</html>

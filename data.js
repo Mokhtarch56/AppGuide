@@ -329,3 +329,49 @@ if (typeof window !== 'undefined') {
     window.CATEGORIES = CATEGORIES;
     window.STORES = STORES;
 }
+if (filteredStores.length === 0) {
+    container.innerHTML = `
+        <div class="empty-state">
+            <i class="far fa-store-slash"></i>
+            <h3>لا توجد متاجر</h3>
+            <p>${appState.searchQuery ? 'لم يتم العثور على نتائج للبحث' : 'لا توجد متاجر في هذه الفئة حالياً'}</p>
+        </div>
+    `;
+    return;
+}
+
+// عرض المتاجر
+let html = filteredStores.map(store => {
+    const isFavorite = appState.favorites.has(store.id);
+    return `
+    <div class="store-card" data-store-id="${store.id}">
+        <div class="store-header">
+            <div class="store-category-badge">${store.category}</div>
+            <button class="favorite-btn ${isFavorite ? 'active' : ''}" 
+                    data-store-id="${store.id}">
+                <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>
+            </button>
+        </div>
+        <div class="store-image">
+            <img src="${store.image}" alt="${store.name}" onerror="this.src='default-store.jpg'">
+        </div>
+        <div class="store-info">
+            <h3>${store.name}</h3>
+            <p class="store-description">${store.description}</p>
+            <div class="store-meta">
+                <span class="location">
+                    <i class="fas fa-map-marker-alt"></i> ${store.location}
+                </span>
+                <span class="rating">
+                    <i class="fas fa-star"></i> ${store.rating}
+                </span>
+            </div>
+            <button class="view-store-btn" data-store-id="${store.id}">
+                عرض التفاصيل
+            </button>
+        </div>
+    </div>
+    `;
+}).join('');
+
+container.innerHTML = html;

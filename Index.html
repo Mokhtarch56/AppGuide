@@ -377,10 +377,10 @@
             background-color: var(--white);
             border-top: 1px solid var(--light-gray);
             display: flex;
-            justify-content: space-around;
             padding: 12px 0;
             z-index: 100;
             box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+            direction: ltr; /* عكس الاتجاه */
         }
         
         .nav-item {
@@ -394,6 +394,7 @@
             padding: 8px 12px;
             border-radius: 10px;
             position: relative;
+            flex: 1;
         }
         
         .nav-item i {
@@ -424,8 +425,8 @@
             content: '';
             position: absolute;
             top: -5px;
-            right: 50%;
-            transform: translateX(50%);
+            left: 50%; /* تغيير من right إلى left */
+            transform: translateX(-50%); /* تغيير من right إلى left */
             width: 6px;
             height: 6px;
             background: var(--primary);
@@ -465,13 +466,15 @@
             color: var(--primary);
             font-size: 20px;
             cursor: pointer;
-            margin-left: 15px;
+            margin-right: 15px; /* تغيير من margin-left إلى margin-right */
         }
         
         .store-detail-title {
             font-size: 22px;
             color: var(--dark);
             font-weight: 700;
+            flex: 1;
+            text-align: center;
         }
         
         .store-detail-image {
@@ -530,38 +533,81 @@
             color: var(--primary);
         }
         
-        .similar-stores-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+        /* الكاروسيل */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            margin: 0 -20px;
+            padding: 0 20px;
         }
         
-        .similar-store-card {
+        .carousel-track {
+            display: flex;
+            gap: 15px;
+            transition: transform 0.5s ease;
+            padding-bottom: 10px;
+        }
+        
+        .carousel-item {
+            min-width: 150px;
             background: var(--white);
             border-radius: var(--border-radius);
             padding: 15px;
             border: 1px solid var(--light-gray);
             cursor: pointer;
             transition: var(--transition);
+            box-shadow: var(--shadow);
         }
         
-        .similar-store-card:hover {
+        .carousel-item:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-hover);
             border-color: var(--primary);
         }
         
-        .similar-store-name {
+        .carousel-store-image {
+            height: 80px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin-bottom: 10px;
+            background-color: var(--white);
+        }
+        
+        .carousel-store-name {
             font-size: 16px;
             font-weight: 600;
             color: var(--dark);
             margin-bottom: 5px;
+            text-align: center;
         }
         
-        .similar-store-category {
+        .carousel-store-category {
             font-size: 12px;
             color: var(--primary);
+            text-align: center;
             margin-bottom: 8px;
+        }
+        
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .carousel-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
         }
         
         /* أنيميشن للتسجيل */
@@ -603,9 +649,16 @@
                 font-size: 22px;
             }
             
-            .similar-stores-grid {
-                grid-template-columns: 1fr;
+            .carousel-item {
+                min-width: 140px;
             }
+        }
+        
+        /* أيقونات المتاجر البديلة */
+        .store-icon {
+            font-size: 50px;
+            color: var(--primary);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -690,7 +743,7 @@
         <div class="store-detail-page" id="storeDetailPage">
             <div class="store-detail-header">
                 <button class="back-to-home">
-                    <i class="fas fa-arrow-right"></i>
+                    <i class="fas fa-arrow-left"></i> <!-- تغيير السهم -->
                 </button>
                 <h2 class="store-detail-title" id="storeDetailName"></h2>
             </div>
@@ -727,35 +780,40 @@
                     <i class="fas fa-store"></i>
                     متاجر مشابهة
                 </div>
-                <div class="similar-stores-grid" id="similarStoresContainer">
-                    <!-- سيتم إضافة المتاجر المشابهة هنا -->
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- سيتم إضافة المتاجر المشابهة هنا -->
+                    </div>
+                    <div class="carousel-nav" id="carouselNav">
+                        <!-- سيتم إضافة النقاط هنا -->
+                    </div>
                 </div>
             </div>
         </div>
         
-        <!-- التنقل السفلي -->
+        <!-- التنقل السفلي (عكس الاتجاه) -->
         <div class="bottom-nav">
-            <div class="nav-item active" data-page="home">
-                <i class="fas fa-home"></i>
-                <span>الرئيسية</span>
-            </div>
-            <div class="nav-item" data-page="favorites">
-                <i class="fas fa-heart"></i>
-                <span>المفضلة</span>
+            <div class="nav-item" data-page="back">
+                <i class="fas fa-arrow-right"></i> <!-- تغيير السهم -->
+                <span>رجوع</span>
             </div>
             <div class="nav-item" data-page="search">
                 <i class="fas fa-search"></i>
                 <span>بحث</span>
             </div>
-            <div class="nav-item" data-page="back">
-                <i class="fas fa-arrow-right"></i>
-                <span>رجوع</span>
+            <div class="nav-item" data-page="favorites">
+                <i class="fas fa-heart"></i>
+                <span>المفضلة</span>
+            </div>
+            <div class="nav-item active" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
             </div>
         </div>
     </div>
 
     <script>
-        // بيانات المتاجر بشعارات محلية
+        // بيانات المتاجر مع أيقونات بديلة (بدون روابط صور)
         const stores = [
             // متاجر الماكياج (مايكاب)
             {
@@ -763,7 +821,8 @@
                 name: "SEPHORA",
                 category: "makeup",
                 description: "المتجر الأشمل للمكياج ومستحضرات التجميل العالمية، يقدم تشكيلة واسعة من المنتجات والماركات العالمية.",
-                logoUrl: "https://i.imgur.com/5k7pX9J.png",
+                icon: "fas fa-shopping-bag",
+                color: "#FF4081",
                 website: "https://www.sephora.sa",
                 rating: 4.8,
                 favorite: true,
@@ -774,7 +833,8 @@
                 name: "MAC Cosmetics",
                 category: "makeup",
                 description: "مستحضرات مكياج عالية الجودة للمحترفين، تشتهر بألوانها الجريئة وجودتها العالية.",
-                logoUrl: "https://i.imgur.com/8m5Qx9T.png",
+                icon: "fas fa-palette",
+                color: "#000000",
                 website: "https://www.maccosmetics.ae",
                 rating: 4.8,
                 favorite: true,
@@ -785,7 +845,8 @@
                 name: "NARS Cosmetics",
                 category: "makeup",
                 description: "مكياج فاخر بألوان جريئة وتصميمات مبتكرة، مناسب للمناسبات والحفلات.",
-                logoUrl: "https://i.imgur.com/v7jKx9W.png",
+                icon: "fas fa-paint-brush",
+                color: "#FF5252",
                 website: "https://www.narscosmetics.com",
                 rating: 4.7,
                 favorite: false,
@@ -796,7 +857,8 @@
                 name: "KIKO Milano",
                 category: "makeup",
                 description: "مكياج إيطالي بجودة عالية وأسعار مناسبة، مناسب للاستخدام اليومي.",
-                logoUrl: "https://i.imgur.com/j8m5Qx9.png",
+                icon: "fas fa-lipstick",
+                color: "#E91E63",
                 website: "https://www.kikocosmetics.com",
                 rating: 4.5,
                 favorite: false,
@@ -809,7 +871,8 @@
                 name: "L'Oréal Paris",
                 category: "skincare",
                 description: "مستحضرات عناية بالبشرة من أبحاث متطورة، تناسب جميع أنواع البشرة.",
-                logoUrl: "https://i.imgur.com/n8m5Qx9.png",
+                icon: "fas fa-spa",
+                color: "#4CAF50",
                 website: "https://www.loreal-paris.com",
                 rating: 4.6,
                 favorite: true,
@@ -820,7 +883,8 @@
                 name: "The Ordinary",
                 category: "skincare",
                 description: "مستحضرات عناية بالبشرة بتركيبات فعالة وبسيطة، بأسعار معقولة.",
-                logoUrl: "https://i.imgur.com/b8m5Qx9.png",
+                icon: "fas fa-flask",
+                color: "#795548",
                 website: "https://theordinary.com",
                 rating: 4.7,
                 favorite: false,
@@ -833,7 +897,8 @@
                 name: "OPI",
                 category: "nails",
                 description: "أشهر ماركة طلاء أظافر بألوان متنوعة وجودة عالية، تشتهر بمنتجاتها المبتكرة.",
-                logoUrl: "https://i.imgur.com/c8m5Qx9.png",
+                icon: "fas fa-hand-sparkles",
+                color: "#FF9800",
                 website: "https://www.opi.com",
                 rating: 4.6,
                 favorite: true,
@@ -844,7 +909,8 @@
                 name: "CND",
                 category: "nails",
                 description: "منتجات متخصصة للعناية بالأظافر وتطويلها، من أفضل الماركات العالمية.",
-                logoUrl: "https://i.imgur.com/d8m5Qx9.png",
+                icon: "fas fa-hand-sparkles",
+                color: "#9C27B0",
                 website: "https://www.cnd.com",
                 rating: 4.5,
                 favorite: false,
@@ -857,7 +923,8 @@
                 name: "Pandora",
                 category: "accessories",
                 description: "مجوهرات وإكسسوارات فاخرة بتصميمات مبتكرة، يمكن تخصيصها حسب الذوق.",
-                logoUrl: "https://i.imgur.com/e8m5Qx9.png",
+                icon: "fas fa-gem",
+                color: "#9C27B0",
                 website: "https://sa.pandora.net",
                 rating: 4.7,
                 favorite: true,
@@ -868,7 +935,8 @@
                 name: "Swarovski",
                 category: "accessories",
                 description: "كريستالات ومجوهرات براقة بتصميمات أنيقة، مناسبة للمناسبات الخاصة.",
-                logoUrl: "https://i.imgur.com/f8m5Qx9.png",
+                icon: "fas fa-gem",
+                color: "#2196F3",
                 website: "https://www.swarovski.com",
                 rating: 4.8,
                 favorite: true,
@@ -881,7 +949,8 @@
                 name: "ZARA",
                 category: "clothes",
                 description: "أحدث صيحات الموضة والملابس النسائية العصرية، تواكب أحدث خطوط الموضة العالمية.",
-                logoUrl: "https://i.imgur.com/g8m5Qx9.png",
+                icon: "fas fa-tshirt",
+                color: "#000000",
                 website: "https://www.zara.com/sa",
                 rating: 4.6,
                 favorite: false,
@@ -892,7 +961,8 @@
                 name: "H&M",
                 category: "clothes",
                 description: "موضة عصرية بأسعار مناسبة للنساء والفتيات، تشمل جميع الفئات العمرية.",
-                logoUrl: "https://i.imgur.com/h8m5Qx9.png",
+                icon: "fas fa-shopping-bag",
+                color: "#FF4081",
                 website: "https://www.hm.com/sa_ar",
                 rating: 4.5,
                 favorite: false,
@@ -905,7 +975,8 @@
                 name: "CHANEL",
                 category: "perfume",
                 description: "عطور ومستحضرات تجميل فاخرة من أشهر الماركات العالمية، رمز الأناقة والجمال.",
-                logoUrl: "https://i.imgur.com/i8m5Qx9.png",
+                icon: "fas fa-wine-bottle",
+                color: "#000000",
                 website: "https://www.chanel.com/ar_AE",
                 rating: 4.9,
                 favorite: true,
@@ -916,10 +987,35 @@
                 name: "Dior",
                 category: "perfume",
                 description: "عطور فرنسية فاخرة بروائح مميزة وأنيقة، تجمع بين التراث والحداثة.",
-                logoUrl: "https://i.imgur.com/j8m5Qx9.png",
+                icon: "fas fa-wine-bottle",
+                color: "#FF4081",
                 website: "https://www.dior.com",
                 rating: 4.8,
                 favorite: true,
+                status: "متاح للطلب"
+            },
+            {
+                id: 15,
+                name: "Victoria's Secret",
+                category: "clothes",
+                description: "ملابس داخلية وعطور ومستحضرات تجميل فاخرة للنساء.",
+                icon: "fas fa-female",
+                color: "#E91E63",
+                website: "https://www.victoriassecret.com",
+                rating: 4.7,
+                favorite: true,
+                status: "متاح للطلب"
+            },
+            {
+                id: 16,
+                name: "Michael Kors",
+                category: "accessories",
+                description: "حقائب وأحذية وإكسسوارات فاخرة بتصميمات عصرية.",
+                icon: "fas fa-briefcase",
+                color: "#000000",
+                website: "https://www.michaelkors.com",
+                rating: 4.6,
+                favorite: false,
                 status: "متاح للطلب"
             }
         ];
@@ -927,6 +1023,7 @@
         // حالة التطبيق
         let currentStore = null;
         let currentPage = 'home';
+        let carouselCurrentSlide = 0;
 
         // عرض المتاجر
         function renderStores(filterCategory = 'all') {
@@ -944,7 +1041,8 @@
                 storeElement.setAttribute('data-id', store.id);
                 storeElement.style.animationDelay = `${index * 0.1}s`;
                 storeElement.innerHTML = `
-                    <div class="store-image" style="background-image: url('${store.logoUrl}');">
+                    <div class="store-image" style="background-color: ${store.color}; display: flex; align-items: center; justify-content: center;">
+                        <i class="${store.icon} store-icon" style="color: white; font-size: 60px;"></i>
                     </div>
                     <div class="store-details">
                         <div class="store-name">
@@ -1007,7 +1105,7 @@
             
             // تحديث صفحة التفاصيل
             document.getElementById('storeDetailName').textContent = store.name;
-            document.getElementById('storeDetailImage').style.backgroundImage = `url('${store.logoUrl}')`;
+            document.getElementById('storeDetailImage').innerHTML = `<i class="${store.icon} store-icon" style="font-size: 100px; color: ${store.color}; display: flex; align-items: center; justify-content: center; height: 100%;"></i>`;
             document.getElementById('storeDetailCategory').textContent = getCategoryName(store.category);
             document.getElementById('storeDetailRating').innerHTML = `<i class="fas fa-star" style="color: #ffc107;"></i> ${store.rating}`;
             document.getElementById('storeDetailStatus').textContent = store.status;
@@ -1015,8 +1113,8 @@
             document.getElementById('storeDetailDescription').textContent = store.description;
             document.getElementById('storeDetailLink').href = store.website;
             
-            // عرض المتاجر المشابهة
-            showSimilarStores(store);
+            // عرض المتاجر المشابهة في الكاروسيل
+            showSimilarStoresCarousel(store);
             
             // إظهار صفحة التفاصيل
             document.getElementById('storeDetailPage').classList.add('active');
@@ -1027,70 +1125,95 @@
             updateBottomNav();
         }
 
-        // عرض المتاجر المشابهة
-        function showSimilarStores(currentStore) {
-            const container = document.getElementById('similarStoresContainer');
+        // عرض المتاجر المشابهة في الكاروسيل
+        function showSimilarStoresCarousel(currentStore) {
+            const container = document.getElementById('carouselTrack');
+            const navContainer = document.getElementById('carouselNav');
+            
             container.innerHTML = '';
+            navContainer.innerHTML = '';
             
             // الحصول على متاجر من نفس الفئة (باستثناء المتجر الحالي)
             const similarStores = stores.filter(store => 
                 store.category === currentStore.category && 
                 store.id !== currentStore.id
-            ).slice(0, 4); // عرض 4 متاجر كحد أقصى
+            );
             
-            if (similarStores.length === 0) {
-                // عرض متاجر من فئات أخرى إذا لم توجد متاجر مشابهة
+            // إذا كانت المتاجر المشابهة قليلة، أضف متاجر من فئات أخرى
+            let storesToShow = [...similarStores];
+            if (storesToShow.length < 4) {
                 const otherStores = stores.filter(store => 
                     store.category !== currentStore.category
-                ).slice(0, 4);
+                ).slice(0, 4 - storesToShow.length);
+                storesToShow = [...storesToShow, ...otherStores];
+            }
+            
+            // إضافة المتاجر إلى الكاروسيل
+            storesToShow.slice(0, 6).forEach((store, index) => {
+                const storeElement = document.createElement('div');
+                storeElement.className = 'carousel-item';
+                storeElement.setAttribute('data-id', store.id);
+                storeElement.innerHTML = `
+                    <div class="carousel-store-image" style="background-color: ${store.color}; display: flex; align-items: center; justify-content: center; border-radius: 10px;">
+                        <i class="${store.icon}" style="color: white; font-size: 40px;"></i>
+                    </div>
+                    <div class="carousel-store-name">${store.name}</div>
+                    <div class="carousel-store-category">${getCategoryName(store.category)}</div>
+                `;
                 
-                otherStores.forEach(store => {
-                    const storeElement = document.createElement('div');
-                    storeElement.className = 'similar-store-card';
-                    storeElement.setAttribute('data-id', store.id);
-                    storeElement.innerHTML = `
-                        <div class="similar-store-name">${store.name}</div>
-                        <div class="similar-store-category">${getCategoryName(store.category)}</div>
-                        <div style="font-size: 13px; color: #666; margin-bottom: 10px;">${store.description.substring(0, 40)}...</div>
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="color: #ffc107; font-size: 13px;"><i class="fas fa-star"></i> ${store.rating}</span>
-                            <button style="background: none; border: none; color: #e91e63; cursor: pointer; font-size: 12px;">
-                                عرض <i class="fas fa-arrow-left"></i>
-                            </button>
-                        </div>
-                    `;
-                    
-                    storeElement.addEventListener('click', function() {
-                        const storeId = parseInt(this.getAttribute('data-id'));
-                        showStoreDetails(storeId);
-                    });
-                    
-                    container.appendChild(storeElement);
+                storeElement.addEventListener('click', function() {
+                    const storeId = parseInt(this.getAttribute('data-id'));
+                    showStoreDetails(storeId);
                 });
-            } else {
-                similarStores.forEach(store => {
-                    const storeElement = document.createElement('div');
-                    storeElement.className = 'similar-store-card';
-                    storeElement.setAttribute('data-id', store.id);
-                    storeElement.innerHTML = `
-                        <div class="similar-store-name">${store.name}</div>
-                        <div class="similar-store-category">${getCategoryName(store.category)}</div>
-                        <div style="font-size: 13px; color: #666; margin-bottom: 10px;">${store.description.substring(0, 40)}...</div>
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="color: #ffc107; font-size: 13px;"><i class="fas fa-star"></i> ${store.rating}</span>
-                            <button style="background: none; border: none; color: #e91e63; cursor: pointer; font-size: 12px;">
-                                عرض <i class="fas fa-arrow-left"></i>
-                            </button>
-                        </div>
-                    `;
-                    
-                    storeElement.addEventListener('click', function() {
-                        const storeId = parseInt(this.getAttribute('data-id'));
-                        showStoreDetails(storeId);
-                    });
-                    
-                    container.appendChild(storeElement);
+                
+                container.appendChild(storeElement);
+            });
+            
+            // حساب عدد الشرائح
+            const itemsPerSlide = window.innerWidth < 480 ? 1 : 2;
+            const totalSlides = Math.ceil(storesToShow.length / itemsPerSlide);
+            
+            // إضافة نقاط التنقل
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.setAttribute('data-slide', i);
+                dot.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-slide'));
+                    goToSlide(slideIndex);
                 });
+                navContainer.appendChild(dot);
+            }
+            
+            // إعادة تعيين الكاروسيل
+            carouselCurrentSlide = 0;
+            updateCarousel();
+        }
+
+        // تحديث الكاروسيل
+        function updateCarousel() {
+            const track = document.getElementById('carouselTrack');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const itemsPerSlide = window.innerWidth < 480 ? 1 : 2;
+            const itemWidth = 150 + 15; // عرض العنصر + الفجوة
+            
+            track.style.transform = `translateX(${-carouselCurrentSlide * itemsPerSlide * itemWidth}px)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === carouselCurrentSlide);
+            });
+        }
+
+        // الانتقال إلى شريحة محددة
+        function goToSlide(slideIndex) {
+            const itemsPerSlide = window.innerWidth < 480 ? 1 : 2;
+            const totalStores = document.querySelectorAll('.carousel-item').length;
+            const totalSlides = Math.ceil(totalStores / itemsPerSlide);
+            
+            if (slideIndex >= 0 && slideIndex < totalSlides) {
+                carouselCurrentSlide = slideIndex;
+                updateCarousel();
             }
         }
 
@@ -1186,7 +1309,7 @@
                 });
             });
             
-            // أحداث التنقل السفلي
+            // أحداث التنقل السفلي (العكس)
             const bottomNavItems = document.querySelectorAll('.bottom-nav .nav-item');
             bottomNavItems.forEach(item => {
                 item.addEventListener('click', function() {
@@ -1218,6 +1341,60 @@
             
             // زر الرجوع في صفحة التفاصيل
             document.querySelector('.back-to-home').addEventListener('click', backToHome);
+            
+            // إضافة أحداث السحب للكاروسيل
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            
+            const carouselTrack = document.getElementById('carouselTrack');
+            
+            if (carouselTrack) {
+                carouselTrack.addEventListener('mousedown', dragStart);
+                carouselTrack.addEventListener('touchstart', dragStart);
+                carouselTrack.addEventListener('mouseup', dragEnd);
+                carouselTrack.addEventListener('touchend', dragEnd);
+                carouselTrack.addEventListener('mouseleave', dragEnd);
+                carouselTrack.addEventListener('mousemove', drag);
+                carouselTrack.addEventListener('touchmove', drag);
+            }
+            
+            function dragStart(e) {
+                if (e.type === 'touchstart') {
+                    startPos = e.touches[0].clientX;
+                } else {
+                    startPos = e.clientX;
+                    e.preventDefault();
+                }
+                isDragging = true;
+            }
+            
+            function drag(e) {
+                if (!isDragging) return;
+                const currentPosition = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+                const diff = currentPosition - startPos;
+                
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0 && carouselCurrentSlide > 0) {
+                        goToSlide(carouselCurrentSlide - 1);
+                        isDragging = false;
+                    } else if (diff < 0) {
+                        const itemsPerSlide = window.innerWidth < 480 ? 1 : 2;
+                        const totalStores = document.querySelectorAll('.carousel-item').length;
+                        const totalSlides = Math.ceil(totalStores / itemsPerSlide);
+                        
+                        if (carouselCurrentSlide < totalSlides - 1) {
+                            goToSlide(carouselCurrentSlide + 1);
+                            isDragging = false;
+                        }
+                    }
+                }
+            }
+            
+            function dragEnd() {
+                isDragging = false;
+            }
         });
 
         // تحديث المحتوى بناءً على التبويب
@@ -1261,7 +1438,8 @@
                     storeElement.setAttribute('data-id', store.id);
                     storeElement.style.animationDelay = `${index * 0.1}s`;
                     storeElement.innerHTML = `
-                        <div class="store-image" style="background-image: url('${store.logoUrl}');">
+                        <div class="store-image" style="background-color: ${store.color}; display: flex; align-items: center; justify-content: center;">
+                            <i class="${store.icon} store-icon" style="color: white; font-size: 60px;"></i>
                         </div>
                         <div class="store-details">
                             <div class="store-name">
@@ -1445,8 +1623,9 @@
                 storeElement.className = 'store-card';
                 storeElement.setAttribute('data-id', store.id);
                 storeElement.innerHTML = `
-                    <div class="store-image" style="background-image: url('${store.logoUrl}'); position: relative;">
+                    <div class="store-image" style="background-color: ${store.color}; display: flex; align-items: center; justify-content: center; position: relative;">
                         ${index < 3 ? `<div style="position: absolute; top: 10px; right: 10px; background: gold; color: #333; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">${index + 1}</div>` : ''}
+                        <i class="${store.icon} store-icon" style="color: white; font-size: 60px;"></i>
                     </div>
                     <div class="store-details">
                         <div class="store-name">

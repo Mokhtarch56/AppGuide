@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
         
         body {
@@ -19,7 +19,6 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            direction: rtl;
         }
         
         .store-card {
@@ -28,20 +27,16 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             width: 420px;
             padding: 25px;
-            display: grid;
-            grid-template-columns: 100px 1fr;
-            grid-template-rows: auto auto auto;
-            gap: 15px;
-            grid-template-areas:
-                "logo name"
-                "logo description"
-                "logo button";
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
         }
         
+        /* الشعار على اليسار */
         .logo-container {
-            grid-area: logo;
             width: 100px;
             height: 100px;
+            flex-shrink: 0;
             border-radius: 10px;
             overflow: hidden;
             background: white;
@@ -59,27 +54,30 @@
             object-fit: contain;
         }
         
+        /* المحتوى على اليمين */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
         .store-name {
-            grid-area: name;
             color: #2c3e50;
             font-size: 24px;
-            font-weight: 800; /* خط خشين */
-            margin: 0;
-            text-align: right;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1.2;
         }
         
         .description {
-            grid-area: description;
             color: #666;
             font-size: 14px;
             line-height: 1.5;
-            text-align: right;
-            margin: 0;
-            padding-top: 5px;
+            margin-bottom: 15px;
+            flex-grow: 1;
         }
         
         .shop-btn {
-            grid-area: button;
             background: #4CAF50;
             color: white;
             border: none;
@@ -92,9 +90,8 @@
             align-items: center;
             gap: 8px;
             width: fit-content;
-            justify-self: end; /* زر على اليسار */
-            margin-top: 5px;
             transition: background 0.3s;
+            align-self: flex-end; /* الزر على اليسار داخل المحتوى */
         }
         
         .shop-btn:hover {
@@ -104,11 +101,8 @@
         .note {
             color: #888;
             font-size: 11px;
-            text-align: left;
             margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px dashed #eee;
-            grid-column: 1 / -1;
+            text-align: left;
         }
         
         /* للتجاوب مع الشاشات الصغيرة */
@@ -117,8 +111,9 @@
                 width: 100%;
                 max-width: 350px;
                 padding: 20px;
-                grid-template-columns: 80px 1fr;
-                gap: 12px;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
             }
             
             .logo-container {
@@ -128,15 +123,16 @@
             
             .store-name {
                 font-size: 20px;
+                text-align: center;
             }
             
             .description {
+                text-align: center;
                 font-size: 13px;
             }
             
             .shop-btn {
-                padding: 8px 16px;
-                font-size: 13px;
+                align-self: center;
             }
         }
     </style>
@@ -148,23 +144,26 @@
             <img src="Logos/ozon.png" alt="شعار OZON" class="logo">
         </div>
         
-        <!-- اسم المتجر بخط خشين -->
-        <h2 class="store-name">متجر OZON</h2>
-        
-        <!-- وصف المتجر -->
-        <p class="description">
-            متجر إلكتروني متخصص في المنتجات التقنية الحديثة والأجهزة الذكية بجودة عالية وأسعار مناسبة.
-        </p>
-        
-        <!-- زر على اليسار -->
-        <button class="shop-btn">
-            <span>🛒</span>
-            <span>تسوق الآن</span>
-        </button>
-        
-        <!-- ملاحظة -->
-        <div class="note">
-            للتجربة فقط
+        <!-- المحتوى على اليمين -->
+        <div class="content">
+            <!-- اسم المتجر بخط خشين -->
+            <h2 class="store-name">OZON Store</h2>
+            
+            <!-- وصف المتجر -->
+            <p class="description">
+                An online store specializing in modern technology products and smart devices with high quality and competitive prices.
+            </p>
+            
+            <!-- زر على اليسار -->
+            <button class="shop-btn">
+                <span>🛒</span>
+                <span>Shop Now</span>
+            </button>
+            
+            <!-- ملاحظة -->
+            <div class="note">
+                For testing only
+            </div>
         </div>
     </div>
 </body>

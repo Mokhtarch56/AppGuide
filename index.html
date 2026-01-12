@@ -18,33 +18,39 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
             direction: rtl;
         }
         
         .store-card {
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            width: 380px;
-            padding: 18px;
-            display: flex;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 420px;
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            grid-template-rows: auto auto auto;
             gap: 15px;
-            align-items: center;
+            grid-template-areas:
+                "logo name"
+                "logo description"
+                "logo button";
         }
         
         .logo-container {
-            width: 80px;
-            height: 80px;
-            flex-shrink: 0;
-            border-radius: 8px;
+            grid-area: logo;
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
             overflow: hidden;
             background: white;
             border: 2px solid #f0f0f0;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 3px;
+            padding: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
         .logo {
@@ -53,34 +59,42 @@
             object-fit: contain;
         }
         
-        .content {
-            flex: 1;
-        }
-        
         .store-name {
+            grid-area: name;
             color: #2c3e50;
-            font-size: 18px;
-            margin-bottom: 4px;
+            font-size: 24px;
+            font-weight: 800; /* خط خشين */
+            margin: 0;
+            text-align: right;
         }
         
         .description {
+            grid-area: description;
             color: #666;
-            font-size: 13px;
-            line-height: 1.4;
-            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: right;
+            margin: 0;
+            padding-top: 5px;
         }
         
         .shop-btn {
+            grid-area: button;
             background: #4CAF50;
             color: white;
             border: none;
-            padding: 8px 16px;
-            font-size: 13px;
-            border-radius: 6px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            width: fit-content;
+            justify-self: end; /* زر على اليسار */
+            margin-top: 5px;
+            transition: background 0.3s;
         }
         
         .shop-btn:hover {
@@ -90,25 +104,67 @@
         .note {
             color: #888;
             font-size: 11px;
-            margin-top: 8px;
             text-align: left;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #eee;
+            grid-column: 1 / -1;
+        }
+        
+        /* للتجاوب مع الشاشات الصغيرة */
+        @media (max-width: 480px) {
+            .store-card {
+                width: 100%;
+                max-width: 350px;
+                padding: 20px;
+                grid-template-columns: 80px 1fr;
+                gap: 12px;
+            }
+            
+            .logo-container {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .store-name {
+                font-size: 20px;
+            }
+            
+            .description {
+                font-size: 13px;
+            }
+            
+            .shop-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="store-card">
+        <!-- الشعار على اليسار -->
         <div class="logo-container">
             <img src="Logos/ozon.png" alt="شعار OZON" class="logo">
         </div>
         
-        <div class="content">
-            <div class="store-name">OZON Store</div>
-            <div class="description">منتجات تقنية بجودة عالية وأسعار مناسبة</div>
-            <button class="shop-btn">
-                <span>🛒</span>
-                <span>تسوق</span>
-            </button>
-            <div class="note">للتجربة فقط</div>
+        <!-- اسم المتجر بخط خشين -->
+        <h2 class="store-name">متجر OZON</h2>
+        
+        <!-- وصف المتجر -->
+        <p class="description">
+            متجر إلكتروني متخصص في المنتجات التقنية الحديثة والأجهزة الذكية بجودة عالية وأسعار مناسبة.
+        </p>
+        
+        <!-- زر على اليسار -->
+        <button class="shop-btn">
+            <span>🛒</span>
+            <span>تسوق الآن</span>
+        </button>
+        
+        <!-- ملاحظة -->
+        <div class="note">
+            للتجربة فقط
         </div>
     </div>
 </body>

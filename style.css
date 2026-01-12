@@ -1,40 +1,17 @@
-body{
-  margin:0;
-  padding:16px;
-  background:#f4f6f8;
-  font-family:system-ui, sans-serif;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-}
-
-.store-card{
+.store-card-horizontal{
+  display:flex;              /* لتصبح أفقية */
+  align-items:center;        /* محاذاة الشعار والاسم عموديًا */
   background:#fff;
-  border-radius:16px;
-  padding:14px;
-  text-align:center;
-  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  border-radius:12px;
+  padding:10px;
+  margin-bottom:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+  cursor:pointer;
+  transition:transform 0.1s;
 }
 
-.store-logo{
-  width:80px;
-  height:80px;
-  object-fit:contain;
-  margin-bottom:6px;
-}
-
-.store-name{
-  font-size:14px;
-  font-weight:600;
-}    object-fit: cover;
-    border-radius: 5px;
-}
-
-.card h3 {
-    margin: 5px 0;
+.store-card-horizontal:active{
+  transform:scale(0.97);     /* تأثير ضغط    margin: 5px 0;
     font-size: 16px;
 }
 

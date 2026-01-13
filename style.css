@@ -1,272 +1,175 @@
-/* إعدادات عامة */
-* {
+/* إعدادات أساسية */
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: #ffffff;
     direction: rtl;
-    padding: 20px;
-    max-width: 1200px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
     margin: 0 auto;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    padding: 20px;
 }
 
-.app {
-    flex: 1;
+.content {
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
-/* الهيدر */
-.header {
+/* العنوان الرئيسي */
+.title-section {
     text-align: center;
-    margin-bottom: 30px;
-    padding: 20px 0;
+    margin-bottom: 20px;
 }
 
-.main-title {
-    color: #2c3e50;
-    font-size: 32px;
-    margin-bottom: 10px;
-    font-weight: 700;
+.title-section h1 {
+    font-size: 24px;
+    margin: 0 0 10px 0;
+    color: #000000;
 }
 
-.subtitle {
-    color: #7f8c8d;
-    font-size: 18px;
-    font-weight: 400;
+.title-section p {
+    font-size: 16px;
+    color: #333333;
+    margin: 0;
 }
 
 /* الفئات */
-.categories-section {
+.categories {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
     flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-.category {
-    background-color: white;
-    padding: 12px 25px;
-    border-radius: 25px;
+.category-box {
+    padding: 10px 20px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
     cursor: pointer;
-    font-weight: 600;
-    color: #2c3e50;
-    border: 2px solid #ecf0f1;
-    transition: all 0.3s ease;
-    min-width: 100px;
-    text-align: center;
+    font-size: 14px;
+    color: #333333;
 }
 
-.category:hover {
-    background-color: #3498db;
-    color: white;
-    border-color: #3498db;
-    transform: translateY(-2px);
-}
-
-.category.active {
-    background-color: #2c3e50;
-    color: white;
-    border-color: #2c3e50;
+.category-box:hover {
+    background-color: #f0f0f0;
 }
 
 /* زر التمييز */
-.highlight-btn {
-    background-color: #e74c3c;
+.highlight-section {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.highlight-section button {
+    padding: 10px 20px;
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 15px 30px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: 700;
+    border-radius: 4px;
+    font-size: 14px;
     cursor: pointer;
-    margin: 20px auto 40px;
-    display: block;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
 }
 
-.highlight-btn:hover {
-    background-color: #c0392b;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+.highlight-section button:hover {
+    background-color: #0056b3;
 }
 
-/* أقسام المتاجر */
-.stores-section {
-    background-color: white;
-    border-radius: 20px;
-    padding: 25px;
+/* الأقسام */
+.section {
     margin-bottom: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-.section-title {
-    color: #2c3e50;
-    font-size: 24px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #ecf0f1;
-    font-weight: 600;
-}
-
-.stores-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    min-height: 200px;
-}
-
-/* بطاقات المتاجر */
-.store-card {
-    background-color: #f8f9fa;
-    border-radius: 15px;
-    padding: 20px;
-    border: 1px solid #e9ecef;
-    transition: all 0.3s ease;
-}
-
-.store-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
+.section h2 {
+    font-size: 18px;
+    color: #000000;
     margin-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 5px;
 }
 
-.card-header h3 {
-    color: #2c3e50;
-    font-size: 20px;
-    font-weight: 600;
+/* عناصر المتاجر */
+.store-item {
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
 }
 
-.card-body {
-    margin-bottom: 20px;
+.store-item h3 {
+    font-size: 16px;
+    margin: 0 0 10px 0;
+    color: #000000;
 }
 
-.card-body p {
-    color: #7f8c8d;
-    line-height: 1.6;
-}
-
-.card-footer {
-    margin-top: 15px;
+.store-item p {
+    font-size: 14px;
+    color: #555555;
+    margin: 0 0 15px 0;
+    line-height: 1.5;
 }
 
 .visit-btn {
-    background-color: #2c3e50;
+    padding: 8px 16px;
+    background-color: #28a745;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: 4px;
+    font-size: 14px;
     cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    width: 100%;
+    display: block;
+    margin: 0 auto;
 }
 
 .visit-btn:hover {
-    background-color: #3498db;
+    background-color: #218838;
 }
 
-/* الفوتر */
-.footer {
-    margin-top: auto;
-    background-color: white;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.footer-nav {
+/* التنقل السفلي */
+.navigation {
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    border-top: 1px solid #eeeeee;
+    padding-top: 15px;
+    margin-top: 20px;
 }
 
 .nav-item {
-    padding: 10px 20px;
+    padding: 10px;
     cursor: pointer;
-    font-weight: 600;
-    color: #7f8c8d;
-    transition: all 0.3s ease;
-    border-radius: 10px;
+    font-size: 14px;
+    color: #333333;
 }
 
 .nav-item:hover {
-    background-color: #ecf0f1;
-    color: #2c3e50;
-}
-
-.nav-item.active {
-    background-color: #3498db;
-    color: white;
+    color: #007bff;
 }
 
 /* تصميم متجاوب */
 @media (max-width: 768px) {
-    body {
+    .container {
         padding: 15px;
     }
     
-    .main-title {
-        font-size: 28px;
+    .category-box {
+        padding: 8px 16px;
+        font-size: 13px;
     }
     
-    .subtitle {
-        font-size: 16px;
+    .store-item {
+        padding: 12px;
     }
     
-    .categories-section {
-        gap: 10px;
-    }
-    
-    .category {
-        padding: 10px 20px;
-        font-size: 14px;
-        min-width: 80px;
-    }
-    
-    .highlight-btn {
-        padding: 12px 25px;
-        font-size: 14px;
-    }
-    
-    .stores-section {
-        padding: 20px;
-    }
-    
-    .section-title {
-        font-size: 20px;
-    }
-    
-    .stores-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-nav {
+    .navigation {
         flex-direction: column;
+        align-items: center;
         gap: 10px;
-    }
-    
-    .nav-item {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .stores-container {
-        grid-template-columns: repeat(2, 1fr);
     }
 }

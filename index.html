@@ -1,35 +1,75 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشروعي على GitHub Pages</title>
-    <!-- السطر الذي يربط ملف CSS -->
+    <title>دليل المتاجر</title>
+
+    <!-- ربط CSS الخارجي -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <header>
-        <h1>مرحباً بك في موقعي!</h1>
+<body class="grid-view">
+
+    <!-- زر تبديل العرض -->
+    <button class="view-toggle" id="viewToggle">
+        <span>📱</span>
+        <span id="viewText">عرض القائمة</span>
+    </button>
+    
+    <!-- الهيدر -->
+    <header class="app-header">
+        <h1 class="app-title">دليل المتاجر</h1>
+        <p class="app-subtitle">اكتشف أفضل المتاجر الإلكترونية</p>
     </header>
     
-    <main>
-        <section class="intro">
-            <p>هذا مشروع بسيط سيتم نشره على GitHub Pages.</p>
-            <p>تم إنشاء هذا الموقع باستخدام HTML و CSS فقط.</p>
-        </section>
-        
-        <section class="features">
-            <h2>مميزات المشروع:</h2>
-            <ul>
-                <li>تصميم بسيط ونظيف</li>
-                <li>متوافق مع GitHub Pages</li>
-                <li>سهل التطوير والتعديل</li>
-            </ul>
-        </section>
-    </main>
+    <!-- شريط الفئات -->
+    <div class="categories-container">
+        <div class="categories-scroll">
+            <a href="#" class="category-item active">
+                <span class="category-icon">🏠</span>
+                <span class="category-name">الكل</span>
+            </a>
+            <a href="#" class="category-item">
+                <span class="category-icon">👗</span>
+                <span class="category-name">الأزياء</span>
+            </a>
+            <a href="#" class="category-item">
+                <span class="category-icon">💄</span>
+                <span class="category-name">الجمال</span>
+            </a>
+            <a href="#" class="category-item">
+                <span class="category-icon">📱</span>
+                <span class="category-name">التقنية</span>
+            </a>
+        </div>
+    </div>
     
-    <footer>
-        <p>© 2024 جميع الحقوق محفوظة</p>
-    </footer>
+    <!-- محتوى الفئات - Dummy -->
+    <main class="category-content">
+        <div class="category-section">
+            <h2 class="category-title">الأزياء</h2>
+            <div class="stores-grid">
+                <div class="store-card-grid">
+                    <div class="store-header-grid">
+                        <div class="store-category-badge-grid">👗</div>
+                    </div>
+                    <div class="store-content-grid">
+                        <div class="store-logo-container-grid">
+                            <div style="font-size: 32px;">👗</div>
+                        </div>
+                        <div class="store-info-grid">
+                            <h3 class="store-name-grid">Namshi</h3>
+                            <p class="store-description-grid">أزياء عصرية بخصومات حصرية.</p>
+                            <a href="#" class="visit-btn-grid">
+                                <span>🔗</span>
+                                <span>زيارة</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
 </body>
 </html>

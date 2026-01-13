@@ -1,55 +1,86 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دليل المتاجر</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>App Guide - Template</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <div class="content">
-            <!-- العنوان الرئيسي -->
-            <div class="title-section">
-                <h1>دليل المتاجر</h1>
-                <p>اكشف أفضل المتاجر الإلكترونية</p>
-            </div>
 
-            <!-- الفئات -->
-            <div class="categories">
-                <div class="category-box">التقنية</div>
-                <div class="category-box">الجميل</div>
-                <div class="category-box">الأزياء</div>
-                <div class="category-box">الكل</div>
-            </div>
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <h1>دليل المتاجر</h1>
+  </header>
 
-            <!-- زر التمييز -->
-            <div class="highlight-section">
-                <button>قم بالتمييز →</button>
-            </div>
+  <main class="container">
 
-            <!-- قسم الأزياء -->
-            <div class="section">
-                <h2>الأزياء</h2>
-                <div class="store-item">
-                    <h3>Zara</h3>
-                    <p>موضة سريعة وتصاميم حديثة بأسعار معقولة.</p>
-                    <button class="visit-btn">زيارة</button>
-                </div>
-                <div class="store-item">
-                    <h3>Namshi</h3>
-                    <p>أزياء عصرية بخصومات حصرية وأحدث الموديلات العالمية.</p>
-                    <button class="visit-btn">زيارة</button>
-                </div>
-            </div>
-
-            <!-- التنقل السفلي -->
-            <div class="navigation">
-                <div class="nav-item">الرئيسية</div>
-                <div class="nav-item">المفضلة</div>
-                <div class="nav-item">رجوع</div>
-            </div>
+    <!-- Categories Section -->
+    <section class="section">
+      <h2 class="section-title">الفئات</h2>
+      <div class="grid categories-grid">
+        <div class="card category-card">
+          <div class="icon-placeholder">🛍️</div>
+          <span>تسوق</span>
         </div>
-    </div>
+        <div class="card category-card">
+          <div class="icon-placeholder">💄</div>
+          <span>جمال</span>
+        </div>
+        <div class="card category-card">
+          <div class="icon-placeholder">📱</div>
+          <span>تقنية</span>
+        </div>
+        <div class="card category-card">
+          <div class="icon-placeholder">🏠</div>
+          <span>منزل</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stores Section -->
+    <section class="section">
+      <h2 class="section-title">المتاجر</h2>
+      <div class="grid stores-grid">
+        <div class="card store-card">
+          <div class="store-logo"></div>
+          <div class="store-info">
+            <span class="store-name">متجر 1</span>
+            <span class="store-desc">وصف قصير للمتجر</span>
+          </div>
+        </div>
+        <div class="card store-card">
+          <div class="store-logo"></div>
+          <div class="store-info">
+            <span class="store-name">متجر 2</span>
+            <span class="store-desc">وصف قصير للمتجر</span>
+          </div>
+        </div>
+        <div class="card store-card">
+          <div class="store-logo"></div>
+          <div class="store-info">
+            <span class="store-name">متجر 3</span>
+            <span class="store-desc">وصف قصير للمتجر</span>
+          </div>
+        </div>
+        <div class="card store-card">
+          <div class="store-logo"></div>
+          <div class="store-info">
+            <span class="store-name">متجر 4</span>
+            <span class="store-desc">وصف قصير للمتجر</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="nav-item active">🏠<span>الرئيسية</span></div>
+    <div class="nav-item">⭐<span>المفضلة</span></div>
+    <div class="nav-item">👤<span>حسابي</span></div>
+  </nav>
+
 </body>
 </html>

@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', -apple-system, system-ui, sans-serif;
         }
         
         body {
@@ -18,30 +18,29 @@
             color: #333;
             max-width: 428px;
             margin: 0 auto;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
             min-height: 100vh;
+            position: relative;
         }
         
-        /* الهيدر */
+        /* الهيدر المحسن */
         .app-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 25px 20px;
+            padding: 25px 20px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
         }
         
         .app-title {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
             margin-bottom: 5px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
         
         .app-subtitle {
-            font-size: 16px;
+            font-size: 15px;
             opacity: 0.9;
             font-weight: 300;
         }
@@ -55,38 +54,40 @@
         .search-box {
             background: #f5f5f5;
             border: 1px solid #e0e0e0;
-            border-radius: 25px;
-            padding: 12px 20px;
+            border-radius: 12px;
+            padding: 12px 18px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+        
+        .search-box:focus-within {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
         
         .search-box input {
             flex: 1;
             border: none;
             background: none;
-            font-size: 16px;
+            font-size: 15px;
             color: #333;
             outline: none;
-        }
-        
-        .search-box input::placeholder {
-            color: #999;
         }
         
         /* تبويب الفئات */
         .categories-tabs {
             background: white;
-            padding: 15px 20px 0;
+            padding: 15px 20px;
             border-bottom: 1px solid #eee;
         }
         
         .tabs-container {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             overflow-x: auto;
-            padding-bottom: 10px;
+            padding-bottom: 5px;
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
@@ -104,12 +105,14 @@
             white-space: nowrap;
             cursor: pointer;
             transition: all 0.3s;
+            flex-shrink: 0;
         }
         
         .category-tab.active {
             background: #667eea;
             color: white;
             border-color: #667eea;
+            font-weight: 600;
         }
         
         /* المحتوى الرئيسي */
@@ -132,70 +135,98 @@
             font-size: 14px;
             color: #667eea;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
-        /* بطاقات المتاجر */
+        /* بطاقات المتاجر المحسنة */
         .stores-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
             margin-bottom: 30px;
         }
         
         .store-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid #f0f0f0;
+            position: relative;
         }
         
         .store-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+            border-color: #667eea;
         }
         
-        .store-logo {
-            height: 100px;
-            background: #f8f9fa;
+        .store-logo-container {
+            height: 110px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
         
-        .store-logo img {
+        .store-logo-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+        }
+        
+        .store-logo {
             max-width: 100%;
             max-height: 70px;
             object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #667eea;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
         .store-info {
-            padding: 15px;
+            padding: 16px;
         }
         
         .store-name {
             font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-weight: 700;
+            margin-bottom: 6px;
             color: #2c3e50;
-        }
-        
-        .store-category {
-            font-size: 12px;
-            color: #667eea;
-            margin-bottom: 10px;
-            display: inline-block;
-            padding: 3px 8px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 4px;
+            line-height: 1.3;
         }
         
         .store-description {
-            font-size: 12px;
+            font-size: 13px;
             color: #666;
-            line-height: 1.4;
-            margin-bottom: 12px;
+            line-height: 1.5;
+            margin-bottom: 14px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         
         .store-actions {
@@ -205,42 +236,58 @@
         }
         
         .visit-btn {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 6px 12px;
-            font-size: 12px;
-            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
             text-decoration: none;
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 3px 8px rgba(102, 126, 234, 0.3);
         }
         
         .visit-btn:hover {
-            background: #5a6fd8;
+            transform: translateY(-1px);
+            box-shadow: 0 5px 12px rgba(102, 126, 234, 0.4);
         }
         
         .favorite-btn {
             background: none;
             border: none;
-            font-size: 18px;
-            color: #ccc;
+            font-size: 20px;
+            color: #ddd;
             cursor: pointer;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            padding: 5px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .favorite-btn:hover {
+            background: rgba(255, 71, 87, 0.1);
         }
         
         .favorite-btn.active {
             color: #ff4757;
         }
         
-        /* المتاجر الشهيرة - عرض أفقي */
+        /* المتاجر الشهيرة - عرض أفقي محسن */
         .popular-stores {
             display: flex;
             gap: 15px;
             overflow-x: auto;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
+            padding: 10px 0 20px;
+            margin-bottom: 25px;
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
@@ -250,14 +297,41 @@
         }
         
         .popular-store-card {
-            min-width: 140px;
+            min-width: 130px;
             background: white;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s;
+            flex-shrink: 0;
         }
         
-        /* شريط التصفح السفلي */
+        .popular-store-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .popular-store-logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            border-radius: 12px;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: #667eea;
+        }
+        
+        .popular-store-name {
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        /* شريط التصفح السفلي المحسن */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -267,49 +341,96 @@
             margin: 0 auto;
             background: white;
             display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            justify-content: space-between;
+            padding: 15px 25px;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
             border-top: 1px solid #eee;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
         }
         
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             text-decoration: none;
             color: #666;
             font-size: 12px;
-            transition: color 0.3s;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 12px;
+            border-radius: 10px;
+            min-width: 70px;
+        }
+        
+        .nav-item:hover {
+            background: #f8f9fa;
         }
         
         .nav-item.active {
             color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
         }
         
         .nav-icon {
-            font-size: 20px;
+            font-size: 22px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        /* التجاوب */
+        /* تحسين التجاوب */
         @media (max-width: 480px) {
             .stores-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
             
             .store-card {
                 display: flex;
+                flex-direction: column;
             }
             
-            .store-logo {
-                width: 100px;
-                height: auto;
-                flex-shrink: 0;
+            .app-title {
+                font-size: 24px;
+            }
+            
+            .bottom-nav {
+                padding: 12px 20px;
+            }
+            
+            .nav-item {
+                min-width: 60px;
+                padding: 6px 10px;
+            }
+        }
+        
+        /* تأثيرات إضافية */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .store-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* تحسينات للعرض على شاشات صغيرة */
+        @media (max-width: 380px) {
+            .main-content {
+                padding: 15px;
             }
             
             .store-info {
-                flex: 1;
+                padding: 14px;
+            }
+            
+            .visit-btn {
+                padding: 7px 14px;
+                font-size: 12px;
             }
         }
     </style>
@@ -347,56 +468,60 @@
         <!-- المتاجر الشهيرة -->
         <div class="section-title">
             <span>🔥 المتاجر الشهيرة</span>
-            <a href="#" class="view-all">عرض الكل</a>
+            <a href="#" class="view-all">عرض الكل →</a>
         </div>
         
         <div class="popular-stores">
             <!-- متجر 1 -->
             <div class="popular-store-card">
-                <div style="text-align: center; margin-bottom: 10px;">
-                    <div style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 10px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-size: 20px;">🛍️</div>
-                    <div style="font-weight: 600; font-size: 14px;">Amazon</div>
-                </div>
-                <div style="font-size: 11px; color: #666; text-align: center;">كل ما تحتاجه</div>
+                <div class="popular-store-logo">🛍️</div>
+                <div class="popular-store-name">Amazon</div>
+                <div style="font-size: 12px; color: #666;">كل ما تحتاجه</div>
             </div>
             
             <!-- متجر 2 -->
             <div class="popular-store-card">
-                <div style="text-align: center; margin-bottom: 10px;">
-                    <div style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 10px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-size: 20px;">👗</div>
-                    <div style="font-weight: 600; font-size: 14px;">Namshi</div>
-                </div>
-                <div style="font-size: 11px; color: #666; text-align: center;">أزياء عصرية</div>
+                <div class="popular-store-logo">👗</div>
+                <div class="popular-store-name">Namshi</div>
+                <div style="font-size: 12px; color: #666;">أزياء عصرية</div>
             </div>
             
             <!-- متجر 3 -->
             <div class="popular-store-card">
-                <div style="text-align: center; margin-bottom: 10px;">
-                    <div style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 10px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-size: 20px;">💄</div>
-                    <div style="font-weight: 600; font-size: 14px;">Sephora</div>
-                </div>
-                <div style="font-size: 11px; color: #666; text-align: center;">الجمال والعطور</div>
+                <div class="popular-store-logo">💄</div>
+                <div class="popular-store-name">Sephora</div>
+                <div style="font-size: 12px; color: #666;">الجمال والعطور</div>
+            </div>
+            
+            <!-- متجر 4 -->
+            <div class="popular-store-card">
+                <div class="popular-store-logo">📱</div>
+                <div class="popular-store-name">OZON</div>
+                <div style="font-size: 12px; color: #666;">تقنية وأجهزة</div>
             </div>
         </div>
         
         <!-- جميع المتاجر -->
         <div class="section-title">
             <span>🛒 جميع المتاجر</span>
-            <a href="#" class="view-all">عرض الكل</a>
+            <a href="#" class="view-all">عرض الكل →</a>
         </div>
         
         <div class="stores-grid">
             <!-- بطاقة متجر OZON -->
             <div class="store-card">
-                <div class="store-logo">
-                    <img src="Logos/ozon.png" alt="شعار OZON">
+                <div class="store-logo-container">
+                    <div class="category-badge">التقنية</div>
+                    <img src="Logos/ozon.png" alt="شعار OZON" class="store-logo">
                 </div>
                 <div class="store-info">
                     <h3 class="store-name">OZON Store</h3>
-                    <span class="store-category">التقنية</span>
-                    <p class="store-description">متجر للمنتجات التقنية والأجهزة الذكية بجودة عالية وأسعار مناسبة.</p>
+                    <p class="store-description">متجر للمنتجات التقنية والأجهزة الذكية بجودة عالية وأسعار مناسبة مع توصيل سريع.</p>
                     <div class="store-actions">
-                        <a href="#" class="visit-btn">زيارة المتجر</a>
+                        <a href="#" class="visit-btn">
+                            <span>🔗</span>
+                            <span>زيارة المتجر</span>
+                        </a>
                         <button class="favorite-btn">❤️</button>
                     </div>
                 </div>
@@ -404,15 +529,18 @@
             
             <!-- بطاقة متجر 2 -->
             <div class="store-card">
-                <div class="store-logo">
-                    <div style="font-size: 28px; color: #666;">👗</div>
+                <div class="store-logo-container">
+                    <div class="category-badge">الأزياء</div>
+                    <div style="font-size: 32px; color: #667eea;">👗</div>
                 </div>
                 <div class="store-info">
                     <h3 class="store-name">Namshi</h3>
-                    <span class="store-category">الأزياء</span>
-                    <p class="store-description">أزياء عصرية بخصومات حصرية وأحدث الموديلات العالمية.</p>
+                    <p class="store-description">أزياء عصرية بخصومات حصرية وأحدث الموديلات العالمية مع توصيل مجاني.</p>
                     <div class="store-actions">
-                        <a href="#" class="visit-btn">زيارة المتجر</a>
+                        <a href="#" class="visit-btn">
+                            <span>🔗</span>
+                            <span>زيارة المتجر</span>
+                        </a>
                         <button class="favorite-btn">🤍</button>
                     </div>
                 </div>
@@ -420,31 +548,18 @@
             
             <!-- بطاقة متجر 3 -->
             <div class="store-card">
-                <div class="store-logo">
-                    <div style="font-size: 28px; color: #666;">💄</div>
+                <div class="store-logo-container">
+                    <div class="category-badge">الجمال</div>
+                    <div style="font-size: 32px; color: #667eea;">💄</div>
                 </div>
                 <div class="store-info">
                     <h3 class="store-name">Sephora</h3>
-                    <span class="store-category">الجمال</span>
-                    <p class="store-description">المتجر الأشمل للعطور ومستحضرات التجميل والعناية.</p>
+                    <p class="store-description">المتجر الأشمل للعطور ومستحضرات التجميل والعناية بالبشرة والشعر.</p>
                     <div class="store-actions">
-                        <a href="#" class="visit-btn">زيارة المتجر</a>
-                        <button class="favorite-btn">🤍</button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- بطاقة متجر 4 -->
-            <div class="store-card">
-                <div class="store-logo">
-                    <div style="font-size: 28px; color: #666;">🛋️</div>
-                </div>
-                <div class="store-info">
-                    <h3 class="store-name">IKEA</h3>
-                    <span class="store-category">الأثاث</span>
-                    <p class="store-description">أثاث منزلي عملي وأنيق بتصميمات سويدية مبتكرة.</p>
-                    <div class="store-actions">
-                        <a href="#" class="visit-btn">زيارة المتجر</a>
+                        <a href="#" class="visit-btn">
+                            <span>🔗</span>
+                            <span>زيارة المتجر</span>
+                        </a>
                         <button class="favorite-btn">🤍</button>
                     </div>
                 </div>
@@ -452,16 +567,21 @@
         </div>
     </main>
     
-    <!-- شريط التصفح السفلي -->
+    <!-- شريط التصفح السفلي المحسن -->
     <nav class="bottom-nav">
+        <!-- الرئيسية على يسار الشاشة -->
         <a href="#" class="nav-item active">
             <span class="nav-icon">🏠</span>
             <span>الرئيسية</span>
         </a>
+        
+        <!-- المفضلة في الوسط -->
         <a href="#" class="nav-item">
             <span class="nav-icon">❤️</span>
             <span>المفضلة</span>
         </a>
+        
+        <!-- Back على يمين الشاشة -->
         <a href="#" class="nav-item">
             <span class="nav-icon">🔙</span>
             <span>رجوع</span>
@@ -499,6 +619,14 @@
                 e.preventDefault();
                 navItems.forEach(i => i.classList.remove('active'));
                 item.classList.add('active');
+            });
+        });
+        
+        // تأثير تحميل البطاقات
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.store-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
             });
         });
     </script>

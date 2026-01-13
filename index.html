@@ -1,72 +1,57 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>App Guide</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل المتاجر</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="app">
+        <header class="header">
+            <h1 class="main-title">دليل المتاجر</h1>
+            <p class="subtitle">اكشف أفضل المتاجر الإلكترونية</p>
+        </header>
 
-  <!-- Top Bar -->
-  <header class="top-bar">
-    <h1>دليل المتاجر</h1>
-  </header>
+        <main class="main-content">
+            <section class="categories-section">
+                <div class="category">التقنية</div>
+                <div class="category">الجميل</div>
+                <div class="category">الأزياء</div>
+                <div class="category">الكل</div>
+            </section>
 
-  <!-- Main Content -->
-  <main class="container">
+            <button class="highlight-btn">قم بالتمييز →</button>
 
-    <!-- Categories Section -->
-    <section>
-      <h2 class="section-title">الفئات</h2>
+            <section class="stores-section">
+                <h2 class="section-title">الأزياء</h2>
+                <div class="stores-container">
+                    <!-- بطاقات المتاجر ستظهر هنا -->
+                </div>
+            </section>
 
-      <div class="grid categories-grid">
-        <div class="card category-card">🛍️ تسوق</div>
-        <div class="card category-card">💄 جمال</div>
-        <div class="card category-card">📱 تقنية</div>
-        <div class="card category-card">🏠 منزل</div>
-      </div>
-    </section>
+            <section class="stores-section">
+                <h2 class="section-title">التقنية</h2>
+                <div class="stores-container">
+                    <!-- بطاقات المتاجر ستظهر هنا -->
+                </div>
+            </section>
 
-    <!-- Stores Section -->
-    <section>
-      <h2 class="section-title">المتاجر</h2>
+            <section class="stores-section">
+                <h2 class="section-title">الجميل</h2>
+                <div class="stores-container">
+                    <!-- بطاقات المتاجر ستظهر هنا -->
+                </div>
+            </section>
+        </main>
 
-      <div class="grid stores-grid">
-        <div class="card store-card">
-          <div class="store-logo"></div>
-          <div class="store-info">
-            <span class="store-name">متجر</span>
-            <span class="store-desc">وصف قصير</span>
-          </div>
-        </div>
-
-        <div class="card store-card">
-          <div class="store-logo"></div>
-          <div class="store-info">
-            <span class="store-name">متجر</span>
-            <span class="store-desc">وصف قصير</span>
-          </div>
-        </div>
-
-        <div class="card store-card">
-          <div class="store-logo"></div>
-          <div class="store-info">
-            <span class="store-name">متجر</span>
-            <span class="store-desc">وصف قصير</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <div class="nav-item active">🏠<span>الرئيسية</span></div>
-    <div class="nav-item">⭐<span>المفضلة</span></div>
-    <div class="nav-item">👤<span>حسابي</span></div>
-  </nav>
-
+        <footer class="footer">
+            <div class="footer-nav">
+                <div class="nav-item">الرئيسية</div>
+                <div class="nav-item">المفضلة</div>
+                <div class="nav-item">رجوع</div>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>

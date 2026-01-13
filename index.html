@@ -3,129 +3,504 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بطاقة متجر OZON</title>
+    <title>دليل المتاجر</title>
     <style>
+        /* الأساسيات */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background: #f0f2f5;
+            background: #f8f9fa;
+            color: #333;
+            max-width: 428px;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
             min-height: 100vh;
+        }
+        
+        /* الهيدر */
+        .app-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .app-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .app-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        /* شريط البحث */
+        .search-container {
+            padding: 15px 20px 0;
+            background: white;
+        }
+        
+        .search-box {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 25px;
+            padding: 12px 20px;
             display: flex;
-            justify-content: center;
             align-items: center;
+            gap: 10px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            border: none;
+            background: none;
+            font-size: 16px;
+            color: #333;
+            outline: none;
+        }
+        
+        .search-box input::placeholder {
+            color: #999;
+        }
+        
+        /* تبويب الفئات */
+        .categories-tabs {
+            background: white;
+            padding: 15px 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .tabs-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-tab {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-tab.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        /* المحتوى الرئيسي */
+        .main-content {
             padding: 20px;
+            padding-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .view-all {
+            font-size: 14px;
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        /* بطاقات المتاجر */
+        .stores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
         }
         
         .store-card {
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            width: 320px;
-            padding: 15px;
-            border: 1px solid #ddd;
-        }
-        
-        /* صف المحتوى */
-        .card-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        /* الشعار على اليسار */
-        .logo-container {
-            width: 60px;
-            height: 60px;
-            flex-shrink: 0;
-            border-radius: 6px;
+            border-radius: 12px;
             overflow: hidden;
-            background: white;
-            border: 1px solid #e0e0e0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .store-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        .store-logo {
+            height: 100px;
+            background: #f8f9fa;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 3px;
+            padding: 15px;
         }
         
-        .logo {
-            width: 100%;
-            height: 100%;
+        .store-logo img {
+            max-width: 100%;
+            max-height: 70px;
             object-fit: contain;
         }
         
-        /* المحتوى */
-        .content {
-            flex: 1;
+        .store-info {
+            padding: 15px;
         }
         
         .store-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
             color: #2c3e50;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 4px;
         }
         
-        .description {
+        .store-category {
+            font-size: 12px;
+            color: #667eea;
+            margin-bottom: 10px;
+            display: inline-block;
+            padding: 3px 8px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 4px;
+        }
+        
+        .store-description {
+            font-size: 12px;
             color: #666;
-            font-size: 13px;
             line-height: 1.4;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         
-        /* الزر على اليسار */
+        .store-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
         .visit-btn {
-            background: #0066ff;
+            background: #667eea;
             color: white;
             border: none;
             padding: 6px 12px;
-            font-size: 13px;
-            border-radius: 4px;
+            font-size: 12px;
+            border-radius: 6px;
             cursor: pointer;
+            transition: background 0.3s;
             text-decoration: none;
             display: inline-block;
         }
         
         .visit-btn:hover {
-            background: #0052d4;
+            background: #5a6fd8;
         }
         
-        .note {
-            color: #888;
-            font-size: 11px;
-            text-align: center;
-            margin-top: 10px;
-            padding-top: 10px;
+        .favorite-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .favorite-btn.active {
+            color: #ff4757;
+        }
+        
+        /* المتاجر الشهيرة - عرض أفقي */
+        .popular-stores {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .popular-stores::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .popular-store-card {
+            min-width: 140px;
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        /* شريط التصفح السفلي */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 428px;
+            margin: 0 auto;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
             border-top: 1px solid #eee;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            color: #666;
+            font-size: 12px;
+            transition: color 0.3s;
+        }
+        
+        .nav-item.active {
+            color: #667eea;
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+        }
+        
+        /* التجاوب */
+        @media (max-width: 480px) {
+            .stores-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .store-card {
+                display: flex;
+            }
+            
+            .store-logo {
+                width: 100px;
+                height: auto;
+                flex-shrink: 0;
+            }
+            
+            .store-info {
+                flex: 1;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="store-card">
-        <!-- صف واحد: شعار + محتوى -->
-        <div class="card-row">
-            <!-- الشعار على اليسار -->
-            <div class="logo-container">
-                <img src="Logos/ozon.png" alt="شعار OZON" class="logo">
+    <!-- الهيدر -->
+    <header class="app-header">
+        <h1 class="app-title">دليل المتاجر</h1>
+        <p class="app-subtitle">اكتشف أفضل المتاجر الإلكترونية</p>
+    </header>
+    
+    <!-- شريط البحث -->
+    <div class="search-container">
+        <div class="search-box">
+            <span>🔍</span>
+            <input type="text" placeholder="ابحث عن متجر أو منتج...">
+        </div>
+    </div>
+    
+    <!-- تبويب الفئات -->
+    <div class="categories-tabs">
+        <div class="tabs-container">
+            <div class="category-tab active">الكل</div>
+            <div class="category-tab">التقنية</div>
+            <div class="category-tab">الأزياء</div>
+            <div class="category-tab">الجمال</div>
+            <div class="category-tab">الأثاث</div>
+            <div class="category-tab">المأكولات</div>
+            <div class="category-tab">الرياضة</div>
+        </div>
+    </div>
+    
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <!-- المتاجر الشهيرة -->
+        <div class="section-title">
+            <span>🔥 المتاجر الشهيرة</span>
+            <a href="#" class="view-all">عرض الكل</a>
+        </div>
+        
+        <div class="popular-stores">
+            <!-- متجر 1 -->
+            <div class="popular-store-card">
+                <div style="text-align: center; margin-bottom: 10px;">
+                    <div style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 10px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-size: 20px;">🛍️</div>
+                    <div style="font-weight: 600; font-size: 14px;">Amazon</div>
+                </div>
+                <div style="font-size: 11px; color: #666; text-align: center;">كل ما تحتاجه</div>
             </div>
             
-            <!-- المحتوى على اليمين -->
-            <div class="content">
-                <h3 class="store-name">OZON Store</h3>
-                <p class="description">
-                    متجر إلكتروني للمنتجات التقنية والأجهزة الذكية
-                </p>
-                <a href="#" class="visit-btn">زيارة</a>
+            <!-- متجر 2 -->
+            <div class="popular-store-card">
+                <div style="text-align: center; margin-bottom: 10px;">
+                    <div style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 10px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-size: 20px;">👗</div>
+                    <div style="font-weight: 600; font-size: 14px;">Namshi</div>
+                </div>
+                <div style="font-size: 11px; color: #666; text-align: center;">أزياء عصرية</div>
+            </div>
+            
+            <!-- متجر 3 -->
+            <div class="popular-store-card">
+                <div style="text-align: center; margin-bottom: 10px;">
+                    <div style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 10px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-size: 20px;">💄</div>
+                    <div style="font-weight: 600; font-size: 14px;">Sephora</div>
+                </div>
+                <div style="font-size: 11px; color: #666; text-align: center;">الجمال والعطور</div>
             </div>
         </div>
         
-        <div class="note">
-            للتجربة فقط
+        <!-- جميع المتاجر -->
+        <div class="section-title">
+            <span>🛒 جميع المتاجر</span>
+            <a href="#" class="view-all">عرض الكل</a>
         </div>
-    </div>
+        
+        <div class="stores-grid">
+            <!-- بطاقة متجر OZON -->
+            <div class="store-card">
+                <div class="store-logo">
+                    <img src="Logos/ozon.png" alt="شعار OZON">
+                </div>
+                <div class="store-info">
+                    <h3 class="store-name">OZON Store</h3>
+                    <span class="store-category">التقنية</span>
+                    <p class="store-description">متجر للمنتجات التقنية والأجهزة الذكية بجودة عالية وأسعار مناسبة.</p>
+                    <div class="store-actions">
+                        <a href="#" class="visit-btn">زيارة المتجر</a>
+                        <button class="favorite-btn">❤️</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- بطاقة متجر 2 -->
+            <div class="store-card">
+                <div class="store-logo">
+                    <div style="font-size: 28px; color: #666;">👗</div>
+                </div>
+                <div class="store-info">
+                    <h3 class="store-name">Namshi</h3>
+                    <span class="store-category">الأزياء</span>
+                    <p class="store-description">أزياء عصرية بخصومات حصرية وأحدث الموديلات العالمية.</p>
+                    <div class="store-actions">
+                        <a href="#" class="visit-btn">زيارة المتجر</a>
+                        <button class="favorite-btn">🤍</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- بطاقة متجر 3 -->
+            <div class="store-card">
+                <div class="store-logo">
+                    <div style="font-size: 28px; color: #666;">💄</div>
+                </div>
+                <div class="store-info">
+                    <h3 class="store-name">Sephora</h3>
+                    <span class="store-category">الجمال</span>
+                    <p class="store-description">المتجر الأشمل للعطور ومستحضرات التجميل والعناية.</p>
+                    <div class="store-actions">
+                        <a href="#" class="visit-btn">زيارة المتجر</a>
+                        <button class="favorite-btn">🤍</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- بطاقة متجر 4 -->
+            <div class="store-card">
+                <div class="store-logo">
+                    <div style="font-size: 28px; color: #666;">🛋️</div>
+                </div>
+                <div class="store-info">
+                    <h3 class="store-name">IKEA</h3>
+                    <span class="store-category">الأثاث</span>
+                    <p class="store-description">أثاث منزلي عملي وأنيق بتصميمات سويدية مبتكرة.</p>
+                    <div class="store-actions">
+                        <a href="#" class="visit-btn">زيارة المتجر</a>
+                        <button class="favorite-btn">🤍</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- شريط التصفح السفلي -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span>الرئيسية</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">❤️</span>
+            <span>المفضلة</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">🔙</span>
+            <span>رجوع</span>
+        </a>
+    </nav>
+    
+    <script>
+        // تفاعلية تبويب الفئات
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+        
+        // تفاعلية زر المفضلة
+        const favoriteBtns = document.querySelectorAll('.favorite-btn');
+        favoriteBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.textContent === '🤍') {
+                    btn.textContent = '❤️';
+                    btn.classList.add('active');
+                } else {
+                    btn.textContent = '🤍';
+                    btn.classList.remove('active');
+                }
+            });
+        });
+        
+        // تفاعلية شريط التصفح السفلي
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                navItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>

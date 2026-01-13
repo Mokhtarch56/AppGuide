@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دليل المتاجر - Quick View</title>
+    <title>دليل المتاجر</title>
     <style>
         /* الأساسيات */
         * {
@@ -14,7 +14,7 @@
         }
         
         body {
-            background: #f5f7fa;
+            background: #ffffff;
             color: #333;
             max-width: 428px;
             margin: 0 auto;
@@ -22,7 +22,34 @@
             position: relative;
         }
         
-        /* الهيدر */
+        /* زر تبديل العرض */
+        .view-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #667eea;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.2);
+            transition: all 0.3s;
+            z-index: 101;
+        }
+        
+        .view-toggle:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* الهيدر - تصميم بسيط */
         .app-header {
             background: #ffffff;
             padding: 25px 20px 15px;
@@ -48,7 +75,7 @@
             font-weight: 400;
         }
         
-        /* شريط الفئات */
+        /* شريط الفئات المحسن */
         .categories-container {
             background: white;
             padding: 15px 20px 10px;
@@ -56,6 +83,7 @@
             position: sticky;
             top: 100px;
             z-index: 99;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
         
         .categories-scroll {
@@ -85,133 +113,215 @@
             min-width: 80px;
             text-decoration: none;
             color: #495057;
-            white-space: nowrap;
+        }
+        
+        .category-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
         .category-item.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-color: #667eea;
             color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
         
         .category-icon {
             font-size: 22px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .category-name {
             font-size: 13px;
             font-weight: 600;
+            white-space: nowrap;
         }
         
-        /* Grid Layout */
-        .stores-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+        /* محتوى الفئات */
+        .category-content {
             padding: 20px;
             padding-bottom: 90px;
         }
         
-        /* بطاقة المتجر الأساسية */
-        .store-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            border: 1px solid #f0f0f0;
-            transition: all 0.3s ease;
-            cursor: pointer;
+        .category-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
             position: relative;
         }
         
-        .store-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-        }
-        
-        .store-logo-container {
-            height: 120px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
-        }
-        
-        .store-logo {
-            max-width: 80%;
-            max-height: 80%;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-        }
-        
-        .store-badge {
+        .category-title::after {
+            content: '';
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255,255,255,0.95);
+            bottom: -2px;
+            right: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        /* Grid Layout للبطاقات */
+        .stores-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        
+        /* بطاقات Grid مصغرة */
+        .store-card-grid {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .store-card-grid:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+            border-color: #667eea;
+        }
+        
+        /* رأس البطاقة في Grid */
+        .store-header-grid {
+            padding: 15px 15px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .store-category-badge-grid {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
             padding: 4px 10px;
             border-radius: 12px;
             font-size: 11px;
             font-weight: 700;
-            color: #667eea;
-            backdrop-filter: blur(5px);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        
+        .favorite-btn-grid {
+            background: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
         
-        .store-info {
-            padding: 15px;
+        .favorite-btn-grid:hover {
+            transform: scale(1.1);
         }
         
-        .store-name {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: #2c3e50;
-            line-height: 1.3;
+        .favorite-btn-grid.active {
+            color: #ff4757;
+            background: rgba(255, 71, 87, 0.1);
         }
         
-        .store-category {
-            font-size: 12px;
-            color: #667eea;
-            margin-bottom: 8px;
-            display: block;
+        /* محتوى البطاقة في Grid */
+        .store-content-grid {
+            padding: 0 15px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
         }
         
-        .store-rating {
+        .store-logo-container-grid {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             display: flex;
             align-items: center;
-            gap: 5px;
-            margin-bottom: 10px;
+            justify-content: center;
+            margin-bottom: 12px;
+            padding: 12px;
+            border: 2px solid #f0f0f0;
         }
         
-        .stars {
-            color: #FFD700;
-            font-size: 14px;
+        .store-logo-grid {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
         
-        .rating-text {
+        .store-info-grid {
+            flex: 1;
+            width: 100%;
+        }
+        
+        .store-name-grid {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #2c3e50;
+            line-height: 1.3;
+            height: 2.6em;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .store-description-grid {
             font-size: 12px;
             color: #666;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            height: 3.6em;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
         }
         
-        .quick-view-btn {
-            background: rgba(102, 126, 234, 0.1);
+        /* زر Quick View في Grid */
+        .quick-view-btn-grid {
+            background: linear-gradient(135deg, #667eea20, #764ba220);
             color: #667eea;
             border: 1px solid rgba(102, 126, 234, 0.3);
             padding: 8px 12px;
             font-size: 12px;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            width: 100%;
             transition: all 0.3s;
-            margin-top: 5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            margin-top: auto;
         }
         
-        .quick-view-btn:hover {
-            background: rgba(102, 126, 234, 0.2);
+        .quick-view-btn-grid:hover {
+            background: rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
         }
         
         /* Quick View Modal */
@@ -444,6 +554,10 @@
             min-width: 80px;
         }
         
+        .nav-item:hover {
+            background: #f8f9fa;
+        }
+        
         .nav-item.active {
             color: #667eea;
             background: rgba(102, 126, 234, 0.1);
@@ -451,6 +565,11 @@
         
         .nav-icon {
             font-size: 24px;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         /* ترتيب الأزرار */
@@ -464,6 +583,50 @@
         
         .home-btn {
             order: 3;
+        }
+        
+        /* التجاوب */
+        @media (max-width: 480px) {
+            .stores-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .store-card-grid {
+                border-radius: 16px;
+            }
+            
+            .store-logo-container-grid {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .store-name-grid {
+                font-size: 15px;
+            }
+            
+            .bottom-nav {
+                padding: 12px 20px;
+            }
+            
+            .nav-item {
+                min-width: 70px;
+                padding: 6px 12px;
+            }
+            
+            .view-toggle {
+                top: 15px;
+                left: 15px;
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .stores-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
         }
         
         /* Animations */
@@ -483,134 +646,236 @@
             }
         }
         
-        /* التجاوب */
-        @media (max-width: 480px) {
-            .stores-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
+        .store-card-grid {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            
-            .quick-view-features {
-                grid-template-columns: 1fr;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-            
-            .bottom-nav {
-                padding: 12px 20px;
-            }
+        }
+        
+        /* إرشادات التمرير */
+        .scroll-hint {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            color: #95a5a6;
+            font-size: 12px;
+            margin-top: 5px;
+            opacity: 0.7;
         }
     </style>
 </head>
-<body>
+<body class="grid-view">
+    <!-- زر تبديل العرض -->
+    <button class="view-toggle" id="viewToggle">
+        <span>📱</span>
+        <span id="viewText">عرض القائمة</span>
+    </button>
+    
     <!-- الهيدر -->
     <header class="app-header">
         <h1 class="app-title">دليل المتاجر</h1>
         <p class="app-subtitle">اكتشف أفضل المتاجر الإلكترونية</p>
     </header>
     
-    <!-- شريط الفئات -->
+    <!-- شريط الفئات المحسن -->
     <div class="categories-container">
         <div class="categories-scroll">
-            <div class="category-item active">
+            <a href="#" class="category-item active">
                 <span class="category-icon">🏠</span>
                 <span class="category-name">الكل</span>
-            </div>
-            <div class="category-item">
+            </a>
+            <a href="#" class="category-item">
                 <span class="category-icon">👗</span>
                 <span class="category-name">الأزياء</span>
-            </div>
-            <div class="category-item">
+            </a>
+            <a href="#" class="category-item">
                 <span class="category-icon">💄</span>
                 <span class="category-name">الجمال</span>
-            </div>
-            <div class="category-item">
+            </a>
+            <a href="#" class="category-item">
                 <span class="category-icon">📱</span>
                 <span class="category-name">التقنية</span>
-            </div>
-            <div class="category-item">
+            </a>
+            <a href="#" class="category-item">
                 <span class="category-icon">🛋️</span>
                 <span class="category-name">الأثاث</span>
-            </div>
+            </a>
+        </div>
+        <div class="scroll-hint">
+            <span>←</span>
+            <span>قم بالتمرير</span>
+            <span>→</span>
         </div>
     </div>
     
-    <!-- Grid المتاجر -->
-    <div class="stores-grid">
-        <!-- متجر OZON -->
-        <div class="store-card" data-store="ozon">
-            <div class="store-logo-container">
-                <span class="store-badge">📱 تقنية</span>
-                <img src="Logos/ozon.png" alt="OZON" class="store-logo">
-            </div>
-            <div class="store-info">
-                <h3 class="store-name">OZON Store</h3>
-                <span class="store-category">متجر التقنية الذكية</span>
-                <div class="store-rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="rating-text">4.8 (1.2K)</span>
+    <!-- محتوى الفئات - Grid View -->
+    <main class="category-content">
+        <!-- فئة الأزياء -->
+        <div class="category-section">
+            <h2 class="category-title">الأزياء</h2>
+            <div class="stores-grid">
+                <!-- بطاقة Namshi -->
+                <div class="store-card-grid" onclick="openQuickView('namshi')">
+                    <div class="store-header-grid">
+                        <div class="store-category-badge-grid">👗</div>
+                        <button class="favorite-btn-grid" onclick="toggleFavorite(event, 'namshi')">🤍</button>
+                    </div>
+                    <div class="store-content-grid">
+                        <div class="store-logo-container-grid">
+                            <div style="font-size: 32px; color: #667eea;">👗</div>
+                        </div>
+                        <div class="store-info-grid">
+                            <h3 class="store-name-grid">Namshi</h3>
+                            <p class="store-description-grid">
+                                أزياء عصرية بخصومات حصرية وأحدث الموديلات العالمية.
+                            </p>
+                            <button class="quick-view-btn-grid">
+                                <span>👁️</span>
+                                <span>عرض سريع</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <button class="quick-view-btn" onclick="openQuickView('ozon')">
-                    👁️ عرض سريع
-                </button>
+                
+                <!-- بطاقة Zara -->
+                <div class="store-card-grid" onclick="openQuickView('zara')">
+                    <div class="store-header-grid">
+                        <div class="store-category-badge-grid">👗</div>
+                        <button class="favorite-btn-grid" onclick="toggleFavorite(event, 'zara')">🤍</button>
+                    </div>
+                    <div class="store-content-grid">
+                        <div class="store-logo-container-grid">
+                            <div style="font-size: 32px; color: #667eea;">👕</div>
+                        </div>
+                        <div class="store-info-grid">
+                            <h3 class="store-name-grid">Zara</h3>
+                            <p class="store-description-grid">
+                                موضة سريعة وتصاميم حديثة بأسعار معقولة.
+                            </p>
+                            <button class="quick-view-btn-grid">
+                                <span>👁️</span>
+                                <span>عرض سريع</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
-        <!-- متجر Namshi -->
-        <div class="store-card" data-store="namshi">
-            <div class="store-logo-container">
-                <span class="store-badge">👗 أزياء</span>
-                <div style="font-size: 40px; color: #667eea;">👗</div>
-            </div>
-            <div class="store-info">
-                <h3 class="store-name">Namshi</h3>
-                <span class="store-category">موضة وأزياء عصرية</span>
-                <div class="store-rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="rating-text">4.5 (890)</span>
+        <!-- فئة الجمال -->
+        <div class="category-section">
+            <h2 class="category-title">الجمال</h2>
+            <div class="stores-grid">
+                <!-- بطاقة Sephora -->
+                <div class="store-card-grid" onclick="openQuickView('sephora')">
+                    <div class="store-header-grid">
+                        <div class="store-category-badge-grid">💄</div>
+                        <button class="favorite-btn-grid" onclick="toggleFavorite(event, 'sephora')">🤍</button>
+                    </div>
+                    <div class="store-content-grid">
+                        <div class="store-logo-container-grid">
+                            <div style="font-size: 32px; color: #667eea;">💄</div>
+                        </div>
+                        <div class="store-info-grid">
+                            <h3 class="store-name-grid">Sephora</h3>
+                            <p class="store-description-grid">
+                                أشهر منتجات الجمال والعناية بالبشرة.
+                            </p>
+                            <button class="quick-view-btn-grid">
+                                <span>👁️</span>
+                                <span>عرض سريع</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <button class="quick-view-btn" onclick="openQuickView('namshi')">
-                    👁️ عرض سريع
-                </button>
+                
+                <!-- بطاقة MAC -->
+                <div class="store-card-grid" onclick="openQuickView('mac')">
+                    <div class="store-header-grid">
+                        <div class="store-category-badge-grid">💄</div>
+                        <button class="favorite-btn-grid" onclick="toggleFavorite(event, 'mac')">🤍</button>
+                    </div>
+                    <div class="store-content-grid">
+                        <div class="store-logo-container-grid">
+                            <div style="font-size: 32px; color: #667eea;">💅</div>
+                        </div>
+                        <div class="store-info-grid">
+                            <h3 class="store-name-grid">MAC</h3>
+                            <p class="store-description-grid">
+                                مستحضرات تجميل عالية الجودة وألوان متنوعة.
+                            </p>
+                            <button class="quick-view-btn-grid">
+                                <span>👁️</span>
+                                <span>عرض سريع</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
-        <!-- متجر Sephora -->
-        <div class="store-card" data-store="sephora">
-            <div class="store-logo-container">
-                <span class="store-badge">💄 جمال</span>
-                <div style="font-size: 40px; color: #667eea;">💄</div>
-            </div>
-            <div class="store-info">
-                <h3 class="store-name">Sephora</h3>
-                <span class="store-category">الجمال والعناية</span>
-                <div class="store-rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="rating-text">4.9 (2.3K)</span>
+        <!-- فئة التقنية -->
+        <div class="category-section">
+            <h2 class="category-title">التقنية</h2>
+            <div class="stores-grid">
+                <!-- بطاقة OZON -->
+                <div class="store-card-grid" onclick="openQuickView('ozon')">
+                    <div class="store-header-grid">
+                        <div class="store-category-badge-grid">📱</div>
+                        <button class="favorite-btn-grid active" onclick="toggleFavorite(event, 'ozon')">❤️</button>
+                    </div>
+                    <div class="store-content-grid">
+                        <div class="store-logo-container-grid">
+                            <img src="Logos/ozon.png" alt="شعار OZON" class="store-logo-grid">
+                        </div>
+                        <div class="store-info-grid">
+                            <h3 class="store-name-grid">OZON</h3>
+                            <p class="store-description-grid">
+                                منتجات تقنية وأجهزة ذكية بجودة عالية.
+                            </p>
+                            <button class="quick-view-btn-grid">
+                                <span>👁️</span>
+                                <span>عرض سريع</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <button class="quick-view-btn" onclick="openQuickView('sephora')">
-                    👁️ عرض سريع
-                </button>
+                
+                <!-- بطاقة Amazon -->
+                <div class="store-card-grid" onclick="openQuickView('amazon')">
+                    <div class="store-header-grid">
+                        <div class="store-category-badge-grid">📱</div>
+                        <button class="favorite-btn-grid" onclick="toggleFavorite(event, 'amazon')">🤍</button>
+                    </div>
+                    <div class="store-content-grid">
+                        <div class="store-logo-container-grid">
+                            <div style="font-size: 32px; color: #667eea;">💻</div>
+                        </div>
+                        <div class="store-info-grid">
+                            <h3 class="store-name-grid">Amazon</h3>
+                            <p class="store-description-grid">
+                                أكبر متجر إلكتروني لكل ما تحتاجه.
+                            </p>
+                            <button class="quick-view-btn-grid">
+                                <span>👁️</span>
+                                <span>عرض سريع</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <!-- متجر IKEA -->
-        <div class="store-card" data-store="ikea">
-            <div class="store-logo-container">
-                <span class="store-badge">🛋️ أثاث</span>
-                <div style="font-size: 40px; color: #667eea;">🛋️</div>
-            </div>
-            <div class="store-info">
-                <h3 class="store-name">IKEA</h3>
-                <span class="store-category">أثاث منزلي عملي</span>
-                <div class="store-rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="rating-text">4.7 (1.5K)</span>
-                </div>
-                <button class="quick-view-btn" onclick="openQuickView('ikea')">
-                    👁️ عرض سريع
-                </button>
-            </div>
-        </div>
-    </div>
+    </main>
     
     <!-- Quick View Modal -->
     <div class="quick-view-modal" id="quickViewModal">
@@ -633,23 +898,8 @@
                     وصف المتجر سيظهر هنا
                 </p>
                 
-                <div class="quick-view-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">🚚</span>
-                        <span class="feature-text">توصيل سريع</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🛡️</span>
-                        <span class="feature-text">ضمان المنتج</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">💳</span>
-                        <span class="feature-text">دفع آمن</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">📞</span>
-                        <span class="feature-text">دعم فني</span>
-                    </div>
+                <div class="quick-view-features" id="modalFeatures">
+                    <!-- سيتم تعبئته بالجافاسكريبت -->
                 </div>
                 
                 <div class="quick-view-actions">
@@ -658,7 +908,7 @@
                         <span>زيارة المتجر</span>
                     </button>
                     <button class="secondary-btn" id="modalFavoriteBtn">
-                        <span>❤️</span>
+                        <span>🤍</span>
                         <span>إضافة للمفضلة</span>
                     </button>
                 </div>
@@ -695,7 +945,12 @@
                 reviews: '1,234',
                 logo: '<img src="Logos/ozon.png" alt="OZON">',
                 visitUrl: '#',
-                features: ['🚚 توصيل خلال 24 ساعة', '🛡️ ضمان سنتين', '💳 دفعات متعددة', '📞 دعم 24/7']
+                features: [
+                    { icon: '🚚', text: 'توصيل خلال 24 ساعة' },
+                    { icon: '🛡️', text: 'ضمان سنتين' },
+                    { icon: '💳', text: 'دفعات متعددة' },
+                    { icon: '📞', text: 'دعم 24/7' }
+                ]
             },
             'namshi': {
                 name: 'Namshi',
@@ -705,7 +960,12 @@
                 reviews: '890',
                 logo: '<div style="font-size: 48px; color: #667eea;">👗</div>',
                 visitUrl: '#',
-                features: ['👗 أزياء عالمية', '🚚 توصيل مجاني', '💳 خصومات دائمة', '↩️ إرجاع سهل']
+                features: [
+                    { icon: '👗', text: 'أزياء عالمية' },
+                    { icon: '🚚', text: 'توصيل مجاني' },
+                    { icon: '💳', text: 'خصومات دائمة' },
+                    { icon: '↩️', text: 'إرجاع سهل' }
+                ]
             },
             'sephora': {
                 name: 'Sephora',
@@ -715,19 +975,62 @@
                 reviews: '2,345',
                 logo: '<div style="font-size: 48px; color: #667eea;">💄</div>',
                 visitUrl: '#',
-                features: ['💄 منتجات عالمية', '👩‍🎨 تجربة مجانية', '🎁 عينات مجانية', '📱 تطبيق مخصص']
+                features: [
+                    { icon: '💄', text: 'منتجات عالمية' },
+                    { icon: '👩‍🎨', text: 'تجربة مجانية' },
+                    { icon: '🎁', text: 'عينات مجانية' },
+                    { icon: '📱', text: 'تطبيق مخصص' }
+                ]
             },
-            'ikea': {
-                name: 'IKEA',
-                category: 'أثاث منزلي عملي',
-                description: 'أثاث منزلي عملي بتصميمات سويدية مبتكرة. نوفر حلول تخزين ذكية وديكورات منزلية بأسعار معقولة وجودة عالية.',
-                rating: '4.7',
+            'zara': {
+                name: 'Zara',
+                category: 'موضة سريعة',
+                description: 'تصاميم عصرية ومتنوعة تناسب جميع الأذواق. نواكب أحدث صيحات الموضة العالمية مع الحفاظ على الأسعار المعقولة.',
+                rating: '4.6',
                 reviews: '1,567',
-                logo: '<div style="font-size: 48px; color: #667eea;">🛋️</div>',
+                logo: '<div style="font-size: 48px; color: #667eea;">👕</div>',
                 visitUrl: '#',
-                features: ['🛋️ تصميم سويدي', '📏 قياسات دقيقة', '🔧 تركيب مجاني', '🌱 صديق للبيئة']
+                features: [
+                    { icon: '👕', text: 'موضة سريعة' },
+                    { icon: '🚚', text: 'توصيل سريع' },
+                    { icon: '🏪', text: 'فروع متعددة' },
+                    { icon: '🔄', text: 'تحديث أسبوعي' }
+                ]
+            },
+            'mac': {
+                name: 'MAC Cosmetics',
+                category: 'مستحضرات تجميل',
+                description: 'ماركة عالمية رائدة في مجال مستحضرات التجميل بألوان متنوعة وجودة استثنائية. منتجات محبوبة من الفنانين والمشاهير.',
+                rating: '4.8',
+                reviews: '1,890',
+                logo: '<div style="font-size: 48px; color: #667eea;">💅</div>',
+                visitUrl: '#',
+                features: [
+                    { icon: '🎨', text: 'ألوان متنوعة' },
+                    { icon: '⭐', text: 'جودة عالية' },
+                    { icon: '👩‍🎤', text: 'لمشاهير' },
+                    { icon: '💼', text: 'مهنية' }
+                ]
+            },
+            'amazon': {
+                name: 'Amazon',
+                category: 'متجر شامل',
+                description: 'أكبر سوق إلكتروني في العالم يقدم ملايين المنتجات في جميع الفئات. توصيل سريع وخدمة عملاء ممتازة.',
+                rating: '4.7',
+                reviews: '3,456',
+                logo: '<div style="font-size: 48px; color: #667eea;">📦</div>',
+                visitUrl: '#',
+                features: [
+                    { icon: '🌎', text: 'عالمي' },
+                    { icon: '🚚', text: 'Prime سريع' },
+                    { icon: '🔄', text: 'إرجاع مجاني' },
+                    { icon: '💳', text: 'دفع آمن' }
+                ]
             }
         };
+        
+        // حفظ المفضلة
+        const favorites = JSON.parse(localStorage.getItem('store_favorites')) || {};
         
         // فتح Quick View
         function openQuickView(storeId) {
@@ -747,9 +1050,28 @@
             `;
             document.getElementById('modalRating').innerHTML = ratingHtml;
             
+            // تعبئة الميزات
+            const featuresHtml = store.features.map(feature => `
+                <div class="feature-item">
+                    <span class="feature-icon">${feature.icon}</span>
+                    <span class="feature-text">${feature.text}</span>
+                </div>
+            `).join('');
+            document.getElementById('modalFeatures').innerHTML = featuresHtml;
+            
             // تحديث زر الزيارة
-            document.getElementById('modalVisitBtn').onclick = () => {
+            const visitBtn = document.getElementById('modalVisitBtn');
+            visitBtn.onclick = () => {
                 window.open(store.visitUrl, '_blank');
+                closeQuickView();
+            };
+            
+            // تحديث زر المفضلة
+            const favoriteBtn = document.getElementById('modalFavoriteBtn');
+            updateFavoriteButton(favoriteBtn, storeId);
+            
+            favoriteBtn.onclick = () => {
+                toggleFavoriteInModal(favoriteBtn, storeId);
             };
             
             // عرض المودال
@@ -777,43 +1099,125 @@
             }
         });
         
-        // تفاعلية زر المفضلة
-        const favoriteBtn = document.getElementById('modalFavoriteBtn');
-        let isFavorite = false;
-        
-        favoriteBtn.addEventListener('click', function() {
-            isFavorite = !isFavorite;
-            if (isFavorite) {
-                this.innerHTML = '<span>❤️</span><span>إزالة من المفضلة</span>';
-                this.style.background = 'rgba(255, 71, 87, 0.1)';
-                this.style.color = '#ff4757';
-                this.style.borderColor = '#ff4757';
+        // تبديل المفضلة في البطاقات
+        function toggleFavorite(event, storeId) {
+            event.stopPropagation();
+            
+            const button = event.target.closest('.favorite-btn-grid');
+            if (!button) return;
+            
+            if (favorites[storeId]) {
+                delete favorites[storeId];
+                button.textContent = '🤍';
+                button.classList.remove('active');
             } else {
-                this.innerHTML = '<span>🤍</span><span>إضافة للمفضلة</span>';
-                this.style.background = '#f8f9fa';
-                this.style.color = '#333';
-                this.style.borderColor = '#ddd';
+                favorites[storeId] = true;
+                button.textContent = '❤️';
+                button.classList.add('active');
             }
-        });
+            
+            localStorage.setItem('store_favorites', JSON.stringify(favorites));
+        }
         
-        // تفاعلية شريط الفئات
-        const categoryItems = document.querySelectorAll('.category-item');
-        categoryItems.forEach(item => {
-            item.addEventListener('click', function() {
-                categoryItems.forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
+        // تبديل المفضلة في المودال
+        function toggleFavoriteInModal(button, storeId) {
+            if (favorites[storeId]) {
+                delete favorites[storeId];
+                button.innerHTML = '<span>🤍</span><span>إضافة للمفضلة</span>';
+                button.style.background = '#f8f9fa';
+                button.style.color = '#333';
+                button.style.borderColor = '#ddd';
+            } else {
+                favorites[storeId] = true;
+                button.innerHTML = '<span>❤️</span><span>إزالة من المفضلة</span>';
+                button.style.background = 'rgba(255, 71, 87, 0.1)';
+                button.style.color = '#ff4757';
+                button.style.borderColor = '#ff4757';
+            }
+            
+            localStorage.setItem('store_favorites', JSON.stringify(favorites));
+            
+            // تحديث زر المفضلة في البطاقة الأصلية
+            const cardBtn = document.querySelector(`.store-card-grid[onclick*="${storeId}"] .favorite-btn-grid`);
+            if (cardBtn) {
+                cardBtn.textContent = favorites[storeId] ? '❤️' : '🤍';
+                cardBtn.classList.toggle('active', favorites[storeId]);
+            }
+        }
+        
+        // تحديث زر المفضلة في المودال
+        function updateFavoriteButton(button, storeId) {
+            if (favorites[storeId]) {
+                button.innerHTML = '<span>❤️</span><span>إزالة من المفضلة</span>';
+                button.style.background = 'rgba(255, 71, 87, 0.1)';
+                button.style.color = '#ff4757';
+                button.style.borderColor = '#ff4757';
+            } else {
+                button.innerHTML = '<span>🤍</span><span>إضافة للمفضلة</span>';
+                button.style.background = '#f8f9fa';
+                button.style.color = '#333';
+                button.style.borderColor = '#ddd';
+            }
+        }
+        
+        // تحديث أزرار المفضلة عند التحميل
+        document.addEventListener('DOMContentLoaded', () => {
+            const favoriteBtns = document.querySelectorAll('.favorite-btn-grid');
+            favoriteBtns.forEach(btn => {
+                const storeId = btn.closest('.store-card-grid').getAttribute('onclick').match(/'([^']+)'/)[1];
+                if (favorites[storeId]) {
+                    btn.textContent = '❤️';
+                    btn.classList.add('active');
+                }
             });
         });
         
-        // تفاعلية شريط التنقل
+        // تفاعلية تبويب الفئات
+        const categoryItems = document.querySelectorAll('.category-item');
+        categoryItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                categoryItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+        
+        // تبديل بين Grid و List View
+        const viewToggle = document.getElementById('viewToggle');
+        const viewText = document.getElementById('viewText');
+        const body = document.body;
+        
+        viewToggle.addEventListener('click', () => {
+            if (body.classList.contains('grid-view')) {
+                body.classList.remove('grid-view');
+                body.classList.add('list-view');
+                viewText.textContent = 'عرض الشبكة';
+                viewToggle.innerHTML = '<span>📊</span><span id="viewText">عرض الشبكة</span>';
+            } else {
+                body.classList.remove('list-view');
+                body.classList.add('grid-view');
+                viewText.textContent = 'عرض القائمة';
+                viewToggle.innerHTML = '<span>📱</span><span id="viewText">عرض القائمة</span>';
+            }
+        });
+        
+        // تفاعلية شريط التنقل السفلي
         const navItems = document.querySelectorAll('.nav-item');
         navItems.forEach(item => {
-            item.addEventListener('click', function(e) {
+            item.addEventListener('click', (e) => {
                 e.preventDefault();
                 navItems.forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
+                item.classList.add('active');
+            });
+        });
+        
+        // تأثير تحميل البطاقات
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.store-card-grid');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
             });
         });
     </script>
 </body>
-</html>
+    </html>
